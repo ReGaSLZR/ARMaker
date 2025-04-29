@@ -17,8 +17,13 @@ namespace ARMarker
         [SerializeField]
         private MarkerChoiceButton prefabButton;
 
+        [Space]
+
         [SerializeField]
-        ARTrackedImageManager trackedImageManager;
+        private ARObject prefabARObject;
+
+        [SerializeField]
+        private ARSessionOrigin sessionOrigin;
 
         [Header("UI Elements")]
 
@@ -29,6 +34,9 @@ namespace ARMarker
         private Transform markerButtonsParent;
 
         private readonly List<MarkerChoiceButton> buttonsSpawned = new();
+        private ARTrackedImageManager manager;
+        private ARTrackedImage trackedImage;
+        private Texture2D cachedMarker;
 
         protected override void Awake()
         {
@@ -58,10 +66,37 @@ namespace ARMarker
             }
 
             rootUI.gameObject.SetActive(false);
-            OnClickChoice(buttonsSpawned[0]);
+            //OnClickChoice(buttonsSpawned[0]);
         }
 
-        private void OnClickChoice(MarkerChoiceButton button)
+        private void SetUpTrackedImageManager(Texture2D marker)
+        {
+            if (manager != null)
+            {
+                manager.trackedImagesChanged -= OnChangedTrackedImage;
+
+                if (trackedImage != null && trackedImage.gameObject != null)
+                {
+                    DestroyImmediate(trackedImage.gameObject);
+                    trackedImage = null;
+                }
+
+                Destroy(manager);
+                manager = null;
+            }
+
+            //prefabARObject.gameObject.SetActive(true);
+            //var clone = Instantiate(prefabARObject);
+            //clone.SetSprite(marker);
+            //prefabARObject.gameObject.SetActive(false);
+
+            manager = sessionOrigin.gameObject.AddComponent<ARTrackedImageManager>();
+            manager.trackedImagePrefab = prefabARObject.gameObject;
+            //manager.trackedImagePrefab = clone.gameObject;
+            manager.trackedImagesChanged += OnChangedTrackedImage;
+        }
+
+        private void SetUpImageButtonsStatus(MarkerChoiceButton button)
         {
             foreach (var buttonSpawned in buttonsSpawned)
             {
@@ -69,22 +104,56 @@ namespace ARMarker
             }
 
             button.SetIsSelected(true);
+            rootUI.gameObject.SetActive(false);
+        }
 
-            var library = trackedImageManager.CreateRuntimeLibrary();
-            var marker = button.GetMarker();
+        private void OnClickChoice(MarkerChoiceButton button)
+        {
+            cachedMarker = button.GetMarker();
+            SetUpImageButtonsStatus(button);
+            SetUpTrackedImageManager(cachedMarker);
+
+            var library = manager.CreateRuntimeLibrary();
+            manager.referenceLibrary = library;
 
             if (library is MutableRuntimeReferenceImageLibrary mutableLibrary)
             {
                 mutableLibrary.ScheduleAddImageWithValidationJob(
-                    marker, marker.name, 0.5f);
-                trackedImageManager.referenceLibrary = library;
-                trackedImageManager.enabled = true;
+                    cachedMarker, cachedMarker.name, 0.5f);
+                manager.enabled = true;
+
+                Debug.LogWarning($"{GetType().Name}.OnClickChoice(): " +
+                    $"Set Marker to: '{cachedMarker.name}'", gameObject);
             }
             else
             {
                 Debug.LogError($"{GetType().Name}.OnClickChoice(): " +
                     $"COULD NOT PROCESS NEW MARKER CHOICE " +
-                    $"'{marker.name}'", gameObject);
+                    $"'{cachedMarker.name}'", gameObject);
+            }
+        }
+
+        private void OnChangedTrackedImage(ARTrackedImagesChangedEventArgs eventArgs)
+        {
+            foreach (var newImage in eventArgs.added)
+            {
+                trackedImage = newImage;
+
+                //if (trackedImage.gameObject.TryGetComponent<ARObject>(out var aRObject))
+                //{
+                //    aRObject.SetSprite(cachedMarker);
+                //}
+                // Handle added event
+            }
+
+            foreach (var updatedImage in eventArgs.updated)
+            {
+                // Handle updated event
+            }
+
+            foreach (var removedImage in eventArgs.removed)
+            {
+                // Handle removed event
             }
         }
 
