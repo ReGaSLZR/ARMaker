@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace ARMarker
 {
@@ -7,11 +8,17 @@ namespace ARMarker
     {
 
         [SerializeField]
-        private SpriteRenderer spriteRenderer;
+        private SpriteRenderer[] spriteRenderer;
 
-        public void SetSprite(Texture2D texture)
-        { 
-            spriteRenderer.sprite = Sprite.Create(texture, new Rect(0, 0, 0.5f, 0.5f), Vector2.zero);
+        public void SetSprite(Sprite sprite)
+        {
+            //Rect rect = new Rect(0, 0, sprite.width, sprite.height); // Define the sprite's rect
+            //Sprite sprite = Sprite.Create(sprite, rect, new Vector2(0.5f, 0.5f), 100);
+
+            foreach (var renderer in spriteRenderer)
+            {
+                renderer.sprite = sprite;
+            }
         }
 
     }

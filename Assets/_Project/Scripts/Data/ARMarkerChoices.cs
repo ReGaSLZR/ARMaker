@@ -10,9 +10,9 @@ namespace ARMarker
     {
 
         [SerializeField]
-        private List<Texture2D> choices = new();
+        private List<Sprite> choices = new();
 
-        public List<Texture2D> Choices => choices;
+        public List<Sprite> Choices => choices;
 
     }
 

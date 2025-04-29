@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ARMarkerChoices
   m_EditorClassIdentifier: 
   choices:
-  - {fileID: 2800000, guid: 3a1f65c993b80d148898640037a5d29d, type: 3}
-  - {fileID: 2800000, guid: 5134e0dc0b235e743a50a703653832f3, type: 3}
-  - {fileID: 2800000, guid: 53764f3030fced14497341670c3f4ab4, type: 3}
-  - {fileID: 2800000, guid: c751414d73734e849a1fbc03d04736f8, type: 3}
+  - {fileID: 21300000, guid: 3a1f65c993b80d148898640037a5d29d, type: 3}
+  - {fileID: 21300000, guid: c751414d73734e849a1fbc03d04736f8, type: 3}
+  - {fileID: 21300000, guid: 5134e0dc0b235e743a50a703653832f3, type: 3}
+  - {fileID: 21300000, guid: 53764f3030fced14497341670c3f4ab4, type: 3}

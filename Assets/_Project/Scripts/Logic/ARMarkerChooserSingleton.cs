@@ -17,10 +17,13 @@ namespace ARMarker
         [SerializeField]
         private MarkerChoiceButton prefabButton;
 
+        [SerializeField]
+        private GameObject prefabARBlankObject;
+
         [Space]
 
         [SerializeField]
-        private ARObject prefabARObject;
+        private ARObject workCanvas;
 
         [SerializeField]
         private ARSessionOrigin sessionOrigin;
@@ -34,9 +37,11 @@ namespace ARMarker
         private Transform markerButtonsParent;
 
         private readonly List<MarkerChoiceButton> buttonsSpawned = new();
-        private ARTrackedImageManager manager;
-        private ARTrackedImage trackedImage;
-        private Texture2D cachedMarker;
+        private ARTrackedImageManager cachedARManager;
+
+        private ARObject cachedARSpawn;
+        private ARTrackedImage cachedTrackedImage;
+        private Sprite cachedMarker;
 
         protected override void Awake()
         {
@@ -69,31 +74,30 @@ namespace ARMarker
             //OnClickChoice(buttonsSpawned[0]);
         }
 
-        private void SetUpTrackedImageManager(Texture2D marker)
+        private void SetUpTrackedImageManager()
         {
-            if (manager != null)
+            if (cachedARManager != null)
             {
-                manager.trackedImagesChanged -= OnChangedTrackedImage;
-
-                if (trackedImage != null && trackedImage.gameObject != null)
-                {
-                    DestroyImmediate(trackedImage.gameObject);
-                    trackedImage = null;
-                }
-
-                Destroy(manager);
-                manager = null;
+                cachedARManager.trackedImagesChanged -= OnChangedTrackedImage;
+                Destroy(cachedARManager);
+                cachedARManager = null;
             }
 
-            //prefabARObject.gameObject.SetActive(true);
-            //var clone = Instantiate(prefabARObject);
-            //clone.SetSprite(marker);
-            //prefabARObject.gameObject.SetActive(false);
+            if (cachedARSpawn != null)
+            {
+                Destroy(cachedARSpawn.gameObject);
+                cachedARSpawn = null;
+            }
 
-            manager = sessionOrigin.gameObject.AddComponent<ARTrackedImageManager>();
-            manager.trackedImagePrefab = prefabARObject.gameObject;
-            //manager.trackedImagePrefab = clone.gameObject;
-            manager.trackedImagesChanged += OnChangedTrackedImage;
+            if (cachedTrackedImage != null)
+            {
+                Destroy(cachedTrackedImage.gameObject);
+                cachedTrackedImage = null;
+            }
+
+            cachedARManager = sessionOrigin.gameObject.AddComponent<ARTrackedImageManager>();
+            cachedARManager.trackedImagePrefab = prefabARBlankObject;
+            cachedARManager.trackedImagesChanged += OnChangedTrackedImage;
         }
 
         private void SetUpImageButtonsStatus(MarkerChoiceButton button)
@@ -110,17 +114,25 @@ namespace ARMarker
         private void OnClickChoice(MarkerChoiceButton button)
         {
             cachedMarker = button.GetMarker();
-            SetUpImageButtonsStatus(button);
-            SetUpTrackedImageManager(cachedMarker);
 
-            var library = manager.CreateRuntimeLibrary();
-            manager.referenceLibrary = library;
+            workCanvas.SetSprite(cachedMarker);
+            SetUpImageButtonsStatus(button);
+
+#if UNITY_EDITOR
+            return;
+#endif
+
+            workCanvas.gameObject.SetActive(false);
+            SetUpTrackedImageManager();
+
+            var library = cachedARManager.CreateRuntimeLibrary();
+            cachedARManager.referenceLibrary = library;
 
             if (library is MutableRuntimeReferenceImageLibrary mutableLibrary)
             {
                 mutableLibrary.ScheduleAddImageWithValidationJob(
-                    cachedMarker, cachedMarker.name, 0.5f);
-                manager.enabled = true;
+                    cachedMarker.texture, cachedMarker.name, 0.5f);
+                cachedARManager.enabled = true;
 
                 Debug.LogWarning($"{GetType().Name}.OnClickChoice(): " +
                     $"Set Marker to: '{cachedMarker.name}'", gameObject);
@@ -133,17 +145,26 @@ namespace ARMarker
             }
         }
 
+        private void CloneWorkCanvas(ARTrackedImage trackedImage)
+        {
+            workCanvas.gameObject.SetActive(true);
+
+            var clone = Instantiate(workCanvas);
+            clone.transform.SetParent(trackedImage.transform);
+            clone.transform.localPosition = Vector3.zero;
+            clone.transform.rotation = Quaternion.identity;
+
+            cachedARSpawn = clone;
+            workCanvas.gameObject.SetActive(false);
+            cachedTrackedImage = trackedImage;
+        }    
+
         private void OnChangedTrackedImage(ARTrackedImagesChangedEventArgs eventArgs)
         {
-            foreach (var newImage in eventArgs.added)
+            foreach (var trackedImage in eventArgs.added)
             {
-                trackedImage = newImage;
-
-                //if (trackedImage.gameObject.TryGetComponent<ARObject>(out var aRObject))
-                //{
-                //    aRObject.SetSprite(cachedMarker);
-                //}
                 // Handle added event
+                CloneWorkCanvas(trackedImage);
             }
 
             foreach (var updatedImage in eventArgs.updated)

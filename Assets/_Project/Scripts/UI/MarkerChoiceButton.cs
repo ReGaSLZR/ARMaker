@@ -22,7 +22,9 @@ namespace ARMarker
         [SerializeField]
         private Color colorOnSelect = Color.white;
 
-        public void SetUp(Texture2D marker, Action<MarkerChoiceButton> listener)
+        private Sprite cachedSprite;
+
+        public void SetUp(Sprite marker, Action<MarkerChoiceButton> listener)
         {
             if (listener != null)
             {
@@ -30,7 +32,8 @@ namespace ARMarker
                     () => listener.Invoke(this));
             }
             
-            rawImage.texture = marker;
+            rawImage.texture = marker.texture;
+            cachedSprite = marker;
             SetIsSelected(false);
         }
 
@@ -38,7 +41,7 @@ namespace ARMarker
             => button.image.color = isSelected 
                 ? colorOnSelect : colorNormal;
 
-        public Texture2D GetMarker() => (Texture2D)rawImage.texture;
+        public Sprite GetMarker() => cachedSprite;
 
     }
 
