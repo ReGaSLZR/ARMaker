@@ -35,6 +35,9 @@ namespace ARMarker
 
         #endregion
 
+        [SerializeField]
+        private bool shouldDestroyGameObjectOnDupe = false;
+
         protected virtual void Awake()
         {
             InitSingleton();
@@ -52,7 +55,15 @@ namespace ARMarker
             {
                 Debug.LogWarning($"{gameObject.name}.{GetType().Name}.Awake(): " +
                     $"Cannot have >1 Instances of this class. Destroying...");
-                Destroy(gameObject);
+
+                if (shouldDestroyGameObjectOnDupe)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    Destroy(this);
+                }
             }
         }
 
