@@ -31,10 +31,7 @@ namespace ARMarker
         [SerializeField]
         private GameObject[] elementsOnARWorld;
 
-        [Header("Runtime Data")]
-
-        [SerializeField]
-        private CameraPerspectiveSwitcher camSwitcher;
+        private CameraPerspectiveSwitcher cachedCamSwitcher;
 
         protected override void Awake()
         {
@@ -49,19 +46,21 @@ namespace ARMarker
 
         private void Start()
         {
-            ARSessionSingleton.Instance.RegisterOnTrackedMarker(OnTrackedMarker);
-            ARSessionSingleton.Instance.RegisterOnSessionOriginAvailable(OnSessionOriginAvailable);
+            ARSessionSingleton.Instance
+                .RegisterOnTrackedMarker(OnTrackedMarker);
+            ARSessionSingleton.Instance
+                .RegisterOnSessionOriginAvailable(OnSessionOriginAvailable);
             LoadWorkArea();
         }
 
         private void SwitchCamera(bool is2D)
         {
-            if (camSwitcher == null)
+            if (cachedCamSwitcher == null)
             {
                 return;
             }
 
-            camSwitcher.SwitchPerspective(is2D);
+            cachedCamSwitcher.SwitchPerspective(is2D);
         }
 
         private void OnSessionOriginAvailable()
@@ -75,12 +74,11 @@ namespace ARMarker
         private void LoadWorkArea()
         {
             SetWorkAreaEnabled(true);
-            WorkCanvasSingleton.Instance.SetIsEnabled(true);
-            WorkCanvasSingleton.Instance.DeleteClone();
+            WorkSpaceSingleton.Instance.SetIsEnabled(true);
+            WorkSpaceSingleton.Instance.DeleteClone();
 
             ARSessionSingleton.Instance.DisableActiveTracking();
-
-            SceneManagerSingleton.Instance.TransitionToWorkCanvas();
+            SceneManagerSingleton.Instance.TransitionToWorkspace();
         }
 
         private void LoadARWorld()
@@ -93,8 +91,8 @@ namespace ARMarker
                 return;
             }
 
-            WorkCanvasSingleton.Instance.SetIsEnabled(false);
-            WorkCanvasSingleton.Instance.DeleteClone();
+            WorkSpaceSingleton.Instance.SetIsEnabled(false);
+            WorkSpaceSingleton.Instance.DeleteClone();
 
             SetWorkAreaEnabled(false);
 
@@ -106,7 +104,7 @@ namespace ARMarker
             Debug.LogWarning($"{GetType().Name} TRACKED MARKER! " +
                 $"is null?  {trackedImage == null}", gameObject);
 
-            WorkCanvasSingleton.Instance.CloneToARWorld(trackedImage);
+            WorkSpaceSingleton.Instance.CloneToARWorld(trackedImage);
         }
 
         private void SetWorkAreaEnabled(bool isOnWorkArea)
@@ -132,9 +130,10 @@ namespace ARMarker
             }
         }
 
-        public void RegisterCamSwitcher(CameraPerspectiveSwitcher switcher)
+        public void RegisterCameraPerspectiveSwitcher(
+            CameraPerspectiveSwitcher switcher)
         { 
-            camSwitcher = switcher;
+            cachedCamSwitcher = switcher;
         }
 
     }

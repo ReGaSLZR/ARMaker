@@ -8,7 +8,7 @@ namespace ARMarker
     {
 
         [SerializeField]
-        private Camera camera;
+        private new Camera camera;
 
         [SerializeField]
         private float switchDuration = 1f;
@@ -31,37 +31,40 @@ namespace ARMarker
 
         private void Start()
         {
-            GameManager.Instance.RegisterCamSwitcher(this);
+            GameManager.Instance.RegisterCameraPerspectiveSwitcher(this);
         }
 
         public void SwitchPerspective(bool is2D)
         {
-            var position = is2D ? position2D : position3D;
-            var rotation = is2D ? rotation2D : rotation3D;
-
             StopAllCoroutines();
-            StartCoroutine(LerpTransform(position, rotation, switchDuration));
+            StartCoroutine(LerpTransform(is2D));
         }
 
-        private IEnumerator LerpTransform(Vector3 targetPos, Quaternion targetRot, float duration)
+        private IEnumerator LerpTransform(bool is2D)
         {
-            Vector3 startPos = transform.position;
-            Quaternion startRot = transform.rotation;
-            float elapsed = 0f;
+            var finalPos = is2D ? position2D : position3D;
+            var finalRot = is2D ? rotation2D : rotation3D;
 
-            while (elapsed < duration)
+            var startPos = transform.position;
+            var startRot = transform.rotation;
+            var elapsed = 0f;
+
+            while (elapsed < switchDuration)
             {
                 elapsed += Time.deltaTime;
-                float t = Mathf.Clamp01(elapsed / duration);
+                var percentage = Mathf.Clamp01(
+                    elapsed / switchDuration);
 
-                transform.position = Vector3.Lerp(startPos, targetPos, t);
-                transform.rotation = Quaternion.Slerp(startRot, targetRot, t);
+                transform.position = Vector3.Lerp(
+                    startPos, finalPos, percentage);
+                transform.rotation = Quaternion.Slerp(
+                    startRot, finalRot, percentage);
 
                 yield return null;
             }
 
-            transform.position = targetPos;
-            transform.rotation = targetRot;
+            transform.position = finalPos;
+            transform.rotation = finalRot;
         }
 
     }

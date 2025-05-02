@@ -19,18 +19,12 @@ namespace ARMarker
         [SerializeField]
         private float markerWidth = 0.5f;
 
-        [Header("Runtime Data")]
-
-        [SerializeField]
-        private ARSessionOrigin sessionOrigin;
-
-        [SerializeField]
+        private ARSessionOrigin cachedSessionOrigin;
         private ARTrackedImageManager cachedARManager;
+        private GameObject cachedARObject;
 
         private Action onSessionOriginAvailable;
         private Action<ARTrackedImage> onTrackedMarker;
-
-        private GameObject tempARObject;
 
         public void RegisterOnTrackedMarker(Action<ARTrackedImage> listener)
         {
@@ -44,7 +38,7 @@ namespace ARMarker
 
         public void RegisterSessionOrigin(ARSessionOrigin sessionOrigin)
         {
-            this.sessionOrigin = sessionOrigin;
+            this.cachedSessionOrigin = sessionOrigin;
             onSessionOriginAvailable?.Invoke();
         }
 
@@ -62,9 +56,9 @@ namespace ARMarker
         {
             SafelyDeleteSpawnedARObject();
 
-            tempARObject = Instantiate(prefabARBlankObject,
-                sessionOrigin.transform);
-            return tempARObject.transform;
+            cachedARObject = Instantiate(prefabARBlankObject,
+                cachedSessionOrigin.transform);
+            return cachedARObject.transform;
         }
 
         public void DisableActiveTracking()
@@ -81,16 +75,16 @@ namespace ARMarker
 
         private void SafelyDeleteSpawnedARObject()
         {
-            if (tempARObject != null)
+            if (cachedARObject != null)
             {
-                Destroy(tempARObject);
-                tempARObject = null;
+                Destroy(cachedARObject);
+                cachedARObject = null;
             }
         }
 
         private void SetUpTracking()
         {
-            cachedARManager = sessionOrigin.gameObject
+            cachedARManager = cachedSessionOrigin.gameObject
                 .AddComponent<ARTrackedImageManager>();
             cachedARManager.trackedImagePrefab = prefabARBlankObject;
             cachedARManager.requestedMaxNumberOfMovingImages = maxNumberOfMovingImages;
@@ -137,7 +131,7 @@ namespace ARMarker
             foreach (var trackedImage in eventArgs.added)
             {
                 SafelyDeleteSpawnedARObject();
-                tempARObject = trackedImage.gameObject;
+                cachedARObject = trackedImage.gameObject;
 
                 onTrackedMarker?.Invoke(trackedImage);
             }

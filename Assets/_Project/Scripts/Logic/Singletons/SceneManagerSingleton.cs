@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine.SceneManagement;
 
 namespace ARMarker
 { 
@@ -11,10 +10,9 @@ namespace ARMarker
             SceneManager.LoadScene((int)Scene.ARPreview, LoadSceneMode.Single);
         }
 
-        public void TransitionToWorkCanvas()
+        public void TransitionToWorkspace()
         {
-            Debug.Log($"{GetType().Name}.TransitionToWorkCanvas(): Reloaded Work Area...", gameObject);
-            SceneManager.LoadScene((int)Scene.Customization, LoadSceneMode.Single);
+            SceneManager.LoadScene((int)Scene.WorkSpace, LoadSceneMode.Single);
         }
 
     }

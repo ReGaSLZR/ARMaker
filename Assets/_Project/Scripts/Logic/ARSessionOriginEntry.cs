@@ -12,7 +12,8 @@ namespace ARMarker
 
         private void Start()
         {
-            ARSessionSingleton.Instance.RegisterSessionOrigin(aRSessionOrigin);
+            ARSessionSingleton.Instance
+                .RegisterSessionOrigin(aRSessionOrigin);
         }
 
     }

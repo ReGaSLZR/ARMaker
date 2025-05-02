@@ -14,10 +14,7 @@ namespace ARMarker
         [SerializeField]
         private float spriteRendererTargetSize;
 
-        [Header("Runtime Data")]
-
-        [SerializeField]
-        private WorkLayerData data;
+        private WorkLayerData cachedData;
 
         public void SetUp(WorkLayerData data)
         {
@@ -27,7 +24,7 @@ namespace ARMarker
                 return;
             }
 
-            this.data = data;
+            this.cachedData = data;
 
             gameObject.transform.localPosition = data.position;
             gameObject.transform.rotation = data.rotation;
@@ -38,13 +35,13 @@ namespace ARMarker
 
         private void SetUpSprite()
         {
-            if (data == null || data.sprite == null)
+            if (cachedData == null || cachedData.sprite == null)
             {
                 Destroy(spriteRenderer);
                 return;
             }
 
-            spriteRenderer.sprite = data.sprite;
+            spriteRenderer.sprite = cachedData.sprite;
             spriteRenderer.size = new Vector2(
                 spriteRendererTargetSize, spriteRendererTargetSize);
             spriteRenderer.color = new UnityEngine.Color(1f, 1f, 1f, 1f);

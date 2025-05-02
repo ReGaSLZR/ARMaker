@@ -23,7 +23,7 @@ namespace ARMarker
         [SerializeField]
         private Transform markerButtonsParent;
 
-        private readonly List<MarkerChoiceButton> buttonsSpawned = new();
+        private readonly List<MarkerChoiceButton> cachedSpawnedButtons = new();
         private Sprite cachedMarker;
 
         protected override void Awake()
@@ -50,7 +50,7 @@ namespace ARMarker
 
                 var clone = Instantiate(prefabButton, markerButtonsParent);
                 clone.SetUp(choice, OnClickChoice);
-                buttonsSpawned.Add(clone);
+                cachedSpawnedButtons.Add(clone);
             }
 
             rootUI.gameObject.SetActive(false);
@@ -59,7 +59,7 @@ namespace ARMarker
 
         private void SetUpImageButtonsStatus(MarkerChoiceButton button)
         {
-            foreach (var buttonSpawned in buttonsSpawned)
+            foreach (var buttonSpawned in cachedSpawnedButtons)
             {
                 buttonSpawned.SetIsSelected(false);
             }
@@ -76,7 +76,7 @@ namespace ARMarker
             rootUI.gameObject.SetActive(false);
 
             //TODO remove this:
-            WorkCanvasSingleton.Instance.AddLayer(cachedMarker);
+            WorkSpaceSingleton.Instance.AddLayer(cachedMarker);
         }
 
         public void ShowChooserUI() => rootUI.gameObject.SetActive(true);

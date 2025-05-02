@@ -8,7 +8,8 @@ namespace ARMarker
     /// supposed to be persistent (stays even if Scene has changed). Handles
     /// Singleton declaration/initialization + duplicates eradication.
     /// </summary>
-    /// <typeparam name="T">The child class to be made into a persistent singleton at runtime.</typeparam>
+    /// <typeparam name="T">The child class to be made into a 
+    /// persistent singleton at runtime.</typeparam>
     public abstract class BaseSingleton<T> : MonoBehaviour
         where T : MonoBehaviour
     {
@@ -36,7 +37,7 @@ namespace ARMarker
         #endregion
 
         [SerializeField]
-        private bool shouldDestroyGameObjectOnDupe = false;
+        private bool destroyDupeObject = false;
 
         protected virtual void Awake()
         {
@@ -54,9 +55,10 @@ namespace ARMarker
             else
             {
                 Debug.LogWarning($"{gameObject.name}.{GetType().Name}.Awake(): " +
-                    $"Cannot have >1 Instances of this class. Destroying...");
+                    $"Cannot have >1 Instances of this class. " +
+                    $"destroyDupeObject? {destroyDupeObject}");
 
-                if (shouldDestroyGameObjectOnDupe)
+                if (destroyDupeObject)
                 {
                     Destroy(gameObject);
                 }
