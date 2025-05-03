@@ -28,8 +28,28 @@ namespace ARMarker
                 marker => cachedMarker = marker);
         }
 
-        public void LoadWorkSpace()
+        public void LoadScene(Scene scene)
         {
+            switch (scene)
+            {
+                case Scene.ARPreview:
+                    {
+                        LoadARWorld();
+                        break;
+                    }
+                case Scene.WorkSpace:
+                    {
+                        LoadWorkSpace();
+                        break;
+                    }
+            }
+        }
+
+        private void LoadWorkSpace()
+        {
+            Debug.Log($"{GetType().Name}.LoadWorkSpace(): " +
+                $"Loading Workspace...", gameObject);
+
             WorkSpaceSingleton.Instance.SetIsEnabled(true);
             WorkSpaceSingleton.Instance.DeleteClone();
             ARSessionSingleton.Instance.DisableActiveTracking();
@@ -37,12 +57,18 @@ namespace ARMarker
             SceneManager.LoadScene((int)Scene.WorkSpace);
         }
 
-        public void LoadARWorld()
+        private void LoadARWorld()
         {
             if (cachedMarker == null)
             {
                 Debug.LogError($"{GetType().Name}.LoadARWorld(): " +
                     $"No marker chosen yet.", gameObject);
+                return;
+            }
+            if (WorkSpaceSingleton.Instance.GetLayers().Count == 0)
+            {
+                Debug.LogError($"{GetType().Name}.LoadARWorld(): " +
+                    $"No WorkSpace layers at all!", gameObject);
                 return;
             }
 

@@ -14,24 +14,8 @@ namespace ARMarker
         private void Awake()
         {
             var button = GetComponent<Button>();
-            button.onClick.AddListener(OnClick);
-        }
-
-        private void OnClick()
-        {
-            switch (sceneTarget)
-            {
-                case Scene.ARPreview:
-                    {
-                        GameManager.Instance.LoadARWorld();
-                        break;
-                    }
-                case Scene.WorkSpace:
-                    {
-                        GameManager.Instance.LoadWorkSpace();
-                        break;
-                    }
-            }
+            button.onClick.AddListener(
+                () => GameManager.Instance.LoadScene(sceneTarget));
         }
 
     }

@@ -68,6 +68,8 @@ namespace ARMarker
             Debug.Log($"{GetType().Name} WorkSpace cloned!", gameObject);
         }
 
+        public List<WorkLayer> GetLayers() => cachedLayers;
+
         public void SetIsEnabled(bool isEnabled)
         { 
             gameObject.SetActive(isEnabled);
