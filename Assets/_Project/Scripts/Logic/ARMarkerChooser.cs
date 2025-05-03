@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ARMarker
 { 
@@ -17,6 +18,9 @@ namespace ARMarker
         private MarkerChoiceButton prefabButton;
 
         [Header("UI Elements")]
+
+        [SerializeField]
+        private RawImage rawImagePreviewMarker;
 
         [SerializeField]
         private Transform rootUI;
@@ -81,12 +85,9 @@ namespace ARMarker
         private void OnClickChoice(MarkerChoiceButton button)
         {
             onChooseMarker?.Invoke(button.GetMarker());
-
+            rawImagePreviewMarker.texture = button.GetMarker().texture;
             SetUpImageButtonsStatus(button);
             rootUI.gameObject.SetActive(false);
-
-            //TODO remove this:
-            WorkSpaceSingleton.Instance.AddLayer(button.GetMarker());
         }
 
         public void ShowChooserUI() => rootUI.gameObject.SetActive(true);

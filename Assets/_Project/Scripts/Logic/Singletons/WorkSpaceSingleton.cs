@@ -77,13 +77,6 @@ namespace ARMarker
 
         public void AddLayer(Sprite sprite)
         {
-            //TODO remove this:
-            if (cachedLayers.Count > 0)
-            {
-                cachedLayers[cachedLayers.Count - 1].gameObject.SetActive(false);
-            }
-            //TODO remove this: [end]
-
             var data = new WorkLayerData();
             data.ResetTransform();
 

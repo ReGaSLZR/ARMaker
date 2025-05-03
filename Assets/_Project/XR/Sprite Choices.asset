@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d8c11797ed1b6488659ed6019da903, type: 3}
+  m_Name: Sprite Choices
+  m_EditorClassIdentifier: 
+  name: Static Images
+  choices:
+  - {fileID: 21300000, guid: 582ddf639d190604e8452fe3127ef2f6, type: 3}
+  - {fileID: 21300000, guid: c84415e068714a948893b39d20d770e8, type: 3}
+  - {fileID: 21300000, guid: ce451adf911a72447933f81252bf2bcb, type: 3}
+  - {fileID: 21300000, guid: 7dbdacb3626bdb3428b5fd818f0da07d, type: 3}
+  - {fileID: 21300000, guid: dcebc01868b2afa4f98bee88c0553f8b, type: 3}
+  - {fileID: 21300000, guid: 25bcb3c819fa9554daa2e2cafb78c517, type: 3}
+  - {fileID: 21300000, guid: 41e50c70be70b514092ca92a8a60a7bc, type: 3}
+  - {fileID: 21300000, guid: e705e40ce7ea8b4428ad562c9fed4a97, type: 3}
+  - {fileID: 21300000, guid: d7b815ae3bf4cda4f827e40a53b89629, type: 3}
+  - {fileID: 21300000, guid: f704aa34a4734d542ac5fb07a3fe63f0, type: 3}
+  - {fileID: 21300000, guid: 1122fca9b10192e418dccd0a86f09b6e, type: 3}
+  - {fileID: 21300000, guid: c0be1599c426feb46b1b1a5c7ff54370, type: 3}
+  - {fileID: 21300000, guid: 2813eaaef628d8547b3908bc1a2724b0, type: 3}
+  - {fileID: 21300000, guid: adedd006a238bc4478e9f4626ce9fa41, type: 3}
