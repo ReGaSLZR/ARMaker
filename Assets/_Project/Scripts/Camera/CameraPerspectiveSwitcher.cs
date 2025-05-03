@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace ARMarker
 {
@@ -29,22 +28,6 @@ namespace ARMarker
 
         [SerializeField]
         private Quaternion rotation3D;
-
-        [Header("UI Buttons")]
-
-        [SerializeField]
-        private Button button2D;
-
-        [SerializeField]
-        private Button button3D;
-
-        private void Awake()
-        {
-            button2D.onClick.AddListener(
-                () => SwitchPerspective(true));
-            button3D.onClick.AddListener(
-                () => SwitchPerspective(false));
-        }
 
         public void SwitchPerspective(bool is2D)
         {

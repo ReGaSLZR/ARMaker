@@ -5,7 +5,7 @@ namespace ARMarker
 {
 
     [CreateAssetMenu(
-        menuName = ConstantStrings.MENU_ROOT + "Create ARMarker Choice List")]
+        menuName = ConstantStrings.MENU_ROOT + "Create AR Marker Choice List")]
     public class ARMarkerChoices : ScriptableObject
     {
 

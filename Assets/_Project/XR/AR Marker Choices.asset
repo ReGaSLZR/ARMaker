@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aaefaa4b1a4f6e44c87e622e928655b6, type: 3}
-  m_Name: ARMarkerChoices
+  m_Name: AR Marker Choices
   m_EditorClassIdentifier: 
   choices:
   - {fileID: 21300000, guid: 3a1f65c993b80d148898640037a5d29d, type: 3}
