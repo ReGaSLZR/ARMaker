@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ARMarker
 {
@@ -13,7 +14,7 @@ namespace ARMarker
         [SerializeField]
         private float switchDuration = 1f;
 
-        [Space]
+        [Header("Settings for 2D")]
 
         [SerializeField]
         private Vector3 position2D;
@@ -21,7 +22,7 @@ namespace ARMarker
         [SerializeField]
         private Quaternion rotation2D;
 
-        [Space]
+        [Header("Settings for 3D")]
 
         [SerializeField]
         private Vector3 position3D;
@@ -29,9 +30,20 @@ namespace ARMarker
         [SerializeField]
         private Quaternion rotation3D;
 
-        private void Start()
+        [Header("UI Buttons")]
+
+        [SerializeField]
+        private Button button2D;
+
+        [SerializeField]
+        private Button button3D;
+
+        private void Awake()
         {
-            GameManager.Instance.RegisterCameraPerspectiveSwitcher(this);
+            button2D.onClick.AddListener(
+                () => SwitchPerspective(true));
+            button3D.onClick.AddListener(
+                () => SwitchPerspective(false));
         }
 
         public void SwitchPerspective(bool is2D)

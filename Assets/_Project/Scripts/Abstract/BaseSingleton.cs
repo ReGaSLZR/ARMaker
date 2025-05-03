@@ -39,6 +39,9 @@ namespace ARMarker
         [SerializeField]
         private bool destroyDupeObject = false;
 
+        [SerializeField]
+        private bool persistOnSceneChange = true;
+
         protected virtual void Awake()
         {
             InitSingleton();
@@ -50,7 +53,18 @@ namespace ARMarker
         {
             if (Instance.GetInstanceID() == GetInstanceID())
             {
-                DontDestroyOnLoad(gameObject);
+                if (persistOnSceneChange)
+                {
+                    DontDestroyOnLoad(gameObject);
+                    Debug.Log($"{GetType().Name} Singleton created! " +
+                    $"Persisting through scene change.", gameObject);
+                }
+                else 
+                {
+                    Debug.Log($"{GetType().Name} Singleton created! " +
+                        $"But not persisting through scene change", 
+                        gameObject);
+                }
             }
             else
             {

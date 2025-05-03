@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace ARMarker
 { 
 
-    public class ARMarkerChooserSingleton : BaseSingleton<ARMarkerChooserSingleton>
+    public class ARMarkerChooser : MonoBehaviour
     {
 
         [Header("Data")]
@@ -24,11 +25,11 @@ namespace ARMarker
         private Transform markerButtonsParent;
 
         private readonly List<MarkerChoiceButton> cachedSpawnedButtons = new();
-        private Sprite cachedMarker;
+        private Action<Sprite> onChooseMarker;
 
-        protected override void Awake()
+        private void Start()
         {
-            base.Awake();
+            GameManager.Instance.RegisterMarkerChooser(this);
             SetUp();
         }
 
@@ -54,7 +55,16 @@ namespace ARMarker
             }
 
             rootUI.gameObject.SetActive(false);
-            //OnClickChoice(buttonsSpawned[0]);
+        }
+
+        public void RegisterOnChooseMarker(Action<Sprite> listener)
+        {
+            if (listener == null)
+            {
+                return;
+            }
+
+            onChooseMarker += listener;
         }
 
         private void SetUpImageButtonsStatus(MarkerChoiceButton button)
@@ -70,18 +80,16 @@ namespace ARMarker
 
         private void OnClickChoice(MarkerChoiceButton button)
         {
-            cachedMarker = button.GetMarker();
+            onChooseMarker?.Invoke(button.GetMarker());
 
             SetUpImageButtonsStatus(button);
             rootUI.gameObject.SetActive(false);
 
             //TODO remove this:
-            WorkSpaceSingleton.Instance.AddLayer(cachedMarker);
+            WorkSpaceSingleton.Instance.AddLayer(button.GetMarker());
         }
 
         public void ShowChooserUI() => rootUI.gameObject.SetActive(true);
-
-        public Sprite GetChosenMarker() => cachedMarker;
 
     }
 

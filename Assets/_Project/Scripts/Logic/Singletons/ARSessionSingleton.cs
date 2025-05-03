@@ -19,37 +19,52 @@ namespace ARMarker
         [SerializeField]
         private float markerWidth = 0.5f;
 
+        private ARTrackedImage cachedTrackedImage;
         private ARSessionOrigin cachedSessionOrigin;
         private ARTrackedImageManager cachedARManager;
         private GameObject cachedARObject;
 
-        private Action onSessionOriginAvailable;
-        private Action<ARTrackedImage> onTrackedMarker;
+        private Action<ARStatus> onStatusChange;
+        private ARStatus cachedStatus;
 
-        public void RegisterOnTrackedMarker(Action<ARTrackedImage> listener)
+        private void Start()
+        {
+            cachedStatus = ARStatus.UNSET;
+            RegisterOnStatusChange(OnARStatusChange);
+        }
+
+        private void OnARStatusChange(ARStatus status)
+        {
+            cachedStatus = status;
+        }
+
+        public ARStatus GetStatus() => cachedStatus;
+
+        public void RegisterOnStatusChange(Action<ARStatus> listener, 
+            bool deRegisterInstead = false)
         {
             if (listener == null)
             {
                 return;
             }
 
-            onTrackedMarker += listener;
+
+            if(deRegisterInstead)
+            {
+                onStatusChange -= listener;
+            }
+            else
+            {
+                onStatusChange += listener;
+            }
         }
+
+        public ARTrackedImage GetTrackedImage() => cachedTrackedImage;
 
         public void RegisterSessionOrigin(ARSessionOrigin sessionOrigin)
         {
-            this.cachedSessionOrigin = sessionOrigin;
-            onSessionOriginAvailable?.Invoke();
-        }
-
-        public void RegisterOnSessionOriginAvailable(Action listener)
-        {
-            if (listener == null)
-            {
-                return;
-            }
-
-            onSessionOriginAvailable += listener;
+            cachedSessionOrigin = sessionOrigin;
+            onStatusChange?.Invoke(ARStatus.SessionOriginCreated);
         }
 
         public Transform InstantiateARObjectToSessionOrigin()
@@ -71,6 +86,14 @@ namespace ARMarker
                 Destroy(cachedARManager);
                 cachedARManager = null;
             }
+
+            if (cachedTrackedImage != null)
+            {
+                Destroy(cachedTrackedImage);
+                cachedTrackedImage = null;
+            }
+
+            onStatusChange?.Invoke(ARStatus.UNSET);
         }
 
         private void SafelyDeleteSpawnedARObject()
@@ -96,12 +119,14 @@ namespace ARMarker
             DisableActiveTracking();
             SetUpTracking();
 
+            onStatusChange?.Invoke(ARStatus.UNSET);
+
 #if UNITY_EDITOR
             Debug.LogWarning($"{GetType().Name}" +
                 $".StartTracking(): Skipping the creation " +
                 $"of runtime XR marker library.", gameObject);
 
-            onTrackedMarker?.Invoke(null);
+            onStatusChange?.Invoke(ARStatus.MarkerDetected);
             return;
 #endif
 
@@ -116,6 +141,8 @@ namespace ARMarker
 
                 Debug.Log($"{GetType().Name}.StartTracking(): " +
                     $"Set Marker to: '{marker.name}'", gameObject);
+
+                onStatusChange?.Invoke(ARStatus.ScanningMarker);
             }
             else
             {
@@ -133,11 +160,20 @@ namespace ARMarker
                 SafelyDeleteSpawnedARObject();
                 cachedARObject = trackedImage.gameObject;
 
-                onTrackedMarker?.Invoke(trackedImage);
+                cachedTrackedImage = trackedImage;
+                onStatusChange?.Invoke(ARStatus.MarkerDetected);
             }
 
-            //foreach (var updatedImage in eventArgs.updated) { }
-            //foreach (var removedImage in eventArgs.removed) { }
+            foreach (var updatedImage in eventArgs.updated) 
+            {
+                cachedTrackedImage = updatedImage;
+                onStatusChange?.Invoke(ARStatus.ActivelyTrackingMarker);
+            }
+            
+            foreach (var removedImage in eventArgs.removed) 
+            {
+                onStatusChange?.Invoke(ARStatus.LostMarker);
+            }
         }
 
     }

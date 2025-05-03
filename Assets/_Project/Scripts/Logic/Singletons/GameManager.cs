@@ -1,90 +1,45 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.XR.ARFoundation;
+using UnityEngine.SceneManagement;
 
 namespace ARMarker
 {
+
     public class GameManager : BaseSingleton<GameManager>
     {
 
-        [SerializeField]
-        private Button button2D;
-
-        [SerializeField]
-        private Button button3D;
-
-        [Space]
-
-        [SerializeField]
-        private Button buttonPreviewToAR;
-
-        [SerializeField]
-        private Button buttonCustomize;
-
-        [Space]
-
-        [SerializeField]
-        private GameObject[] elementsOnCustomization;
-
-        [Space]
-
-        [SerializeField]
-        private GameObject[] elementsOnARWorld;
-
-        private CameraPerspectiveSwitcher cachedCamSwitcher;
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            buttonPreviewToAR.onClick.AddListener(LoadARWorld);
-            buttonCustomize.onClick.AddListener(LoadWorkArea);
-
-            button2D.onClick.AddListener(() => SwitchCamera(true));
-            button3D.onClick.AddListener(() => SwitchCamera(false));
-        }
+        private Sprite cachedMarker;
 
         private void Start()
         {
             ARSessionSingleton.Instance
-                .RegisterOnTrackedMarker(OnTrackedMarker);
-            ARSessionSingleton.Instance
-                .RegisterOnSessionOriginAvailable(OnSessionOriginAvailable);
-            LoadWorkArea();
+                .RegisterOnStatusChange(OnARStatusChange);
+
+            LoadWorkSpace();
         }
 
-        private void SwitchCamera(bool is2D)
+        public void RegisterMarkerChooser(ARMarkerChooser chooser)
         {
-            if (cachedCamSwitcher == null)
+            if (chooser == null)
             {
                 return;
             }
 
-            cachedCamSwitcher.SwitchPerspective(is2D);
+            chooser.RegisterOnChooseMarker(
+                marker => cachedMarker = marker);
         }
 
-        private void OnSessionOriginAvailable()
+        public void LoadWorkSpace()
         {
-            Debug.Log($"{GetType().Name}.OnSessionOriginAvailable(): " +
-                $"Session Origin ready!", gameObject);
-            ARSessionSingleton.Instance.StartTracking(
-                ARMarkerChooserSingleton.Instance.GetChosenMarker());
-        }
-
-        private void LoadWorkArea()
-        {
-            SetWorkAreaEnabled(true);
             WorkSpaceSingleton.Instance.SetIsEnabled(true);
             WorkSpaceSingleton.Instance.DeleteClone();
-
             ARSessionSingleton.Instance.DisableActiveTracking();
-            SceneManagerSingleton.Instance.TransitionToWorkspace();
+
+            SceneManager.LoadScene((int)Scene.WorkSpace);
         }
 
-        private void LoadARWorld()
+        public void LoadARWorld()
         {
-            if (ARMarkerChooserSingleton.Instance.GetChosenMarker() 
-                == null)
+            if (cachedMarker == null)
             {
                 Debug.LogError($"{GetType().Name}.LoadARWorld(): " +
                     $"No marker chosen yet.", gameObject);
@@ -94,46 +49,30 @@ namespace ARMarker
             WorkSpaceSingleton.Instance.SetIsEnabled(false);
             WorkSpaceSingleton.Instance.DeleteClone();
 
-            SetWorkAreaEnabled(false);
-
-            SceneManagerSingleton.Instance.TransitionToAR();
+            SceneManager.LoadScene((int)Scene.ARPreview);
         }
 
-        private void OnTrackedMarker(ARTrackedImage trackedImage)
+        private void OnARStatusChange(ARStatus status)
         {
-            Debug.LogWarning($"{GetType().Name} TRACKED MARKER! " +
-                $"is null?  {trackedImage == null}", gameObject);
-
-            WorkSpaceSingleton.Instance.CloneToARWorld(trackedImage);
-        }
-
-        private void SetWorkAreaEnabled(bool isOnWorkArea)
-        {
-            foreach (var element in elementsOnCustomization)
+            switch (status)
             {
-                if (element == null)
-                {
-                    continue;
-                }
+                case ARStatus.MarkerDetected:
+                    {
+                        var trackedImage = ARSessionSingleton.Instance.GetTrackedImage();
+                        Debug.LogWarning($"{GetType().Name} TRACKED MARKER! " +
+                            $"is null?  {trackedImage == null}", gameObject);
 
-                element.SetActive(isOnWorkArea);
+                        WorkSpaceSingleton.Instance.CloneToARWorld(trackedImage);
+                        break;
+                    }
+                case ARStatus.SessionOriginCreated:
+                    {
+                        Debug.Log($"{GetType().Name}.OnSessionOriginAvailable(): " +
+                            $"Session Origin ready!", gameObject);
+                        ARSessionSingleton.Instance.StartTracking(cachedMarker);
+                        break;
+                    }
             }
-
-            foreach (var element in elementsOnARWorld)
-            {
-                if (element == null)
-                {
-                    continue;
-                }
-
-                element.SetActive(!isOnWorkArea);
-            }
-        }
-
-        public void RegisterCameraPerspectiveSwitcher(
-            CameraPerspectiveSwitcher switcher)
-        { 
-            cachedCamSwitcher = switcher;
         }
 
     }
