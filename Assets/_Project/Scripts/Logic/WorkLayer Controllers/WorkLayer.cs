@@ -27,18 +27,38 @@ namespace ARMarker
 
         private void Start()
         {
+            repositionHandler.RegisterListener(OnSelectLayer);
+            rotationHandler.RegisterListener(OnSelectLayer);
+            resizeHandler.RegisterListener(OnSelectLayer);
 
+            WorkSpaceSingleton.Instance
+                .RegisterOnChangeLayerEditMode(OnChangeLayerEditMode);
+            OnChangeLayerEditMode(WorkSpaceSingleton.Instance.GetLayerEditMode());
+
+            WorkSpaceSingleton.Instance
+                .RegisterOnChangeLayer(OnChangeActiveLayer);
         }
 
         private void OnDestroy()
         {
-            WorkSpaceSingleton.Instance.RegisterOnChangeLayerEditMode(OnChangeLayerEditMode, true);
+            WorkSpaceSingleton.Instance
+                .RegisterOnChangeLayerEditMode(OnChangeLayerEditMode, true);
+            WorkSpaceSingleton.Instance
+                .RegisterOnChangeLayer(OnChangeActiveLayer, true);
+        }
+
+        private void OnChangeActiveLayer(WorkLayer activeLayer)
+        {
+            if (this == activeLayer)
+            {
+                return;
+            }
+
+            Deselect();
         }
 
         private void OnChangeLayerEditMode(LayerEditMode mode)
         {
-            Debug.Log($"on change layer edit mode: " + mode);
-
             switch (mode)
             {
                 case LayerEditMode.Reposition:
@@ -79,6 +99,8 @@ namespace ARMarker
 
         private void OnSelectLayer()
         {
+            WorkSpaceSingleton.Instance.ChangeActiveLayer(this);
+
             var mode = WorkSpaceSingleton.Instance.GetLayerEditMode();
 
             switch (mode)
@@ -115,12 +137,6 @@ namespace ARMarker
 
         public void SetUp(WorkLayerData data)
         {
-            repositionHandler.RegisterListener(OnSelectLayer);
-            rotationHandler.RegisterListener(OnSelectLayer);
-            resizeHandler.RegisterListener(OnSelectLayer);
-
-            WorkSpaceSingleton.Instance.RegisterOnChangeLayerEditMode(OnChangeLayerEditMode);
-
             if (data == null)
             {
                 Debug.LogError($"{GetType().Name}.SetUp(): " +
@@ -135,8 +151,13 @@ namespace ARMarker
             gameObject.transform.localScale = data.scale;
 
             SetUpSprite();
+        }
 
-            OnChangeLayerEditMode(WorkSpaceSingleton.Instance.GetLayerEditMode());
+        public void Deselect()
+        {
+            repositionHandler.Deselect();
+            rotationHandler.Deselect();
+            resizeHandler.Deselect();
         }
 
         private void SetUpSprite()

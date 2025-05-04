@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8572523888481262457}
   - component: {fileID: 5366525840630037702}
   m_Layer: 0
-  m_Name: sample dot (1)
+  m_Name: Dot Resize
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134919471052978537}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 100.24, y: 100.1, z: 0}
+  m_LocalPosition: {x: 100, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c751414d73734e849a1fbc03d04736f8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: d7985c50900a31e4f8226debfa8b3eae, type: 3}
+  m_Color: {r: 0.9529412, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -211,14 +211,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1832763468787142186}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49bdc811d393578449fd878b510f5357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectionColor: {r: 0, g: 0, b: 1, a: 1}
-  cornerDotSize: 0.1
-  lineThickness: 0.05
+  selectionColor: {r: 0.8061448, g: 0.83396226, b: 0.055072863, a: 1}
+  cornerDotSize: 0.25
+  lineThickness: 0.1
   dotPrefab: {fileID: 3867242566630918291}
 --- !u!114 &1297581534872992407
 MonoBehaviour:
@@ -252,9 +252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5061afcffef2274d91ff831d13acab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectionBoxColor: {r: 0, g: 0, b: 1, a: 1}
+  selectionBoxColor: {r: 0.9512429, g: 0, b: 1, a: 1}
   lineThickness: 0.1
-  cornerDotSize: 0.05
+  cornerDotSize: 0.3
   cornerDetectionRadius: 0.5
   cornerDotPrefab: {fileID: 134919471052978537}
   spriteRenderer: {fileID: 1832763468787142184}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 2094220167545115841}
   - component: {fileID: 7142575340594090061}
   m_Layer: 0
-  m_Name: sample dot
+  m_Name: Dot Reposition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,7 +283,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3867242566630918291}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 100.24, y: 100.1, z: 0}
+  m_LocalPosition: {x: 100, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -331,12 +331,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c751414d73734e849a1fbc03d04736f8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: a3220df2edf31db43861acc36b216abb, type: 3}
+  m_Color: {r: 0.80784315, g: 0.8352941, b: 0.05490196, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

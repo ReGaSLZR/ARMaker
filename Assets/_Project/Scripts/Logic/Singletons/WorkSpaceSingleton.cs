@@ -28,6 +28,8 @@ namespace ARMarker
         private LayerEditMode cachedLayerEditMode = LayerEditMode.UNSET;
 
         private WorkLayer cachedLayer;
+
+        private Action<WorkLayer> onChangeActiveLayer;
         private Action<LayerEditMode> onUpdateLayerEditMode;
         private Action<int> onChangeLayerCount;
 
@@ -80,18 +82,32 @@ namespace ARMarker
 
         public void ChangeActiveLayer(WorkLayer layer)
         {
-            //if (layer == null 
-            //    || layer == cachedLayer)
-            //{
-            //    return;
-            //}
+            if (layer == null
+                || layer == cachedLayer)
+            {
+                return;
+            }
 
-            //if (cachedLayer != null)
-            //{
-            //    cachedLayer.Deselect();
-            //}
+            cachedLayer = layer;
+            onChangeActiveLayer(layer);
+        }
 
-            //cachedLayer = layer;
+        public void RegisterOnChangeLayer(
+            Action<WorkLayer> listener, bool deregisterInstead = false)
+        {
+            if (listener == null)
+            {
+                return;
+            }
+
+            if (deregisterInstead)
+            {
+                onChangeActiveLayer -= listener;
+            }
+            else
+            {
+                onChangeActiveLayer += listener;
+            }
         }
 
         public void RegisterOnChangeLayerEditMode(
@@ -132,7 +148,6 @@ namespace ARMarker
 
         public void SetLayerEditMode(LayerEditMode mode)
         {
-            Debug.Log($"set layer edit mode " + mode);
             cachedLayerEditMode = mode;
             onUpdateLayerEditMode?.Invoke(cachedLayerEditMode);
         }
