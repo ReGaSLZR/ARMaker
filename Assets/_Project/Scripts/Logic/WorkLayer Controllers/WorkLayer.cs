@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ARMarker
 {
@@ -11,9 +10,6 @@ namespace ARMarker
         [SerializeField]
         private SpriteRenderer spriteRenderer;
 
-        [SerializeField]
-        private float spriteRendererTargetSize;
-
         private WorkLayerData cachedData;
 
         public void SetUp(WorkLayerData data)
@@ -24,7 +20,7 @@ namespace ARMarker
                 return;
             }
 
-            this.cachedData = data;
+            cachedData = data;
 
             gameObject.transform.localPosition = data.position;
             gameObject.transform.rotation = data.rotation;
@@ -43,8 +39,8 @@ namespace ARMarker
 
             spriteRenderer.sprite = cachedData.sprite;
             spriteRenderer.size = new Vector2(
-                spriteRendererTargetSize, spriteRendererTargetSize);
-            spriteRenderer.color = new UnityEngine.Color(1f, 1f, 1f, 1f);
+                ConstantInts.AR_OBJECT_SIZE_DIVISOR, 
+                ConstantInts.AR_OBJECT_SIZE_DIVISOR);
         }
 
     }
