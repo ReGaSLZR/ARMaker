@@ -47,6 +47,16 @@ namespace ARMarker
             DeleteClone();
             SetIsEnabled(true);
 
+            if (cachedLayer != null)
+            {
+                cachedLayer.Deselect();
+            }
+
+            foreach (var layer in cachedLayers)
+            {
+                layer.Deselect();
+            }
+
             cachedClone = Instantiate(gameObject);
 
 #if UNITY_EDITOR
@@ -82,12 +92,6 @@ namespace ARMarker
 
         public void ChangeActiveLayer(WorkLayer layer)
         {
-            if (layer == null
-                || layer == cachedLayer)
-            {
-                return;
-            }
-
             cachedLayer = layer;
             onChangeActiveLayer(layer);
         }
@@ -165,6 +169,7 @@ namespace ARMarker
             data.sprite = sprite;
 
             var layer = Instantiate(prefabLayer, transform);
+            layer.enabled = true;
             cachedLayers.Add(layer);
             layer.SetUp(data);
 

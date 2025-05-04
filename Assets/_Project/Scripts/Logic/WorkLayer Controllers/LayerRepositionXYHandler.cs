@@ -13,7 +13,7 @@ namespace ARMarker
         public float lineThickness = 0.05f;
         public GameObject dotPrefab; // Assign a prefab with a SpriteRenderer
 
-        private Camera mainCamera;
+        //private Camera mainCamera;
         //private Transform selectedTransform;
         private LineRenderer lineRenderer;
         private List<GameObject> cornerDots = new List<GameObject>();
@@ -22,7 +22,7 @@ namespace ARMarker
 
         void Awake()
         {
-            mainCamera = Camera.main;
+            //mainCamera = Camera.main;
 
             GameObject lineObj = new GameObject("SelectionBox");
             lineObj.transform.parent = transform;
@@ -57,6 +57,10 @@ namespace ARMarker
 
             foreach (GameObject dot in cornerDots)
             {
+                if (dot == null)
+                {
+                    continue;
+                }
                 Destroy(dot);
             }
 
@@ -152,8 +156,8 @@ namespace ARMarker
 
         private Vector3 ScreenToWorld(Vector3 screenPos, float z)
         {
-            screenPos.z = z - mainCamera.transform.position.z;
-            return mainCamera.ScreenToWorldPoint(screenPos);
+            screenPos.z = z - Camera.main.transform.position.z;
+            return Camera.main.ScreenToWorldPoint(screenPos);
         }
 
     }

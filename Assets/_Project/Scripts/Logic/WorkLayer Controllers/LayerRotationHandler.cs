@@ -19,7 +19,7 @@ namespace ARMarker
 
         private GameObject selectedSprite;
         private RotationCircle xCircle, yCircle, zCircle;
-        private Camera mainCam;
+        //private Camera mainCam;
 
         [SerializeField]
         private BoxCollider boxCollider;
@@ -30,7 +30,7 @@ namespace ARMarker
 
         private void Awake()
         {
-            mainCam = Camera.main;
+            //mainCam = Camera.main;
             originalColliderSize = boxCollider.size;
         }
 
@@ -50,11 +50,13 @@ namespace ARMarker
         public void OnPointerClick(PointerEventData eventData)
         {
             Select();
+            //DetectCircleHit(eventData.position);
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
             Select();
+            //DetectCircleHit(eventData.position);
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -66,6 +68,11 @@ namespace ARMarker
         {
             Vector2 delta = eventData.delta * dragSensitivity;
             float angleDelta = delta.x + delta.y;
+
+            if (activeCircle == null)
+            {
+                activeCircle = zCircle;
+            }
 
             switch (activeCircle.axis)
             {
@@ -134,7 +141,7 @@ namespace ARMarker
             float bestDistance = float.MaxValue;
             foreach (var circle in new[] { xCircle, yCircle })
             {
-                float distance = circle.DistanceToScreen(screenPos, mainCam);
+                float distance = circle.DistanceToScreen(screenPos, Camera.main);
                 if (distance < 30f && distance < bestDistance)
                 {
                     bestDistance = distance;
