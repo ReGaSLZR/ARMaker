@@ -3737,6 +3737,7 @@ GameObject:
   - component: {fileID: 1193116366}
   - component: {fileID: 1193116365}
   - component: {fileID: 1193116364}
+  - component: {fileID: 1193116367}
   m_Layer: 5
   m_Name: Button Rotate
   m_TagString: Untagged
@@ -3847,6 +3848,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193116362}
   m_CullTransparentMesh: 1
+--- !u!114 &1193116367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193116362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b09fdd08876dcc74a9227310ada2147b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1193116364}
+  mode: 1
+  colorActive: {r: 0.86274517, g: 0.25490198, b: 0.4039216, a: 1}
+  colorNormal: {r: 0.14117648, g: 0.31764707, b: 0.4666667, a: 1}
+  isDefaultMode: 0
 --- !u!1 &1200021195
 GameObject:
   m_ObjectHideFlags: 0
@@ -4105,6 +4123,7 @@ GameObject:
   - component: {fileID: 1297180131}
   - component: {fileID: 1297180130}
   - component: {fileID: 1297180129}
+  - component: {fileID: 1297180132}
   m_Layer: 5
   m_Name: Button Move
   m_TagString: Untagged
@@ -4215,6 +4234,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297180127}
   m_CullTransparentMesh: 1
+--- !u!114 &1297180132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297180127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b09fdd08876dcc74a9227310ada2147b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1297180129}
+  mode: 0
+  colorActive: {r: 0.86274517, g: 0.25490198, b: 0.4039216, a: 1}
+  colorNormal: {r: 0.14117648, g: 0.31764707, b: 0.4666667, a: 1}
+  isDefaultMode: 1
 --- !u!1 &1328795650
 GameObject:
   m_ObjectHideFlags: 0
@@ -5086,6 +5122,7 @@ GameObject:
   - component: {fileID: 1578526511}
   - component: {fileID: 1578526510}
   - component: {fileID: 1578526509}
+  - component: {fileID: 1578526512}
   m_Layer: 5
   m_Name: Button Scale
   m_TagString: Untagged
@@ -5196,6 +5233,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1578526507}
   m_CullTransparentMesh: 1
+--- !u!114 &1578526512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578526507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b09fdd08876dcc74a9227310ada2147b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1578526509}
+  mode: 2
+  colorActive: {r: 0.86274517, g: 0.25490198, b: 0.4039216, a: 1}
+  colorNormal: {r: 0.14117648, g: 0.31764707, b: 0.4666667, a: 1}
+  isDefaultMode: 0
 --- !u!1 &1679154493
 GameObject:
   m_ObjectHideFlags: 0

@@ -136,7 +136,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 1832763468787142184}
-  spriteRendererTargetSize: 3
+  repositionHandler: {fileID: 461471239102353224}
+  rotationHandler: {fileID: 1297581534872992407}
+  resizeHandler: {fileID: 5522288439511303957}
 --- !u!212 &1832763468787142184
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -237,6 +239,7 @@ MonoBehaviour:
   xAxisColor: {r: 1, g: 0, b: 0, a: 1}
   yAxisColor: {r: 0, g: 1, b: 0, a: 1}
   zAxisColor: {r: 0, g: 0, b: 1, a: 1}
+  boxCollider: {fileID: 1345607345671842950}
 --- !u!114 &5522288439511303957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +247,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1832763468787142186}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5061afcffef2274d91ff831d13acab5, type: 3}
   m_Name: 
@@ -252,8 +255,9 @@ MonoBehaviour:
   selectionBoxColor: {r: 0, g: 0, b: 1, a: 1}
   lineThickness: 0.1
   cornerDotSize: 0.05
-  cornerDetectionRadius: 1
+  cornerDetectionRadius: 0.5
   cornerDotPrefab: {fileID: 134919471052978537}
+  spriteRenderer: {fileID: 1832763468787142184}
 --- !u!1 &3867242566630918291
 GameObject:
   m_ObjectHideFlags: 0

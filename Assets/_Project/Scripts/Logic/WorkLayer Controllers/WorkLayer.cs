@@ -2,6 +2,8 @@
 
 namespace ARMarker
 {
+
+    [RequireComponent(typeof(BoxCollider))]
     public class WorkLayer : MonoBehaviour
     {
 
@@ -10,13 +12,119 @@ namespace ARMarker
         [SerializeField]
         private SpriteRenderer spriteRenderer;
 
+        [Space]
+
+        [SerializeField]
+        private LayerRepositionXYHandler repositionHandler;
+
+        [SerializeField]
+        private LayerRotationHandler rotationHandler;
+
+        [SerializeField]
+        private LayerResizeXYHandler resizeHandler;
+
         private WorkLayerData cachedData;
+
+        private void Start()
+        {
+
+        }
+
+        private void OnDestroy()
+        {
+            WorkSpaceSingleton.Instance.RegisterOnChangeLayerEditMode(OnChangeLayerEditMode, true);
+        }
+
+        private void OnChangeLayerEditMode(LayerEditMode mode)
+        {
+            Debug.Log($"on change layer edit mode: " + mode);
+
+            switch (mode)
+            {
+                case LayerEditMode.Reposition:
+                    {
+                        repositionHandler.enabled = true;
+
+                        rotationHandler.Deselect();
+                        resizeHandler.Deselect();
+
+                        rotationHandler.enabled = false;
+                        resizeHandler.enabled = false;
+                        break;
+                    }
+                case LayerEditMode.Rotate:
+                    {
+                        rotationHandler.enabled = true;
+
+                        repositionHandler.Deselect();
+                        resizeHandler.Deselect();
+
+                        repositionHandler.enabled = false;
+                        resizeHandler.enabled = false;
+                        break;
+                    }
+                case LayerEditMode.Resize:
+                    {
+                        resizeHandler.enabled = true;
+
+                        repositionHandler.Deselect();
+                        rotationHandler.Deselect();
+
+                        repositionHandler.enabled = false;
+                        rotationHandler.enabled = false;
+                        break;
+                    }
+            }
+        }
+
+        private void OnSelectLayer()
+        {
+            var mode = WorkSpaceSingleton.Instance.GetLayerEditMode();
+
+            switch (mode)
+            {
+                case LayerEditMode.Reposition:
+                    {
+                        rotationHandler.Deselect();
+                        resizeHandler.Deselect();
+
+                        rotationHandler.enabled = false;
+                        resizeHandler.enabled = false;
+                        break;
+                    }
+                case LayerEditMode.Rotate:
+                    {
+                        repositionHandler.Deselect();
+                        resizeHandler.Deselect();
+
+                        repositionHandler.enabled = false;
+                        resizeHandler.enabled = false;
+                        break;
+                    }
+                case LayerEditMode.Resize:
+                    {
+                        repositionHandler.Deselect();
+                        rotationHandler.Deselect();
+
+                        repositionHandler.enabled = false;
+                        rotationHandler.enabled = false;
+                        break;
+                    }
+            }
+        }
 
         public void SetUp(WorkLayerData data)
         {
+            repositionHandler.RegisterListener(OnSelectLayer);
+            rotationHandler.RegisterListener(OnSelectLayer);
+            resizeHandler.RegisterListener(OnSelectLayer);
+
+            WorkSpaceSingleton.Instance.RegisterOnChangeLayerEditMode(OnChangeLayerEditMode);
+
             if (data == null)
             {
-                Debug.LogError($"{GetType().Name}.SetUp(): data is null!", gameObject);
+                Debug.LogError($"{GetType().Name}.SetUp(): " +
+                    $"data is null!", gameObject);
                 return;
             }
 
@@ -27,6 +135,8 @@ namespace ARMarker
             gameObject.transform.localScale = data.scale;
 
             SetUpSprite();
+
+            OnChangeLayerEditMode(WorkSpaceSingleton.Instance.GetLayerEditMode());
         }
 
         private void SetUpSprite()

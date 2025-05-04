@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -24,6 +25,11 @@ namespace ARMarker
 
         private List<WorkLayer> cachedLayers = new();
         private GameObject cachedClone;
+        private LayerEditMode cachedLayerEditMode = LayerEditMode.UNSET;
+
+        private WorkLayer cachedLayer;
+        private Action<LayerEditMode> onUpdateLayerEditMode;
+        private Action<int> onChangeLayerCount;
 
         public void DeleteClone()
         {
@@ -69,6 +75,67 @@ namespace ARMarker
         }
 
         public List<WorkLayer> GetLayers() => cachedLayers;
+        public LayerEditMode GetLayerEditMode() => cachedLayerEditMode;
+        public WorkLayer GetActiveLayer() => cachedLayer;
+
+        public void ChangeActiveLayer(WorkLayer layer)
+        {
+            //if (layer == null 
+            //    || layer == cachedLayer)
+            //{
+            //    return;
+            //}
+
+            //if (cachedLayer != null)
+            //{
+            //    cachedLayer.Deselect();
+            //}
+
+            //cachedLayer = layer;
+        }
+
+        public void RegisterOnChangeLayerEditMode(
+            Action<LayerEditMode> listener, bool deregisterInstead = false)
+        {
+            if (listener == null)
+            {
+                return;
+            }
+
+            if (deregisterInstead)
+            {
+                onUpdateLayerEditMode -= listener;
+            }
+            else
+            {
+                onUpdateLayerEditMode += listener;
+            }
+        }
+
+        public void RegisterOnChangeLayerCount(
+            Action<int> listener, bool deregisterInstead = false)
+        {
+            if (listener == null)
+            {
+                return;
+            }
+
+            if (deregisterInstead)
+            {
+                onChangeLayerCount -= listener;
+            }
+            else
+            {
+                onChangeLayerCount += listener;
+            }
+        }
+
+        public void SetLayerEditMode(LayerEditMode mode)
+        {
+            Debug.Log($"set layer edit mode " + mode);
+            cachedLayerEditMode = mode;
+            onUpdateLayerEditMode?.Invoke(cachedLayerEditMode);
+        }
 
         public void SetIsEnabled(bool isEnabled)
         { 
@@ -85,6 +152,8 @@ namespace ARMarker
             var layer = Instantiate(prefabLayer, transform);
             cachedLayers.Add(layer);
             layer.SetUp(data);
+
+            onChangeLayerCount?.Invoke(cachedLayers.Count);
         }
 
     }
