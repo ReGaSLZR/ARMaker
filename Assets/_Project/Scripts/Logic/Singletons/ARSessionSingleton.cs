@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -27,8 +28,9 @@ namespace ARMarker
         private Action<ARStatus> onStatusChange;
         private ARStatus cachedStatus;
 
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             cachedStatus = ARStatus.UNSET;
             RegisterOnStatusChange(OnARStatusChange);
         }
@@ -109,6 +111,10 @@ namespace ARMarker
 
         private void SetUpTracking()
         {
+            Debug.LogWarning($"{GetType().Name}" +
+                $".SetUpTracking(): cachedSessionOrigin is null? " +
+                $"{cachedSessionOrigin == null}", gameObject);
+
             cachedARManager = cachedSessionOrigin.gameObject
                 .AddComponent<ARTrackedImageManager>();
             cachedARManager.trackedImagePrefab = prefabARBlankObject;
@@ -116,7 +122,7 @@ namespace ARMarker
             cachedARManager.trackedImagesChanged += OnChangedTrackedImage;
         }
 
-        public void StartTracking(Sprite marker)
+        private IEnumerator C_StartTracking(Sprite marker)
         {
             DisableActiveTracking();
             SetUpTracking();
@@ -129,11 +135,22 @@ namespace ARMarker
                 $"of runtime XR marker library.", gameObject);
 
             onStatusChange?.Invoke(ARStatus.MarkerDetected);
-            return;
+            yield break;
 #endif
+            cachedARManager.enabled = true;
+            Debug.LogWarning($"{GetType().Name}" +
+                $".StartTracking(): ARSession.state is {ARSession.state}", gameObject);
+
+            while (ARSession.state != ARSessionState.SessionTracking)
+            {
+                yield return null;
+            }
 
             var library = cachedARManager.CreateRuntimeLibrary();
             cachedARManager.referenceLibrary = library;
+
+            Debug.LogWarning($"{GetType().Name}" +
+                $".StartTracking(): Created runtime library", gameObject);
 
             if (library is MutableRuntimeReferenceImageLibrary mutableLibrary)
             {
@@ -146,7 +163,7 @@ namespace ARMarker
                 {
                     Debug.LogError($"{GetType().Name}.StartTracking(): " +
                         $"Failed to add image! Status: {handle.status}");
-                    return;
+                    yield break;
                 }
                 Debug.Log($"{GetType().Name}.StartTracking(): " +
                     $"Set Marker to: '{marker.name}'", gameObject);
@@ -159,6 +176,12 @@ namespace ARMarker
                     $"COULD NOT PROCESS NEW MARKER CHOICE " +
                     $"'{marker.name}'", gameObject);
             }
+        }
+
+        public void StartTracking(Sprite marker)
+        {
+            StopAllCoroutines();
+            StartCoroutine(C_StartTracking(marker));
         }
 
         private void OnChangedTrackedImage(

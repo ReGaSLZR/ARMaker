@@ -17,8 +17,15 @@ namespace ARMarker
         [SerializeField]
         private Vector3 clonePosition;
 
+        [Space]
+
         [SerializeField]
-        private Quaternion cloneRotation;
+        private Quaternion cloneRotationAndroid;
+
+        [SerializeField]
+        private Quaternion cloneRotationiOS;
+
+        [Space]
 
         [SerializeField]
         private Vector3 cloneScale;
@@ -44,7 +51,13 @@ namespace ARMarker
 
         public GameObject GetClone() => cachedClone;
 
-        public Quaternion GetDesiredCloneRotation() => cloneRotation;
+        public Quaternion GetDesiredCloneRotation() 
+        {
+#if PLATFORM_IOS || UNITY_IOS
+            return cloneRotationiOS;
+#endif
+            return cloneRotationAndroid;
+        }
 
         public void CloneToARWorld(ARTrackedImage trackedImage, bool shouldReparent = true)
         {
@@ -67,11 +80,14 @@ namespace ARMarker
             cachedClone.transform.SetParent(ARSessionSingleton.Instance
                 .InstantiateARObjectToSessionOrigin());
             cachedClone.transform.localScale = cloneScale;
-
 #else
             if (shouldReparent)
             {
                 cachedClone.transform.SetParent(trackedImage.transform);
+
+#if PLATFORM_ANDROID || UNITY_ANDROID
+                trackedImage.transform.localScale = Vector3.one;
+#endif
             }
 
             var imageSize = trackedImage.size;
@@ -85,7 +101,7 @@ namespace ARMarker
 
             cachedClone.transform.localPosition = clonePosition;
             cachedClone.transform.position = clonePosition;
-            cachedClone.transform.rotation = cloneRotation;
+            cachedClone.transform.rotation = GetDesiredCloneRotation();
             
             cachedClone.SetActive(true);
             SetIsEnabled(false);

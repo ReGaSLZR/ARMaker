@@ -94,7 +94,6 @@ namespace ARMarker
                             $"is null?  {trackedImage == null}", gameObject);
 
 #if PLATFORM_IOS || UNITY_IOS
-                        WorkSpaceSingleton.Instance.CloneToARWorld(trackedImage, false);
                         UpdateClonePositionRotation();
 #else
                         WorkSpaceSingleton.Instance.CloneToARWorld(trackedImage);

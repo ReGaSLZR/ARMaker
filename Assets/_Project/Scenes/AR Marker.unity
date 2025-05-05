@@ -371,8 +371,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 541219062}
+  - component: {fileID: 541219063}
   m_Layer: 0
-  m_Name: '[AR Elements]'
+  m_Name: Entry Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -389,12 +390,23 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1125729852}
-  - {fileID: 1167446573}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &541219063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541219061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cce03f37aa9afd488df425b4a126464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aRSessionOrigin: {fileID: 1125729851}
 --- !u!1 &806687788
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,7 +689,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1125729852}
   - component: {fileID: 1125729851}
-  - component: {fileID: 1125729853}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -711,22 +722,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 138336794}
-  m_Father: {fileID: 541219062}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1125729853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1125729850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cce03f37aa9afd488df425b4a126464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aRSessionOrigin: {fileID: 1125729851}
 --- !u!1 &1126252181
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,7 +949,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 541219062}
+  m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1223734549
@@ -1263,7 +1261,7 @@ RectTransform:
   - {fileID: 1126252182}
   - {fileID: 1223734550}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1385,4 +1383,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldEnable: 0
-  trackedStatuses: ffffffff0100000002000000
+  trackedStatuses: 0100000002000000
