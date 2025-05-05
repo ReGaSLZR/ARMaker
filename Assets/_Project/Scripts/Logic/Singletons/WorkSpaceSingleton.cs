@@ -23,7 +23,7 @@ namespace ARMarker
         [SerializeField]
         private Vector3 cloneScale;
 
-        private List<WorkLayer> cachedLayers = new();
+        private readonly List<WorkLayer> cachedLayers = new();
         private GameObject cachedClone;
         private LayerEditMode cachedLayerEditMode = LayerEditMode.UNSET;
 
@@ -42,7 +42,11 @@ namespace ARMarker
             }
         }
 
-        public void CloneToARWorld(ARTrackedImage trackedImage)
+        public GameObject GetClone() => cachedClone;
+
+        public Quaternion GetDesiredCloneRotation() => cloneRotation;
+
+        public void CloneToARWorld(ARTrackedImage trackedImage, bool shouldReparent = true)
         {
             DeleteClone();
             SetIsEnabled(true);
@@ -65,14 +69,17 @@ namespace ARMarker
             cachedClone.transform.localScale = cloneScale;
 
 #else
-            cachedClone.transform.SetParent(trackedImage.transform);
+            if (shouldReparent)
+            {
+                cachedClone.transform.SetParent(trackedImage.transform);
+            }
 
             var imageSize = trackedImage.size;
             var width = imageSize.x / ConstantInts.AR_OBJECT_SIZE_DIVISOR;
             var height = imageSize.y / ConstantInts.AR_OBJECT_SIZE_DIVISOR;
 
             var baseScale = Mathf.Min(width, height);
-            cachedClone.transform.localScale = 
+            cachedClone.transform.localScale =
                 new Vector3(baseScale, baseScale, baseScale);
 #endif
 

@@ -82,15 +82,32 @@ namespace ARMarker
         {
             switch (status)
             {
+                case ARStatus.UNSET:
+                    {
+                        WorkSpaceSingleton.Instance.DeleteClone();
+                        break;
+                    }
                 case ARStatus.MarkerDetected:
                     {
                         var trackedImage = ARSessionSingleton.Instance.GetTrackedImage();
                         Debug.LogWarning($"{GetType().Name} TRACKED MARKER! " +
                             $"is null?  {trackedImage == null}", gameObject);
 
+#if PLATFORM_IOS || UNITY_IOS
+                        WorkSpaceSingleton.Instance.CloneToARWorld(trackedImage, false);
+                        UpdateClonePositionRotation();
+#else
                         WorkSpaceSingleton.Instance.CloneToARWorld(trackedImage);
+#endif
                         break;
                     }
+#if PLATFORM_IOS || UNITY_IOS
+                case ARStatus.ActivelyTrackingMarker:
+                    {
+                        UpdateClonePositionRotation();
+                        break;
+                    }
+#endif
                 case ARStatus.SessionOriginCreated:
                     {
                         Debug.Log($"{GetType().Name}.OnSessionOriginAvailable(): " +
@@ -99,6 +116,28 @@ namespace ARMarker
                         break;
                     }
             }
+        }
+
+        private void UpdateClonePositionRotation()
+        {
+            var trackedImage = ARSessionSingleton.Instance.GetTrackedImage();
+            var clone = WorkSpaceSingleton.Instance.GetClone();
+
+            Debug.Log($"{GetType().Name}.UpdateClonePositionRotation(): " +
+                           $"trackedImage is null? {trackedImage == null}", gameObject);
+
+            Debug.Log($"{GetType().Name}.UpdateClonePositionRotation(): " +
+                    $"clone is null? {clone == null}", gameObject);
+
+            if (clone == null) //safety check
+            {
+                WorkSpaceSingleton.Instance.CloneToARWorld(trackedImage, false);
+                clone = WorkSpaceSingleton.Instance.GetClone();
+            }
+
+            clone.transform.position = trackedImage.transform.position;
+            clone.transform.localPosition = trackedImage.transform.position;
+            clone.transform.rotation = WorkSpaceSingleton.Instance.GetDesiredCloneRotation();
         }
 
     }
