@@ -17,6 +17,8 @@ namespace ARMarker
             LoadWorkSpace();
         }
 
+        public Sprite GetMarker() => cachedMarker;
+
         public void RegisterMarkerChooser(ARMarkerChooser chooser)
         {
             if (chooser == null)

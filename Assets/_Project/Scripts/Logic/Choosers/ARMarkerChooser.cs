@@ -59,6 +59,7 @@ namespace ARMarker
             }
 
             rootUI.gameObject.SetActive(false);
+            rawImagePreviewMarker.texture = GameManager.Instance.GetMarker().texture;
         }
 
         public void RegisterOnChooseMarker(Action<Sprite> listener)
