@@ -139,7 +139,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.1.0
+  bundleVersion: 0.1.1
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -160,7 +160,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.NeverGalleryReady.armarker
+    Android: com.litkit.allaboutar
     Standalone: com.UnityLearn.ARProject
     iPhone: com.litkit.allaboutar
   buildNumber:
@@ -168,7 +168,7 @@ PlayerSettings:
     iPhone: 250505.0.1.0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 1
+  AndroidBundleVersionCode: 2
   AndroidMinSdkVersion: 24
   AndroidTargetSdkVersion: 32
   AndroidPreferredInstallLocation: 1
