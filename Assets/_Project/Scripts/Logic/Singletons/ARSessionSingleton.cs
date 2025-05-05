@@ -78,6 +78,8 @@ namespace ARMarker
 
         public void DisableActiveTracking()
         {
+            onStatusChange?.Invoke(ARStatus.UNSET);
+
             SafelyDeleteSpawnedARObject();
 
             if (cachedARManager != null)
