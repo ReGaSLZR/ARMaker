@@ -135,10 +135,17 @@ namespace ARMarker
 
             if (library is MutableRuntimeReferenceImageLibrary mutableLibrary)
             {
-                mutableLibrary.ScheduleAddImageWithValidationJob(
+                var handle = mutableLibrary.ScheduleAddImageWithValidationJob(
                     marker.texture, marker.name, markerWidth);
+                handle.jobHandle.Complete();
                 cachedARManager.enabled = true;
 
+                if (handle.status != AddReferenceImageJobStatus.Success)
+                {
+                    Debug.LogError($"{GetType().Name}.StartTracking(): " +
+                        $"Failed to add image! Status: {handle.status}");
+                    return;
+                }
                 Debug.Log($"{GetType().Name}.StartTracking(): " +
                     $"Set Marker to: '{marker.name}'", gameObject);
 
