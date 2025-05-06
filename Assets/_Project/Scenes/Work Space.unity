@@ -1962,12 +1962,12 @@ PrefabInstance:
     - target: {fileID: 6265788326133848342, guid: 7e9c5ca63cf639c4eb831832548471e3,
         type: 3}
       propertyPath: cloneRotationiOS.w
-      value: 1
+      value: 0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 6265788326133848342, guid: 7e9c5ca63cf639c4eb831832548471e3,
         type: 3}
       propertyPath: cloneRotationiOS.x
-      value: 0
+      value: 0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 6265788326133848342, guid: 7e9c5ca63cf639c4eb831832548471e3,
         type: 3}

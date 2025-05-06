@@ -136,9 +136,15 @@ namespace ARMarker
                 clone = WorkSpaceSingleton.Instance.GetClone();
             }
 
-            clone.transform.position = trackedImage.transform.position;
-            clone.transform.localPosition = trackedImage.transform.position;
+            clone.transform.SetParent(trackedImage.transform);
+
+            //clone.transform.position = trackedImage.transform.position;
+            //clone.transform.localPosition = trackedImage.transform.position;
+
+            clone.transform.position = Vector3.zero;
+            clone.transform.localPosition = Vector3.zero;
             clone.transform.rotation = WorkSpaceSingleton.Instance.GetDesiredCloneRotation();
+            clone.transform.localRotation = WorkSpaceSingleton.Instance.GetDesiredCloneRotation();
         }
 
     }
