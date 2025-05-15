@@ -73,7 +73,6 @@ namespace ARMarker
             foreach (var layer in cachedLayers)
             {
                 layer.Deselect();
-                layer.SetEnabledIfTemporary(false);
             }
 
             cachedClone = Instantiate(gameObject);
@@ -210,12 +209,15 @@ namespace ARMarker
 
             var layer = Instantiate(prefabLayer, transform);
             layer.enabled = true;
-            cachedLayers.Add(layer);
             layer.SetUp(data);
 
             if (isTemporary)
-            { 
+            {
                 cachedTempLayerForMarker = layer;
+            }
+            else
+            {
+                cachedLayers.Add(layer);
             }
 
             onChangeLayerCount?.Invoke(cachedLayers.Count);
