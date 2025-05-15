@@ -21,8 +21,11 @@ namespace ARMarker
         private float markerWidth = 0.5f;
 
         private ARTrackedImage cachedTrackedImage;
-        private ARSessionOrigin cachedSessionOrigin;
         private ARTrackedImageManager cachedARManager;
+
+        private ARSession cachedSession;
+        private ARSessionOrigin cachedSessionOrigin;
+        
         private GameObject cachedARObject;
 
         private Action<ARStatus> onStatusChange;
@@ -63,8 +66,10 @@ namespace ARMarker
 
         public ARTrackedImage GetTrackedImage() => cachedTrackedImage;
 
-        public void RegisterSessionOrigin(ARSessionOrigin sessionOrigin)
+        public void RegisterSessionOrigin(
+            ARSession session, ARSessionOrigin sessionOrigin)
         {
+            cachedSession = session;
             cachedSessionOrigin = sessionOrigin;
             onStatusChange?.Invoke(ARStatus.SessionOriginCreated);
         }
@@ -115,6 +120,11 @@ namespace ARMarker
                 $".SetUpTracking(): cachedSessionOrigin is null? " +
                 $"{cachedSessionOrigin == null}", gameObject);
 
+            Debug.LogWarning($"{GetType().Name}" +
+                $".SetUpTracking(): cachedSession is null? " +
+                $"{cachedSession == null}", gameObject);
+
+            cachedSession.enabled = false;
             cachedARManager = cachedSessionOrigin.gameObject
                 .AddComponent<ARTrackedImageManager>();
             cachedARManager.trackedImagePrefab = prefabARBlankObject;
@@ -157,6 +167,11 @@ namespace ARMarker
                 var handle = mutableLibrary.ScheduleAddImageWithValidationJob(
                     marker.texture, marker.name, markerWidth);
                 handle.jobHandle.Complete();
+
+                yield return null;
+
+                cachedSession.Reset();
+                cachedSession.enabled = true;
                 cachedARManager.enabled = true;
 
                 if (handle.status != AddReferenceImageJobStatus.Success)

@@ -406,6 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cce03f37aa9afd488df425b4a126464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aRSession: {fileID: 1167446572}
   aRSessionOrigin: {fileID: 1125729851}
 --- !u!1 &806687788
 GameObject:

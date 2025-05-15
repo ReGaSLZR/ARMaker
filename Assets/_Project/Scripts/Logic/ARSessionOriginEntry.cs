@@ -8,12 +8,15 @@ namespace ARMarker
     {
 
         [SerializeField]
+        private ARSession aRSession;
+
+        [SerializeField]
         private ARSessionOrigin aRSessionOrigin;
 
         private void Awake()
         {
-            ARSessionSingleton.Instance
-                .RegisterSessionOrigin(aRSessionOrigin);
+            ARSessionSingleton.Instance.RegisterSessionOrigin(
+                aRSession, aRSessionOrigin);
         }
 
     }
