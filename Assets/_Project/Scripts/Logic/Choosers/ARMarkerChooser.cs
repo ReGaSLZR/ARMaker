@@ -59,6 +59,16 @@ namespace ARMarker
             }
 
             rootUI.gameObject.SetActive(false);
+            SetCachedMarker();
+        }
+
+        private void SetCachedMarker()
+        {
+            if (GameManager.Instance.GetMarker() == null)
+            {
+                return;
+            }
+
             rawImagePreviewMarker.texture = GameManager.Instance.GetMarker().texture;
         }
 
