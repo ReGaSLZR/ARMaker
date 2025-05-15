@@ -105,9 +105,21 @@ namespace ARMarker
             cachedClone.transform.rotation = GetDesiredCloneRotation();
             
             cachedClone.SetActive(true);
+            DeactivateCollidersInClone();
             SetIsEnabled(false);
 
             Debug.Log($"{GetType().Name} WorkSpace cloned!", gameObject);
+        }
+
+        private void DeactivateCollidersInClone()
+        {
+            foreach (Transform child in cachedClone.transform)
+            {
+                if(child.TryGetComponent<Collider>(out var collider))
+                {
+                    collider.enabled = false;
+                }
+            }
         }
 
         public List<WorkLayer> GetLayers() => cachedLayers;
