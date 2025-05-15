@@ -26,8 +26,13 @@ namespace ARMarker
                 return;
             }
 
-            chooser.RegisterOnChooseMarker(
-                marker => cachedMarker = marker);
+            chooser.RegisterOnChooseMarker(OnMarkerChosen);
+        }
+
+        private void OnMarkerChosen(Sprite marker)
+        { 
+            cachedMarker = marker;
+            WorkSpaceSingleton.Instance.AddLayer(cachedMarker, true);
         }
 
         public void LoadScene(Scene scene)
@@ -54,6 +59,7 @@ namespace ARMarker
 
             WorkSpaceSingleton.Instance.SetIsEnabled(true);
             WorkSpaceSingleton.Instance.DeleteClone();
+            WorkSpaceSingleton.Instance.SetTempLayerIsEnabled(true);
             ARSessionSingleton.Instance.DisableActiveTracking();
 
             SceneManager.LoadScene((int)Scene.WorkSpace);
@@ -75,6 +81,7 @@ namespace ARMarker
             }
 
             WorkSpaceSingleton.Instance.SetIsEnabled(false);
+            WorkSpaceSingleton.Instance.SetTempLayerIsEnabled(false);
             WorkSpaceSingleton.Instance.DeleteClone();
 
             SceneManager.LoadScene((int)Scene.ARPreview);

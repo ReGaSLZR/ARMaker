@@ -24,6 +24,12 @@ namespace ARMarker
         private LayerResizeXYHandler resizeHandler;
 
         private WorkLayerData cachedData;
+        private BoxCollider boxCollider;
+
+        private void Awake()
+        {
+            boxCollider = GetComponent<BoxCollider>();
+        }
 
         private void Start()
         {
@@ -150,7 +156,19 @@ namespace ARMarker
             gameObject.transform.rotation = data.rotation;
             gameObject.transform.localScale = data.scale;
 
+            boxCollider.enabled = !data.isTemporary;
+
             SetUpSprite();
+        }
+
+        public void SetEnabledIfTemporary(bool isEnabled)
+        {
+            if (cachedData == null || !cachedData.isTemporary)
+            {
+                return;
+            }
+
+            gameObject.SetActive(isEnabled);
         }
 
         public void Deselect()

@@ -35,6 +35,7 @@ namespace ARMarker
         private LayerEditMode cachedLayerEditMode = LayerEditMode.UNSET;
 
         private WorkLayer cachedLayer;
+        private WorkLayer cachedTempLayerForMarker;
 
         private Action<WorkLayer> onChangeActiveLayer;
         private Action<LayerEditMode> onUpdateLayerEditMode;
@@ -72,6 +73,7 @@ namespace ARMarker
             foreach (var layer in cachedLayers)
             {
                 layer.Deselect();
+                layer.SetEnabledIfTemporary(false);
             }
 
             cachedClone = Instantiate(gameObject);
@@ -179,22 +181,42 @@ namespace ARMarker
             onUpdateLayerEditMode?.Invoke(cachedLayerEditMode);
         }
 
+        public void SetTempLayerIsEnabled(bool isEnabled)
+        {
+            if (cachedTempLayerForMarker != null)
+            {
+                cachedTempLayerForMarker.SetEnabledIfTemporary(isEnabled);
+            }
+        }
+
         public void SetIsEnabled(bool isEnabled)
         { 
             gameObject.SetActive(isEnabled);
         }
 
-        public void AddLayer(Sprite sprite)
+        public void AddLayer(Sprite sprite, bool isTemporary = false)
         {
             var data = new WorkLayerData();
             data.ResetTransform();
 
             data.sprite = sprite;
+            data.isTemporary = isTemporary;
+
+            if (isTemporary && (cachedTempLayerForMarker != null))
+            {
+                DestroyImmediate(cachedTempLayerForMarker.gameObject);
+                cachedTempLayerForMarker = null;
+            }
 
             var layer = Instantiate(prefabLayer, transform);
             layer.enabled = true;
             cachedLayers.Add(layer);
             layer.SetUp(data);
+
+            if (isTemporary)
+            { 
+                cachedTempLayerForMarker = layer;
+            }
 
             onChangeLayerCount?.Invoke(cachedLayers.Count);
         }

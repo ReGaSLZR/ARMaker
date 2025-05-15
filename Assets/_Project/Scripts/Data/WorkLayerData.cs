@@ -6,6 +6,8 @@ namespace ARMarker
     public class WorkLayerData
     {
 
+        public bool isTemporary;
+
         public Vector3 position;
         public Quaternion rotation;
         public Vector3 scale;
