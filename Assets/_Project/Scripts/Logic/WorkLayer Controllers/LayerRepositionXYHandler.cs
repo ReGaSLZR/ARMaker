@@ -61,7 +61,7 @@ namespace ARMarker
                 {
                     continue;
                 }
-                Destroy(dot);
+                DestroyImmediate(dot);
             }
 
             cornerDots.Clear();
