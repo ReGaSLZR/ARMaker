@@ -112,6 +112,10 @@ namespace ARMarker
             yCircle = RotationCircle.Create(Axis.Y, yAxisColor, circleRadius, circleThickness);
             zCircle = RotationCircle.Create(Axis.Z, zAxisColor, circleRadius, circleThickness);
 
+            xCircle.transform.SetParent(transform);
+            yCircle.transform.SetParent(transform);
+            zCircle.transform.SetParent(transform);
+
             UpdateCircles();
         }
 

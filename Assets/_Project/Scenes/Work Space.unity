@@ -1354,18 +1354,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1384656880}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 95705334}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -2326,10 +2314,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1fc8669798eab4c85bf374cd015ca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rootChoicesButton: {fileID: 1566983290}
+  rootChoicesUI: {fileID: 95705334}
   choices: {fileID: 11400000, guid: 8229228d0f5c84543819598826756f69, type: 2}
   prefabButton: {fileID: 6909749485393301703, guid: f98327cac1e4aa44ab5e1e1bb03c5eb8,
     type: 3}
-  rootChoicesButton: {fileID: 1566983290}
 --- !u!1 &614758099
 GameObject:
   m_ObjectHideFlags: 0
@@ -4935,18 +4924,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1384656880}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1365606113
 MonoBehaviour:

@@ -1,10 +1,19 @@
-﻿using UnityEngine;
+﻿using System.Linq.Expressions;
+using UnityEngine;
 
 namespace ARMarker
 {
 
     public class WorkLayerSpriteChooser : MonoBehaviour
     {
+
+        [Header("UI Elements")]
+
+        [SerializeField]
+        private Transform rootChoicesButton;
+
+        [SerializeField]
+        private GameObject rootChoicesUI;
 
         [Header("Data")]
 
@@ -14,14 +23,23 @@ namespace ARMarker
         [SerializeField]
         private SpriteChoiceButton prefabButton;
 
-        [Header("UI Elements")]
-
-        [SerializeField]
-        private Transform rootChoicesButton;
-
         private void Start()
         {
-            SetUpButtons();    
+            SetUpButtons();
+
+            WorkSpaceSingleton.Instance
+                .RegisterOnNewLayerAdded(OnAddNewLayer);
+        }
+
+        private void OnDestroy()
+        {
+            WorkSpaceSingleton.Instance
+                .RegisterOnNewLayerAdded(OnAddNewLayer, true);
+        }
+
+        private void OnAddNewLayer(WorkLayer layer)
+        { 
+            rootChoicesUI.SetActive(false);
         }
 
         private void SetUpButtons()

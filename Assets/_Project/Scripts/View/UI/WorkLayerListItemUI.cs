@@ -14,6 +14,8 @@ namespace ARMarker
         [SerializeField]
         private TextMeshProUGUI textName;
 
+        [Space]
+
         [SerializeField]
         private Button buttonLock;
 
