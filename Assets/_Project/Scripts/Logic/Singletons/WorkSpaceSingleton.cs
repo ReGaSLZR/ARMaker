@@ -230,16 +230,11 @@ namespace ARMarker
             }
             else
             {
-                RecordNewLayer(layer);
+                cachedLayers.Add(layer);
+                onAddNewLayer?.Invoke(layer);
             }
 
             return layer;
-        }
-
-        private void RecordNewLayer(WorkLayer layer)
-        {
-            cachedLayers.Add(layer);
-            onAddNewLayer?.Invoke(layer);
         }
 
         public void DuplicateLayer(WorkLayer layerToDuplicate)
@@ -251,7 +246,6 @@ namespace ARMarker
             }
 
             layerToDuplicate.Deselect();
-
             var layer = AddLayer(layerToDuplicate.Data.sprite, false);
 
             layer.transform.localPosition = layerToDuplicate.transform.localPosition;

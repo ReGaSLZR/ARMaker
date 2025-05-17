@@ -29,6 +29,18 @@ namespace ARMarker
         {
             buttonDelete.onClick.AddListener(DeleteSelf);
             buttonDuplicate.onClick.AddListener(DuplicateLayer);
+
+            buttonLock.onClick.AddListener(LockLayer);
+        }
+
+        private void LockLayer()
+        {
+            if (cachedLayer == null)
+            {
+                return;
+            }
+
+            cachedLayer.ToggleLockState();
         }
 
         private void DuplicateLayer()

@@ -10,6 +10,9 @@ namespace ARMarker
         [Header("Settings")]
 
         [SerializeField]
+        private GameObject statusLocked;
+
+        [SerializeField]
         private SpriteRenderer spriteRenderer;
 
         [Space]
@@ -28,9 +31,12 @@ namespace ARMarker
         private WorkLayerData cachedData;
         private BoxCollider boxCollider;
 
+        private bool isLocked;
+
         private void Awake()
         {
             boxCollider = GetComponent<BoxCollider>();
+            statusLocked.SetActive(false);
         }
 
         private void Start()
@@ -161,6 +167,13 @@ namespace ARMarker
             boxCollider.enabled = !data.isTemporary;
 
             SetUpSprite();
+        }
+
+        public void ToggleLockState()
+        {
+            isLocked = !isLocked;
+            boxCollider.enabled = !isLocked;
+            statusLocked.SetActive(isLocked);
         }
 
         public void SetEnabledIfTemporary(bool isEnabled)
