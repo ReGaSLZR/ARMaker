@@ -9,7 +9,13 @@ namespace ARMarker
         [Header("UI Elements")]
 
         [SerializeField]
-        private Transform rootLayer;
+        private GameObject rootUI;
+
+        [SerializeField]
+        private Transform rootListItem;
+
+        [SerializeField]
+        private GameObject rootTempViewOnEmpty;
 
         [Header("Data")]
 
@@ -20,7 +26,12 @@ namespace ARMarker
         {
             WorkSpaceSingleton.Instance
                 .RegisterOnNewLayerAdded(OnNewLayerAdded);
+            WorkSpaceSingleton.Instance
+                .RegisterOnLayerCountChange(OnLayerCountChange);
+            GameManager.Instance.RegisterOnError(OnError);
 
+            rootTempViewOnEmpty.SetActive(true);
+            rootUI.SetActive(false);
             SetUpCachedLayers();
         }
 
@@ -28,6 +39,19 @@ namespace ARMarker
         {
             WorkSpaceSingleton.Instance
                 .RegisterOnNewLayerAdded(OnNewLayerAdded, true);
+            WorkSpaceSingleton.Instance
+                .RegisterOnLayerCountChange(OnLayerCountChange, true);
+            GameManager.Instance.RegisterOnError(OnError, true);
+        }
+
+        private void OnError(string error)
+        {
+            if (GameManager.Instance.GetMarker() == null)
+            {
+                return;
+            }
+
+            rootUI.SetActive(true);
         }
 
         private void SetUpCachedLayers()
@@ -40,6 +64,11 @@ namespace ARMarker
             }
         }
 
+        private void OnLayerCountChange(int count)
+        {
+            rootTempViewOnEmpty.SetActive(count == 0);
+        }
+
         private void OnNewLayerAdded(WorkLayer newLayer)
         {
             if (newLayer == null)
@@ -47,7 +76,7 @@ namespace ARMarker
                 return;
             }
 
-            var listItem = Instantiate(prefabListItem, rootLayer);
+            var listItem = Instantiate(prefabListItem, rootListItem);
             listItem.SetUp(newLayer);
         }
 

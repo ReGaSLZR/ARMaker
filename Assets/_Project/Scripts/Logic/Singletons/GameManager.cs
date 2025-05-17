@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace ARMarker
@@ -7,7 +8,17 @@ namespace ARMarker
     public class GameManager : BaseSingleton<GameManager>
     {
 
+        [SerializeField]
+        [Multiline]
+        private string errorNoMarker;
+
+        [SerializeField]
+        [Multiline]
+        private string errorNoLayers;
+
         private Sprite cachedMarker;
+
+        private Action<string> onErrorListener;
 
         private void Start()
         {
@@ -18,6 +29,23 @@ namespace ARMarker
         }
 
         public Sprite GetMarker() => cachedMarker;
+
+        public void RegisterOnError(Action<string> listener, bool deregisterInstead = false)
+        {
+            if (listener == null)
+            {
+                return;
+            }
+
+            if (deregisterInstead)
+            {
+                onErrorListener -= listener;
+            }
+            else
+            { 
+                onErrorListener += listener;
+            }
+        }
 
         public void RegisterMarkerChooser(ARMarkerChooser chooser)
         {
@@ -70,13 +98,15 @@ namespace ARMarker
             if (cachedMarker == null)
             {
                 Debug.LogError($"{GetType().Name}.LoadARWorld(): " +
-                    $"No marker chosen yet.", gameObject);
+                    errorNoMarker, gameObject);
+                onErrorListener?.Invoke(errorNoMarker);
                 return;
             }
             if (WorkSpaceSingleton.Instance.GetLayers().Count == 0)
             {
                 Debug.LogError($"{GetType().Name}.LoadARWorld(): " +
-                    $"No WorkSpace layers at all!", gameObject);
+                    errorNoLayers, gameObject);
+                onErrorListener?.Invoke(errorNoLayers);
                 return;
             }
 

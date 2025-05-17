@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace ARMarker
 {
@@ -41,6 +40,7 @@ namespace ARMarker
         private Action<WorkLayer> onChangeActiveLayer;
         private Action<LayerEditMode> onUpdateLayerEditMode;
         private Action<WorkLayer> onAddNewLayer;
+        private Action<int> onLayerCountChange;
 
         public void DeleteClone()
         {
@@ -151,6 +151,24 @@ namespace ARMarker
             }
         }
 
+        public void RegisterOnLayerCountChange(
+            Action<int> listener, bool deregisterInstead = false)
+        {
+            if (listener == null)
+            {
+                return;
+            }
+
+            if (deregisterInstead)
+            {
+                onLayerCountChange -= listener;
+            }
+            else
+            {
+                onLayerCountChange += listener;
+            }
+        }
+
         public void RegisterOnChangeLayerEditMode(
             Action<LayerEditMode> listener, bool deregisterInstead = false)
         {
@@ -234,6 +252,7 @@ namespace ARMarker
                 onAddNewLayer?.Invoke(layer);
             }
 
+            onLayerCountChange?.Invoke(cachedLayers.Count);
             return layer;
         }
 
@@ -273,6 +292,7 @@ namespace ARMarker
                 {
                     cachedLayers.RemoveAt(x);
                     DestroyImmediate(layer.gameObject);
+                    onLayerCountChange?.Invoke(cachedLayers.Count);
                     return;
                 }
             }

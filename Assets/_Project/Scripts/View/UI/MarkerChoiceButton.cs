@@ -14,17 +14,20 @@ namespace ARMarker
         [SerializeField]
         private RawImage rawImage;
 
+        [SerializeField]
+        private GameObject selectedIndicator;
+
         [Space]
-
-        [SerializeField]
-        private Color colorNormal = Color.white;
-
-        [SerializeField]
-        private Color colorOnSelect = Color.white;
 
         private Sprite cachedSprite;
 
-        public void SetUp(Sprite marker, Action<MarkerChoiceButton> listener)
+        private void Awake()
+        {
+            selectedIndicator.SetActive(false);
+        }
+
+        public void SetUp(Sprite marker, 
+            Action<MarkerChoiceButton> listener)
         {
             if (listener != null)
             {
@@ -38,8 +41,9 @@ namespace ARMarker
         }
 
         public void SetIsSelected(bool isSelected) 
-            => button.image.color = isSelected 
-                ? colorOnSelect : colorNormal;
+        {
+            selectedIndicator.SetActive(isSelected);
+        }
 
         public Sprite GetMarker() => cachedSprite;
 

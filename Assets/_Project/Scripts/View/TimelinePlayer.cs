@@ -55,11 +55,6 @@ namespace ARMarker
                 StopCoroutine(reverseCoroutine);
             }
 
-            //if (director.state != PlayState.Playing)
-            //{
-            //    director.Play();
-            //}
-
             reverseCoroutine = StartCoroutine(C_PlayReverse());
             lastPlayedForward = false;
         }

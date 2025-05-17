@@ -28,13 +28,22 @@ namespace ARMarker
         [SerializeField]
         private Transform markerButtonsParent;
 
+        [Space]
+
+        [SerializeField]
+        private Button buttonSelect;
+
+        private MarkerChoiceButton cachedSelectedButton;
         private readonly List<MarkerChoiceButton> cachedSpawnedButtons = new();
         private Action<Sprite> onChooseMarker;
 
         private void Start()
         {
             GameManager.Instance.RegisterMarkerChooser(this);
+            buttonSelect.onClick.AddListener(OnSelectMarker);
+
             SetUp();
+            buttonSelect.interactable = false;
         }
 
         private void SetUp()
@@ -60,6 +69,15 @@ namespace ARMarker
 
             rootUI.gameObject.SetActive(false);
             SetCachedMarker();
+        }
+
+        private void OnSelectMarker()
+        {
+            rootUI.gameObject.SetActive(false);
+            onChooseMarker?.Invoke(
+                cachedSelectedButton.GetMarker());
+            rawImagePreviewMarker.texture = 
+                cachedSelectedButton.GetMarker().texture;
         }
 
         private void SetCachedMarker()
@@ -90,15 +108,13 @@ namespace ARMarker
             }
 
             button.SetIsSelected(true);
-            rootUI.gameObject.SetActive(false);
+            cachedSelectedButton = button;
         }
 
         private void OnClickChoice(MarkerChoiceButton button)
         {
-            onChooseMarker?.Invoke(button.GetMarker());
-            rawImagePreviewMarker.texture = button.GetMarker().texture;
             SetUpImageButtonsStatus(button);
-            rootUI.gameObject.SetActive(false);
+            buttonSelect.interactable = true;
         }
 
         public void ShowChooserUI() => rootUI.gameObject.SetActive(true);
