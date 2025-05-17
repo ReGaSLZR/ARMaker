@@ -44,11 +44,6 @@ namespace ARMarker
             }
         }
 
-        private void Start()
-        {
-
-        }
-
         [ContextMenu("Select")]
         public override void Select()
         {

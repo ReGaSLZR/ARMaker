@@ -23,6 +23,8 @@ namespace ARMarker
         [SerializeField]
         private LayerResizeXYHandler resizeHandler;
 
+        public WorkLayerData Data => cachedData;
+
         private WorkLayerData cachedData;
         private BoxCollider boxCollider;
 

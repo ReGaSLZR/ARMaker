@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace ARMarker
 {
@@ -39,7 +40,7 @@ namespace ARMarker
 
         private Action<WorkLayer> onChangeActiveLayer;
         private Action<LayerEditMode> onUpdateLayerEditMode;
-        private Action<int> onChangeLayerCount;
+        private Action<WorkLayer> onAddNewLayer;
 
         public void DeleteClone()
         {
@@ -168,8 +169,8 @@ namespace ARMarker
             }
         }
 
-        public void RegisterOnChangeLayerCount(
-            Action<int> listener, bool deregisterInstead = false)
+        public void RegisterOnNewLayerAdded(
+            Action<WorkLayer> listener, bool deregisterInstead = false)
         {
             if (listener == null)
             {
@@ -178,11 +179,11 @@ namespace ARMarker
 
             if (deregisterInstead)
             {
-                onChangeLayerCount -= listener;
+                onAddNewLayer -= listener;
             }
             else
             {
-                onChangeLayerCount += listener;
+                onAddNewLayer += listener;
             }
         }
 
@@ -205,7 +206,7 @@ namespace ARMarker
             gameObject.SetActive(isEnabled);
         }
 
-        public void AddLayer(Sprite sprite, bool isTemporary = false)
+        public WorkLayer AddLayer(Sprite sprite, bool isTemporary = false)
         {
             var data = new WorkLayerData();
             data.ResetTransform();
@@ -229,10 +230,58 @@ namespace ARMarker
             }
             else
             {
-                cachedLayers.Add(layer);
+                RecordNewLayer(layer);
             }
 
-            onChangeLayerCount?.Invoke(cachedLayers.Count);
+            return layer;
+        }
+
+        private void RecordNewLayer(WorkLayer layer)
+        {
+            cachedLayers.Add(layer);
+            onAddNewLayer?.Invoke(layer);
+        }
+
+        public void DuplicateLayer(WorkLayer layerToDuplicate)
+        {
+            if (layerToDuplicate == null 
+                || layerToDuplicate.Data == null)
+            {
+                return;
+            }
+
+            layerToDuplicate.Deselect();
+
+            var layer = AddLayer(layerToDuplicate.Data.sprite, false);
+
+            layer.transform.localPosition = layerToDuplicate.transform.localPosition;
+            layer.transform.rotation = layerToDuplicate.transform.rotation;
+            layer.transform.localScale = layerToDuplicate.transform.localScale;
+        }
+
+        public void DeleteLayer(WorkLayer layerToDelete)
+        {
+            if (layerToDelete == null)
+            {
+                return;
+            }
+
+            for(int x=0; x<cachedLayers.Count; x++)
+            {
+                var layer = cachedLayers[x];
+
+                if (layer == null)
+                {
+                    continue;
+                }
+
+                if (layer.GetHashCode() == layerToDelete.GetHashCode())
+                {
+                    cachedLayers.RemoveAt(x);
+                    DestroyImmediate(layer.gameObject);
+                    return;
+                }
+            }
         }
 
     }
