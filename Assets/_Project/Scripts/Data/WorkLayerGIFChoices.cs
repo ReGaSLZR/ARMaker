@@ -5,8 +5,9 @@ namespace ARMarker
 {
 
     [CreateAssetMenu(
-        menuName = ConstantStrings.MENU_ROOT + "Create WorkLayer Animator Choices")]
-    public class AnimatorLayerChoices : ScriptableObject
+        menuName = ConstantStrings.MENU_ROOT 
+        + "Create WorkLayer GIF Choices")]
+    public class WorkLayerGIFChoices : ScriptableObject
     {
 
         [SerializeField]
