@@ -292,6 +292,11 @@ namespace ARMarker
             layer.transform.localPosition = layerToDuplicate.transform.localPosition;
             layer.transform.rotation = layerToDuplicate.transform.rotation;
             layer.transform.localScale = layerToDuplicate.transform.localScale;
+
+            if (layerToDuplicate.Data.controller != null)
+            {
+                layer.SetUpAnimator(layerToDuplicate.Data.controller);
+            }
         }
 
         public void DeleteLayer(WorkLayer layerToDelete)
