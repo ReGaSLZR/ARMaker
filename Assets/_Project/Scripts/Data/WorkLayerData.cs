@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Video;
 
 namespace ARMarker
 {
@@ -13,7 +14,8 @@ namespace ARMarker
         public Vector3 scale;
 
         public Sprite sprite;
-        public RuntimeAnimatorController controller; 
+        public RuntimeAnimatorController controller;
+        public VideoClip clip;
 
         public void ResetTransform()
         {

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Video;
 
 namespace ARMarker
 {
@@ -12,11 +13,16 @@ namespace ARMarker
         [SerializeField]
         private GameObject statusLocked;
 
+        [Space]
+
         [SerializeField]
         private SpriteRenderer spriteRenderer;
 
         [SerializeField]
         private Animator animator;
+
+        [SerializeField]
+        private VideoPlayerController videoController;
 
         [Space]
 
@@ -40,6 +46,8 @@ namespace ARMarker
         {
             boxCollider = GetComponent<BoxCollider>();
             statusLocked.SetActive(false);
+
+            videoController.gameObject.SetActive(false);
         }
 
         private void Start()
@@ -183,6 +191,23 @@ namespace ARMarker
 
             cachedData.controller = controller;
             animator.runtimeAnimatorController = controller;
+        }
+
+        public void SetUpVideoController(VideoClip clip)
+        {
+            if (clip == null)
+            {
+                Debug.LogError($"{GetType().Name}.SetUp(): " 
+                    + $"clip is null!", gameObject);
+                return;
+            }
+
+            cachedData.clip = clip;
+            animator.enabled = false;
+            spriteRenderer.enabled = false;
+
+            videoController.SetUp(clip);
+            videoController.gameObject.SetActive(true);
         }
 
         public void ToggleLockState()

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ARMarker
 {
@@ -7,17 +6,9 @@ namespace ARMarker
     [CreateAssetMenu(
         menuName = ConstantStrings.MENU_ROOT 
         + "Create WorkLayer GIF Choices")]
-    public class WorkLayerGIFChoices : ScriptableObject
+    public class WorkLayerGIFChoices : BaseWorkLayerChoices<AnimatorLayerData>
     {
 
-        [SerializeField]
-        private new string name;
-
-        [SerializeField]
-        private List<AnimatorLayerData> choices = new();
-
-        public string Name => name;
-        public List<AnimatorLayerData> Choices => choices;
 
     }
 

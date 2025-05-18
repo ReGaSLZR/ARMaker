@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f6fafe38efa4d40b6fd26b2bb358e2, type: 3}
+  m_Name: Video Choices
+  m_EditorClassIdentifier: 
+  name: Videos
+  choices:
+  - sprite: {fileID: 21300000, guid: ce451adf911a72447933f81252bf2bcb, type: 3}
+    clip: {fileID: 32900000, guid: 17360927d05894f45939e5ee54b88e16, type: 3}
+  - sprite: {fileID: 21300000, guid: dcebc01868b2afa4f98bee88c0553f8b, type: 3}
+    clip: {fileID: 32900000, guid: e17b47318efe5564cb1fb2f3b023bf6a, type: 3}
+  - sprite: {fileID: 21300000, guid: 3c10123487b6e494c8d0bf1893643d50, type: 3}
+    clip: {fileID: 32900000, guid: 941f06d709b52d0498f2149f996d46f0, type: 3}
+  - sprite: {fileID: 21300000, guid: a301a9b8d41bc9c4097521a3414e9add, type: 3}
+    clip: {fileID: 32900000, guid: a8001b2f073fab24e9f53482ef4b5370, type: 3}
+  - sprite: {fileID: 21300000, guid: afb14077db30c7740bac4ab54fcf8f8a, type: 3}
+    clip: {fileID: 32900000, guid: a5dccc4909a0b46dba0829b7da222596, type: 3}
+  - sprite: {fileID: 21300000, guid: 1490a4683ac42e440afca5987b93b8c8, type: 3}
+    clip: {fileID: 32900000, guid: 5a665b424f67bfc45a4d9645efc96185, type: 3}
+  - sprite: {fileID: 21300000, guid: 15a050da8f4b6ae44ae11d82a42c9ecb, type: 3}
+    clip: {fileID: 32900000, guid: 5a8ebdac9feb9034d8409553dfb2b3b4, type: 3}
