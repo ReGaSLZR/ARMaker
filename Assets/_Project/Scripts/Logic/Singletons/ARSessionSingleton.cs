@@ -124,7 +124,9 @@ namespace ARMarker
                 $".SetUpTracking(): cachedSession is null? " +
                 $"{cachedSession == null}", gameObject);
 
+#if PLATFORM_IOS || UNITY_IOS
             cachedSession.enabled = false;
+#endif
             cachedARManager = cachedSessionOrigin.gameObject
                 .AddComponent<ARTrackedImageManager>();
             cachedARManager.trackedImagePrefab = prefabARBlankObject;
@@ -170,8 +172,11 @@ namespace ARMarker
 
                 yield return null;
 
+#if PLATFORM_IOS || UNITY_IOS
                 cachedSession.Reset();
                 cachedSession.enabled = true;
+#endif
+
                 cachedARManager.enabled = true;
 
                 if (handle.status != AddReferenceImageJobStatus.Success)
