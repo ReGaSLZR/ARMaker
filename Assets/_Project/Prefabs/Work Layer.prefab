@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusLocked: {fileID: 2927927368850323465}
   spriteRenderer: {fileID: 1832763468787142184}
+  animator: {fileID: 598923543852899969}
   repositionHandler: {fileID: 461471239102353224}
   rotationHandler: {fileID: 1297581534872992407}
   resizeHandler: {fileID: 5522288439511303957}

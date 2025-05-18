@@ -34,15 +34,15 @@ namespace ARMarker
                 return;
             }
 
-            foreach (var sprite in choices.Choices)
+            foreach (var choice in choices.Choices)
             { 
-                if(sprite == null)
+                if(choice == null)
                 {
                     continue;
                 }
 
                 var button = Instantiate(prefabButton, rootChoicesButton);
-                button.SetUp(sprite);
+                button.SetUp(choice);
                 button.RegisterOnClick(OnClickChoice);
             }
         }

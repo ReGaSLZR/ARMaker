@@ -17,7 +17,45 @@ namespace ARMarker
         private WorkLayerGIFChoices choices;
 
         [SerializeField]
-        private SpriteChoiceButton prefabButton;
+        private GIFChoiceButton prefabButton;
+
+        private void Start()
+        {
+            SetUpButtons();
+        }
+
+        private void SetUpButtons()
+        {
+            if (choices == null
+                || choices.Choices.Count == 0)
+            {
+                Debug.LogError($"{GetType().Name} " +
+                    $"Missing Choices!", gameObject);
+                return;
+            }
+
+            foreach (var choice in choices.Choices)
+            {
+                if (choice == null)
+                {
+                    continue;
+                }
+
+                var button = Instantiate(prefabButton, rootChoicesButton);
+                button.SetUp(choice);
+                button.RegisterOnClick(OnClickChoice);
+            }
+        }
+
+        private void OnClickChoice(AnimatorLayerData data)
+        {
+            if (data == null)
+            {
+                return;
+            }
+
+            WorkSpaceSingleton.Instance.AddAnimatedLayer(data);
+        }
 
     }
 

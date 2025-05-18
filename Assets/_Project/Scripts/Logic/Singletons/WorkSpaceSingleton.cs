@@ -224,7 +224,29 @@ namespace ARMarker
             gameObject.SetActive(isEnabled);
         }
 
-        public WorkLayer AddLayer(Sprite sprite, bool isTemporary = false)
+        public WorkLayer AddAnimatedLayer(AnimatorLayerData data)
+        {
+            if (data == null || data.Sprite == null)
+            {
+                Debug.LogError($"{GetType().Name} Animator data is null", gameObject);
+                return null;
+            }
+
+            var layer = AddLayer(data.Sprite, false);
+
+            if (layer == null)
+            {
+                Debug.LogError($"{GetType().Name} Layer creation error", gameObject);
+                return null;
+            }
+
+            layer.SetUpAnimator(data.Controller);
+            return layer;
+        }
+
+        public WorkLayer AddLayer(
+            Sprite sprite, 
+            bool isTemporary = false)
         {
             var data = new WorkLayerData();
             data.ResetTransform();

@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: AR Marker Choices
   m_EditorClassIdentifier: 
   choices:
-  - {fileID: 21300000, guid: 3a1f65c993b80d148898640037a5d29d, type: 3}
-  - {fileID: 21300000, guid: c751414d73734e849a1fbc03d04736f8, type: 3}
-  - {fileID: 21300000, guid: 5134e0dc0b235e743a50a703653832f3, type: 3}
-  - {fileID: 21300000, guid: 53764f3030fced14497341670c3f4ab4, type: 3}
+  - {fileID: 21300000, guid: c0be1599c426feb46b1b1a5c7ff54370, type: 3}
+  - {fileID: 21300000, guid: 25bcb3c819fa9554daa2e2cafb78c517, type: 3}
+  - {fileID: 21300000, guid: e705e40ce7ea8b4428ad562c9fed4a97, type: 3}
+  - {fileID: 21300000, guid: f704aa34a4734d542ac5fb07a3fe63f0, type: 3}
+  - {fileID: 21300000, guid: a490e49ffa9d0ce41baf432d07840785, type: 3}
+  - {fileID: 21300000, guid: 41e50c70be70b514092ca92a8a60a7bc, type: 3}

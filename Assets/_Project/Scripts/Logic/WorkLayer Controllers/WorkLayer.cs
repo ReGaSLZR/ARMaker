@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Animations;
+using UnityEngine;
 
 namespace ARMarker
 {
@@ -14,6 +15,9 @@ namespace ARMarker
 
         [SerializeField]
         private SpriteRenderer spriteRenderer;
+
+        [SerializeField]
+        private Animator animator;
 
         [Space]
 
@@ -167,6 +171,19 @@ namespace ARMarker
             boxCollider.enabled = !data.isTemporary;
 
             SetUpSprite();
+        }
+
+        public void SetUpAnimator(AnimatorController controller)
+        {
+            if (controller == null)
+            {
+                Debug.LogError($"{GetType().Name}.SetUp(): " +
+                    $"controller is null!", gameObject);
+                return;
+            }
+
+            cachedData.controller = controller;
+            animator.runtimeAnimatorController = controller;
         }
 
         public void ToggleLockState()
