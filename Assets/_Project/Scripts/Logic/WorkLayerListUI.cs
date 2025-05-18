@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ARMarker
 {
@@ -17,6 +18,9 @@ namespace ARMarker
         [SerializeField]
         private GameObject rootTempViewOnEmpty;
 
+        [SerializeField]
+        private Button buttonTempLayer;
+
         [Header("Data")]
 
         [SerializeField]
@@ -28,11 +32,17 @@ namespace ARMarker
                 .RegisterOnNewLayerAdded(OnNewLayerAdded);
             WorkSpaceSingleton.Instance
                 .RegisterOnLayerCountChange(OnLayerCountChange);
-            GameManager.Instance.RegisterOnError(OnError);
+            WorkSpaceSingleton.Instance
+                .RegisterOnUpdatetempLayer(OnChangeTempLayer);
+
+            buttonTempLayer.onClick.AddListener(WorkSpaceSingleton.Instance.ToggleTempLayer);
 
             rootTempViewOnEmpty.SetActive(true);
             rootUI.SetActive(false);
+
             SetUpCachedLayers();
+            OnChangeTempLayer(WorkSpaceSingleton.Instance
+                .GetTempLayer());
         }
 
         private void OnDestroy()
@@ -41,17 +51,8 @@ namespace ARMarker
                 .RegisterOnNewLayerAdded(OnNewLayerAdded, true);
             WorkSpaceSingleton.Instance
                 .RegisterOnLayerCountChange(OnLayerCountChange, true);
-            GameManager.Instance.RegisterOnError(OnError, true);
-        }
-
-        private void OnError(string error)
-        {
-            if (GameManager.Instance.GetMarker() == null)
-            {
-                return;
-            }
-
-            rootUI.SetActive(true);
+            WorkSpaceSingleton.Instance
+                .RegisterOnUpdatetempLayer(OnChangeTempLayer, true);
         }
 
         private void SetUpCachedLayers()
@@ -62,6 +63,11 @@ namespace ARMarker
             {
                 OnNewLayerAdded(layer);
             }
+        }
+
+        private void OnChangeTempLayer(WorkLayer tempLayer)
+        {
+            buttonTempLayer.interactable = tempLayer != null;
         }
 
         private void OnLayerCountChange(int count)

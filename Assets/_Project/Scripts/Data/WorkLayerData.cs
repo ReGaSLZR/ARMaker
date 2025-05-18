@@ -1,5 +1,4 @@
-﻿using UnityEditor.Animations;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ARMarker
 {
@@ -14,7 +13,7 @@ namespace ARMarker
         public Vector3 scale;
 
         public Sprite sprite;
-        public AnimatorController controller; 
+        public RuntimeAnimatorController controller; 
 
         public void ResetTransform()
         {

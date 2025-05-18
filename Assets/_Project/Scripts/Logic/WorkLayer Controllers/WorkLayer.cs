@@ -1,5 +1,4 @@
-﻿using UnityEditor.Animations;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ARMarker
 {
@@ -173,7 +172,7 @@ namespace ARMarker
             SetUpSprite();
         }
 
-        public void SetUpAnimator(AnimatorController controller)
+        public void SetUpAnimator(RuntimeAnimatorController controller)
         {
             if (controller == null)
             {

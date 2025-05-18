@@ -41,6 +41,7 @@ namespace ARMarker
         private Action<LayerEditMode> onUpdateLayerEditMode;
         private Action<WorkLayer> onAddNewLayer;
         private Action<int> onLayerCountChange;
+        private Action<WorkLayer> onUpdateTempLayer;
 
         public void DeleteClone()
         {
@@ -51,7 +52,20 @@ namespace ARMarker
             }
         }
 
+        public WorkLayer GetTempLayer() => cachedTempLayerForMarker;
+
         public GameObject GetClone() => cachedClone;
+
+        public void ToggleTempLayer()
+        { 
+            if(cachedTempLayerForMarker == null)
+            {
+                return;
+            }
+
+            cachedTempLayerForMarker.gameObject.SetActive(
+                !cachedTempLayerForMarker.gameObject.activeInHierarchy);
+        }
 
         public Quaternion GetDesiredCloneRotation() 
         {
@@ -131,6 +145,24 @@ namespace ARMarker
         {
             cachedLayer = layer;
             onChangeActiveLayer(layer);
+        }
+
+        public void RegisterOnUpdatetempLayer(
+            Action<WorkLayer> listener, bool deregisterInstead = false)
+        {
+            if (listener == null)
+            {
+                return;
+            }
+
+            if (deregisterInstead)
+            {
+                onUpdateTempLayer -= listener;
+            } 
+            else
+            {
+                onUpdateTempLayer += listener;
+            }
         }
 
         public void RegisterOnChangeLayer(
@@ -267,14 +299,15 @@ namespace ARMarker
             if (isTemporary)
             {
                 cachedTempLayerForMarker = layer;
+                onUpdateTempLayer?.Invoke(cachedTempLayerForMarker);
             }
             else
             {
                 cachedLayers.Add(layer);
                 onAddNewLayer?.Invoke(layer);
+                onLayerCountChange?.Invoke(cachedLayers.Count);
             }
 
-            onLayerCountChange?.Invoke(cachedLayers.Count);
             return layer;
         }
 

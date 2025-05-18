@@ -1,5 +1,4 @@
-﻿using UnityEditor.Animations;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ARMarker
 {
@@ -12,10 +11,10 @@ namespace ARMarker
         private Sprite sprite;
 
         [SerializeField]
-        private AnimatorController controller;
+        private RuntimeAnimatorController controller;
 
         public Sprite Sprite => sprite;
-        public AnimatorController Controller => controller;
+        public RuntimeAnimatorController Controller => controller;
 
     }
 
