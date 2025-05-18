@@ -20,7 +20,7 @@ namespace ARMarker
         [Header("UI Elements")]
 
         [SerializeField]
-        private RawImage rawImagePreviewMarker;
+        private RawImage[] rawImagePreviewMarkers;
 
         [SerializeField]
         private Transform rootUI;
@@ -76,8 +76,7 @@ namespace ARMarker
             rootUI.gameObject.SetActive(false);
             onChooseMarker?.Invoke(
                 cachedSelectedButton.GetMarker());
-            rawImagePreviewMarker.texture = 
-                cachedSelectedButton.GetMarker().texture;
+            SetCachedMarker();
         }
 
         private void SetCachedMarker()
@@ -87,7 +86,17 @@ namespace ARMarker
                 return;
             }
 
-            rawImagePreviewMarker.texture = GameManager.Instance.GetMarker().texture;
+            var marker = GameManager.Instance.GetMarker().texture;
+
+            foreach (var rawImage in rawImagePreviewMarkers)
+            {
+                if (rawImage == null)
+                {
+                    continue;
+                }
+
+                rawImage.texture = marker;
+            }
         }
 
         public void RegisterOnChooseMarker(Action<Sprite> listener)

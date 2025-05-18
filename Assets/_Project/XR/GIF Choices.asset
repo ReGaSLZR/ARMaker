@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa12bab5ae4f4d4d9b27982db8ef3df, type: 3}
+  m_Name: GIF Choices
+  m_EditorClassIdentifier: 
+  name: GIFs
+  choices:
+  - sprite: {fileID: -1151396042, guid: 6479f5b35596645878058e9ca740d0b7, type: 3}
+    controller: {fileID: 9100000, guid: 18cfa54081eaf49ceb5fa0654a9f883c, type: 2}
+  - sprite: {fileID: 849068276, guid: 9569dcf33afd449dcae1cffa14fcee06, type: 3}
+    controller: {fileID: 9100000, guid: 8c9ab854a4e684024bf7b4491d89c1d1, type: 2}
+  - sprite: {fileID: -240039289, guid: 20d0e0d239abb4342b7c8982de396ef0, type: 3}
+    controller: {fileID: 9100000, guid: d0501a19ecbe149cb9debec500aec43d, type: 2}
+  - sprite: {fileID: -1586358849, guid: 7dd3ce225b52b4ebd93933eb99b831a0, type: 3}
+    controller: {fileID: 9100000, guid: dcb6d855adfce47e3ac65d60e024a432, type: 2}
+  - sprite: {fileID: 212914015, guid: 4b25ae5d8fb31456b829bf7fc9e24ab0, type: 3}
+    controller: {fileID: 9100000, guid: 6f1f360b87cf74d75bc131f73a3472f8, type: 2}
+  - sprite: {fileID: -1004525381, guid: 3070a8996cfc84496ab62c4b541b2826, type: 3}
+    controller: {fileID: 9100000, guid: efafe0a74d0bb4ffba8f3e0caa52e253, type: 2}
+  - sprite: {fileID: -1764475891, guid: 2c4dd114f5fce45aa9a20976d1cb1b02, type: 3}
+    controller: {fileID: 9100000, guid: 7cceee12d9cab40828f71ae627aff20b, type: 2}
+  - sprite: {fileID: -1049722702, guid: d0fca7dff8c904f03a044323ade1ae81, type: 3}
+    controller: {fileID: 9100000, guid: b3a38890be52043bfa64dfa82026d8fe, type: 2}
+  - sprite: {fileID: -1069954401, guid: dd4b0a19333124224b3940e2f87ea8cf, type: 3}
+    controller: {fileID: 9100000, guid: 143117bb4ece9438face4f6fb6e7a8f0, type: 2}

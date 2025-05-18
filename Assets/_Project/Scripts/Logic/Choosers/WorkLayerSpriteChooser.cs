@@ -11,9 +11,6 @@ namespace ARMarker
         [SerializeField]
         private Transform rootChoicesButton;
 
-        [SerializeField]
-        private GameObject rootChoicesUI;
-
         [Header("Data")]
 
         [SerializeField]
@@ -25,20 +22,6 @@ namespace ARMarker
         private void Start()
         {
             SetUpButtons();
-
-            WorkSpaceSingleton.Instance
-                .RegisterOnNewLayerAdded(OnAddNewLayer);
-        }
-
-        private void OnDestroy()
-        {
-            WorkSpaceSingleton.Instance
-                .RegisterOnNewLayerAdded(OnAddNewLayer, true);
-        }
-
-        private void OnAddNewLayer(WorkLayer layer)
-        { 
-            rootChoicesUI.SetActive(false);
         }
 
         private void SetUpButtons()

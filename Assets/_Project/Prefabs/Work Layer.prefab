@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 461471239102353224}
   - component: {fileID: 1297581534872992407}
   - component: {fileID: 5522288439511303957}
+  - component: {fileID: 598923543852899969}
   m_Layer: 0
   m_Name: Work Layer
   m_TagString: Untagged
@@ -176,6 +177,27 @@ MonoBehaviour:
   cornerDotPrefab: {fileID: 4496111403058207063, guid: 979c9030280d0554db5f10ac6377da11,
     type: 3}
   spriteRenderer: {fileID: 1832763468787142184}
+--- !u!95 &598923543852899969
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832763468787142186}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2927927368850323465
 GameObject:
   m_ObjectHideFlags: 0
