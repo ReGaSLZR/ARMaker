@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2267194756917651682}
   - component: {fileID: 2267194756917651683}
   - component: {fileID: 2267194756917651692}
-  - component: {fileID: 8561106591117359186}
+  - component: {fileID: 7419105007936526141}
   m_Layer: 5
   m_Name: GIF Choice Button
   m_TagString: Untagged
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8561106591117359186
+--- !u!114 &7419105007936526141
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2267194756917651694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 095bd7135a6ab254a8aa3ec8875e3798, type: 3}
+  m_Script: {fileID: 11500000, guid: c576e310e9ca5154a9bccecb8a899fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2267194756917651692}

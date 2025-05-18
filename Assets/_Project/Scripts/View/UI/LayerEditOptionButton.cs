@@ -38,7 +38,7 @@ namespace ARMarker
 
             if (isDefaultMode)
             {
-                Debug.Log($"is default mode called", gameObject);
+                Debug.Log($"{GetType().Name} is default mode called", gameObject);
                 WorkSpaceSingleton.Instance.SetLayerEditMode(mode);
             }
         }

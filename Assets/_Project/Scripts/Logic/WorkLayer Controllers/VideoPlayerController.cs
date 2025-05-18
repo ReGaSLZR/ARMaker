@@ -20,6 +20,7 @@ namespace ARMarker
                 return;
             }
 
+            videoPlayer.clip = clip;
             videoPlayer.prepareCompleted += OnVideoPrepared;
             videoPlayer.Prepare();            
         }

@@ -4,22 +4,26 @@ using UnityEngine.UI;
 
 namespace ARMarker
 {
-
-    public class GIFChoiceButton : MonoBehaviour
+    public abstract class BaseChoiceButton<T> 
+        : MonoBehaviour
+        where T : class
     {
 
         [SerializeField]
-        private Button button;
+        protected Button button;
 
         [SerializeField]
-        private RawImage rawImage;
+        protected RawImage rawImage;
 
-        private AnimatorLayerData cachedData;
+        protected T cachedData;
 
-        public void SetUp(AnimatorLayerData data)
+        protected void SetImage(Texture2D texture)
         {
-            cachedData = data;
+            rawImage.texture = texture;
+        }
 
+        public virtual void SetUp(T data)
+        {
             if (data == null)
             {
                 Debug.LogError($"{GetType().Name}.SetUp(): " +
@@ -27,14 +31,14 @@ namespace ARMarker
                 return;
             }
 
-            rawImage.texture = data.Sprite.texture;
+            cachedData = data;
         }
 
-        public void RegisterOnClick(Action<AnimatorLayerData> listener)
+        public void RegisterOnClick(Action<T> listener)
         {
             if (listener == null)
             {
-                Debug.LogError($"{GetType().Name}.RegisterOnClick(): " 
+                Debug.LogError($"{GetType().Name}.RegisterOnClick(): "
                     + $"Listener is NULL!!!", gameObject);
                 return;
             }

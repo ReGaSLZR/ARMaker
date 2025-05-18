@@ -46,8 +46,6 @@ namespace ARMarker
         {
             boxCollider = GetComponent<BoxCollider>();
             statusLocked.SetActive(false);
-
-            videoController.gameObject.SetActive(false);
         }
 
         private void Start()

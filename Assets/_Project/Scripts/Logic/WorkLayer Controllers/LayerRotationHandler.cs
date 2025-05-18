@@ -129,9 +129,9 @@ namespace ARMarker
 
         void ClearCircles()
         {
-            if (xCircle != null) Destroy(xCircle.gameObject);
-            if (yCircle != null) Destroy(yCircle.gameObject);
-            if (zCircle != null) Destroy(zCircle.gameObject);
+            if (xCircle != null) DestroyImmediate(xCircle.gameObject);
+            if (yCircle != null) DestroyImmediate(yCircle.gameObject);
+            if (zCircle != null) DestroyImmediate(zCircle.gameObject);
 
             xCircle = null;
             yCircle = null;

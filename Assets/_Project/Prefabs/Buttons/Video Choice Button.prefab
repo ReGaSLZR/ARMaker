@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2267194756917651682}
   - component: {fileID: 2267194756917651683}
   - component: {fileID: 2267194756917651692}
-  - component: {fileID: 8327058236412820903}
+  - component: {fileID: 5011075819076585267}
   m_Layer: 5
-  m_Name: Sprite Choice Button
+  m_Name: Video Choice Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8327058236412820903
+--- !u!114 &5011075819076585267
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2267194756917651694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d87dc673b9e8d5b4ca0d3231f8643642, type: 3}
+  m_Script: {fileID: 11500000, guid: f1acc39a5469009469ef6042caed7205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2267194756917651692}

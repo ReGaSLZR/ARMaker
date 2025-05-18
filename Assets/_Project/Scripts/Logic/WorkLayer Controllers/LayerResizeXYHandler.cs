@@ -31,6 +31,12 @@ namespace ARMarker
         {
             // Set up LineRenderer
             lineRenderer = gameObject.AddComponent<LineRenderer>();
+
+            if (lineRenderer == null)
+            {
+                return;
+            }
+
             lineRenderer.startWidth = lineThickness;
             lineRenderer.endWidth = lineThickness;
             lineRenderer.positionCount = 5;  // 4 corners + 1 to close the rectangle
@@ -53,7 +59,10 @@ namespace ARMarker
         [ContextMenu("Deselect")]
         public override void Deselect()
         {
-            lineRenderer.enabled = false;
+            if (lineRenderer != null)
+            {
+                lineRenderer.enabled = false;
+            }
 
             //// Optionally, make corner dots invisible when deselected
             //if (selectedObject == null)

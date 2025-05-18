@@ -108,7 +108,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102692019791298563}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: a5dccc4909a0b46dba0829b7da222596, type: 3}
+  m_VideoClip: {fileID: 0}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 1060531928933745047}
-  maxWidthHeight: 1
+  maxWidthHeight: 3.67
 --- !u!1 &1832763468787142186
 GameObject:
   m_ObjectHideFlags: 0

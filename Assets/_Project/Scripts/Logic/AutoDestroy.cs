@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace ARMarker
 {
@@ -8,9 +9,21 @@ namespace ARMarker
         [SerializeField]
         private float countdown = 1f;
 
-        private void Start()
+        [SerializeField]
+        private bool autoDestroy = true;
+
+        private IEnumerator Start()
         {
-            Destroy(gameObject, countdown);
+            yield return new WaitForSeconds(countdown);
+
+            if (autoDestroy)
+            {
+                DestroyImmediate(gameObject);
+            }
+            else
+            { 
+                gameObject.SetActive(false);
+            }
         }
 
     }

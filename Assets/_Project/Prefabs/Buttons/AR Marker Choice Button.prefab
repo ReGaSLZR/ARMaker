@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7919630023485680159}
   - component: {fileID: 6635158149081546446}
   m_Layer: 5
-  m_Name: Marker Choice Button
+  m_Name: AR Marker Choice Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
