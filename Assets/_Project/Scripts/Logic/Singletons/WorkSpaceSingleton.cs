@@ -276,6 +276,26 @@ namespace ARMarker
             return layer;
         }
 
+        public WorkLayer AddSFXLayer(SFXLayerData data)
+        {
+            if (data == null || data.Sprite == null)
+            {
+                Debug.LogError($"{GetType().Name} SFX data is null", gameObject);
+                return null;
+            }
+
+            var layer = AddLayer(data.Sprite, false);
+
+            if (layer == null)
+            {
+                Debug.LogError($"{GetType().Name} Layer creation error", gameObject);
+                return null;
+            }
+
+            layer.SetUpSFX(data.Clip);
+            return layer;
+        }
+
         public WorkLayer AddAnimatedLayer(AnimatorLayerData data)
         {
             if (data == null || data.Sprite == null)
@@ -346,14 +366,9 @@ namespace ARMarker
             layer.transform.rotation = layerToDuplicate.transform.rotation;
             layer.transform.localScale = layerToDuplicate.transform.localScale;
 
-            if (layerToDuplicate.Data.controller != null)
-            {
-                layer.SetUpAnimator(layerToDuplicate.Data.controller);
-            }
-            else if (layerToDuplicate.Data.clip != null)
-            { 
-                layer.SetUpVideoController(layerToDuplicate.Data.clip);
-            }
+            layer.SetUpAnimator(layerToDuplicate.Data.controller);
+            layer.SetUpVideoController(layerToDuplicate.Data.videoClip);
+            layer.SetUpSFX(layerToDuplicate.Data.audioClip);
         }
 
         public void DeleteLayer(WorkLayer layerToDelete)

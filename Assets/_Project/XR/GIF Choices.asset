@@ -9,26 +9,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afa12bab5ae4f4d4d9b27982db8ef3df, type: 3}
+  m_Script: {fileID: 11500000, guid: 85e4e4b14c2f2c444b6a6baa3e20fae7, type: 3}
   m_Name: GIF Choices
   m_EditorClassIdentifier: 
   name: GIFs
   choices:
-  - sprite: {fileID: 21300000, guid: 7fead784561d22747b62f7c2997beec6, type: 3}
+  - sprite: {fileID: 21300000, guid: e705e40ce7ea8b4428ad562c9fed4a97, type: 3}
     controller: {fileID: 9100000, guid: 18cfa54081eaf49ceb5fa0654a9f883c, type: 2}
   - sprite: {fileID: 21300000, guid: 7dbdacb3626bdb3428b5fd818f0da07d, type: 3}
     controller: {fileID: 9100000, guid: 8c9ab854a4e684024bf7b4491d89c1d1, type: 2}
-  - sprite: {fileID: 21300000, guid: 25bcb3c819fa9554daa2e2cafb78c517, type: 3}
+  - sprite: {fileID: 21300000, guid: dcebc01868b2afa4f98bee88c0553f8b, type: 3}
+    controller: {fileID: 9100000, guid: 4e9e2c0fd7e1d4a6a9f932e8b77eb5c1, type: 2}
+  - sprite: {fileID: 21300000, guid: daf3b13fccac4b84eaedcd1647566f56, type: 3}
     controller: {fileID: 9100000, guid: d0501a19ecbe149cb9debec500aec43d, type: 2}
   - sprite: {fileID: 21300000, guid: 924f2f88a0d498143b0c7bf6c1ae780d, type: 3}
     controller: {fileID: 9100000, guid: dcb6d855adfce47e3ac65d60e024a432, type: 2}
-  - sprite: {fileID: 21300000, guid: 41e50c70be70b514092ca92a8a60a7bc, type: 3}
+  - sprite: {fileID: 21300000, guid: afb14077db30c7740bac4ab54fcf8f8a, type: 3}
     controller: {fileID: 9100000, guid: 6f1f360b87cf74d75bc131f73a3472f8, type: 2}
-  - sprite: {fileID: 21300000, guid: 1c1e7a617cf2ab64eae71bd48eff1afd, type: 3}
+  - sprite: {fileID: 21300000, guid: c0be1599c426feb46b1b1a5c7ff54370, type: 3}
     controller: {fileID: 9100000, guid: efafe0a74d0bb4ffba8f3e0caa52e253, type: 2}
+  - sprite: {fileID: 21300000, guid: 74d9a2fc9d2f7ce46bbd6824bc11be9f, type: 3}
+    controller: {fileID: 9100000, guid: d397948887c594b74a5a61a90daf4861, type: 2}
   - sprite: {fileID: 21300000, guid: 1122fca9b10192e418dccd0a86f09b6e, type: 3}
     controller: {fileID: 9100000, guid: 7cceee12d9cab40828f71ae627aff20b, type: 2}
-  - sprite: {fileID: 21300000, guid: 804b06a3d88e294409a4b24f3eef67ad, type: 3}
+  - sprite: {fileID: 21300000, guid: adedd006a238bc4478e9f4626ce9fa41, type: 3}
     controller: {fileID: 9100000, guid: b3a38890be52043bfa64dfa82026d8fe, type: 2}
   - sprite: {fileID: 21300000, guid: a490e49ffa9d0ce41baf432d07840785, type: 3}
     controller: {fileID: 9100000, guid: 143117bb4ece9438face4f6fb6e7a8f0, type: 2}

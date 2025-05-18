@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,6 +36,11 @@ namespace ARMarker
             buttonLock.onClick.AddListener(LockLayer);
         }
 
+        private void OnEnable()
+        {
+            StartCoroutine(C_DelayedCheckForAudio());
+        }
+
         private void LockLayer()
         {
             if (cachedLayer == null)
@@ -66,6 +72,21 @@ namespace ARMarker
             cachedLayer = layer;
             textName.text = layer.Data.sprite.name;
             rawImagePreview.texture = layer.Data.sprite.texture;
+
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(C_DelayedCheckForAudio());
+            }
+        }
+
+        private IEnumerator C_DelayedCheckForAudio()
+        { 
+            yield return null;
+
+            if (cachedLayer.Data.audioClip != null)
+            {
+                buttonLock.gameObject.SetActive(false);
+            }
         }
 
     }

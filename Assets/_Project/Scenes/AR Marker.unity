@@ -1096,7 +1096,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5849056, g: 0, b: 0, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1114,7 +1114,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1549954576}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1549954575}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1549954576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1165,7 +1177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9192b01e103ba47adb36da7a4a143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneTarget: 0
+  sceneTarget: 1
 --- !u!1 &1680339923
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,7 +25,7 @@ namespace ARMarker
             ARSessionSingleton.Instance
                 .RegisterOnStatusChange(OnARStatusChange);
 
-            LoadWorkSpace();
+            //LoadWorkSpace();
         }
 
         public Sprite GetMarker() => cachedMarker;

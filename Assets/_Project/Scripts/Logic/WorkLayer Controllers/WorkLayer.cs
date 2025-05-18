@@ -24,6 +24,9 @@ namespace ARMarker
         [SerializeField]
         private VideoPlayerController videoController;
 
+        [SerializeField]
+        private AudioSource audioSource;
+
         [Space]
 
         [SerializeField]
@@ -191,6 +194,27 @@ namespace ARMarker
             animator.runtimeAnimatorController = controller;
         }
 
+        public void SetUpSFX(AudioClip clip)
+        {
+            if (clip == null)
+            {
+                Debug.LogError($"{GetType().Name}.SetUp(): " +
+                    $"clip is null!", gameObject);
+                return;
+            }
+
+            cachedData.audioClip = clip;
+
+            animator.enabled = false;
+            spriteRenderer.enabled = false;
+            videoController.gameObject.SetActive(false);
+            boxCollider.enabled = false;
+
+            audioSource.enabled = true;
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
+
         public void SetUpVideoController(VideoClip clip)
         {
             if (clip == null)
@@ -200,7 +224,7 @@ namespace ARMarker
                 return;
             }
 
-            cachedData.clip = clip;
+            cachedData.videoClip = clip;
             animator.enabled = false;
             spriteRenderer.enabled = false;
 
@@ -210,6 +234,11 @@ namespace ARMarker
 
         public void ToggleLockState()
         {
+            if (cachedData.audioClip != null)
+            {
+                return;
+            }
+
             isLocked = !isLocked;
             boxCollider.enabled = !isLocked;
             statusLocked.SetActive(isLocked);

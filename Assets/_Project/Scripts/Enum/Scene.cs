@@ -7,8 +7,9 @@ namespace ARMarker
     public enum Scene
     {
 
-        WorkSpace = 0,
-        ARPreview = 1,
+        Splash = 0,
+        WorkSpace = 1,
+        ARPreview = 2,
 
 
     }
