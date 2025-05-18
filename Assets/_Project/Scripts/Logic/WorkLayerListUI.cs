@@ -37,12 +37,14 @@ namespace ARMarker
 
             buttonTempLayer.onClick.AddListener(WorkSpaceSingleton.Instance.ToggleTempLayer);
 
-            rootTempViewOnEmpty.SetActive(true);
             rootUI.SetActive(false);
 
             SetUpCachedLayers();
             OnChangeTempLayer(WorkSpaceSingleton.Instance
                 .GetTempLayer());
+
+            OnLayerCountChange(WorkSpaceSingleton.Instance
+                .GetLayers().Count);
         }
 
         private void OnDestroy()
