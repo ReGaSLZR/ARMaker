@@ -31,6 +31,8 @@ namespace ARMarker
         private Action<ARStatus> onStatusChange;
         private ARStatus cachedStatus;
 
+        private int runCount = 0;
+
         protected override void Awake()
         {
             base.Awake();
@@ -124,9 +126,11 @@ namespace ARMarker
                 $".SetUpTracking(): cachedSession is null? " +
                 $"{cachedSession == null}", gameObject);
 
-#if PLATFORM_IOS || UNITY_IOS
-            cachedSession.enabled = false;
-#endif
+            runCount++;
+
+//#if PLATFORM_IOS || UNITY_IOS
+//            cachedSession.enabled = false;
+//#endif
             cachedARManager = cachedSessionOrigin.gameObject
                 .AddComponent<ARTrackedImageManager>();
             cachedARManager.trackedImagePrefab = prefabARBlankObject;
@@ -173,8 +177,11 @@ namespace ARMarker
                 yield return null;
 
 #if PLATFORM_IOS || UNITY_IOS
-                cachedSession.Reset();
-                cachedSession.enabled = true;
+                if (runCount > 1)
+                {
+                    cachedSession.Reset();
+                }
+                //cachedSession.enabled = true;
 #endif
 
                 cachedARManager.enabled = true;
