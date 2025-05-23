@@ -36,7 +36,10 @@ namespace ARMarker
         private string tempLayerObjectName;
 
         [SerializeField]
-        private Vector3 positionForTempLayer;
+        private float layerStartingPositionZ;
+
+        [SerializeField]
+        private float layerPositionZIncrement;
 
         private readonly List<WorkLayer> cachedLayers = new();
         private GameObject cachedClone;
@@ -50,6 +53,8 @@ namespace ARMarker
         private Action<WorkLayer> onAddNewLayer;
         private Action<int> onLayerCountChange;
         private Action<WorkLayer> onUpdateTempLayer;
+
+        private float cachedLayerPositionZ;
 
         public void DeleteClone()
         {
@@ -347,13 +352,19 @@ namespace ARMarker
             if (isTemporary)
             {
                 layer.name = tempLayerObjectName;
-                layer.transform.localPosition = positionForTempLayer;
+                layer.transform.localPosition = new Vector3(0, 0, layerStartingPositionZ);
                 cachedTempLayerForMarker = layer;
                 onUpdateTempLayer?.Invoke(cachedTempLayerForMarker);
             }
             else
             {
                 cachedLayers.Add(layer);
+                cachedLayerPositionZ = (cachedLayerPositionZ == 0f)
+                    ? (layerStartingPositionZ - layerPositionZIncrement)
+                    : (cachedLayerPositionZ - layerPositionZIncrement);
+
+                layer.transform.localPosition = new Vector3(0, 0, cachedLayerPositionZ);
+
                 onAddNewLayer?.Invoke(layer);
                 onLayerCountChange?.Invoke(cachedLayers.Count);
             }

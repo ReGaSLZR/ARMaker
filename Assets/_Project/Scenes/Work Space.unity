@@ -5191,8 +5191,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6265788326133848342, guid: 7e9c5ca63cf639c4eb831832548471e3,
         type: 3}
+      propertyPath: layerStartingPositionZ
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265788326133848342, guid: 7e9c5ca63cf639c4eb831832548471e3,
+        type: 3}
       propertyPath: positionForTempLayer.z
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265788326133848342, guid: 7e9c5ca63cf639c4eb831832548471e3,
+        type: 3}
+      propertyPath: layerPositionZIncrement
+      value: 0.015
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e9c5ca63cf639c4eb831832548471e3, type: 3}
