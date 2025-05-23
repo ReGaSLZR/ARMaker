@@ -30,6 +30,14 @@ namespace ARMarker
         [SerializeField]
         private Vector3 cloneScale;
 
+        [Header("Other Settings")]
+
+        [SerializeField]
+        private string tempLayerObjectName;
+
+        [SerializeField]
+        private Vector3 positionForTempLayer;
+
         private readonly List<WorkLayer> cachedLayers = new();
         private GameObject cachedClone;
         private LayerEditMode cachedLayerEditMode = LayerEditMode.UNSET;
@@ -338,6 +346,8 @@ namespace ARMarker
 
             if (isTemporary)
             {
+                layer.name = tempLayerObjectName;
+                layer.transform.localPosition = positionForTempLayer;
                 cachedTempLayerForMarker = layer;
                 onUpdateTempLayer?.Invoke(cachedTempLayerForMarker);
             }
