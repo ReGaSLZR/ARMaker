@@ -128,9 +128,6 @@ namespace ARMarker
 
             runCount++;
 
-//#if PLATFORM_IOS || UNITY_IOS
-//            cachedSession.enabled = false;
-//#endif
             cachedARManager = cachedSessionOrigin.gameObject
                 .AddComponent<ARTrackedImageManager>();
             cachedARManager.trackedImagePrefab = prefabARBlankObject;
@@ -176,13 +173,10 @@ namespace ARMarker
 
                 yield return null;
 
-#if PLATFORM_IOS || UNITY_IOS
                 if (runCount > 1)
                 {
                     cachedSession.Reset();
                 }
-                //cachedSession.enabled = true;
-#endif
 
                 cachedARManager.enabled = true;
 
