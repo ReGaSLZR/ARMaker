@@ -12,6 +12,12 @@ namespace ARMarker
         [SerializeField]
         private Transform rootChoicesButton;
 
+        [SerializeField]
+        private ScrollRect scrollRect;
+
+        [SerializeField]
+        private RectTransform dropAreaRect;
+
         [Header("Data")]
 
         [SerializeField]
@@ -34,9 +40,6 @@ namespace ARMarker
                     $"Missing Choices!", gameObject);
                 return;
             }
-
-            ScrollRect scrollRect = rootChoicesButton.GetComponentInParent<ScrollRect>(true);
-            RectTransform dropAreaRect = FindObjectOfType<DropArea>().GetComponent<RectTransform>();
 
             foreach (var choice in choices.Choices)
             { 

@@ -250,6 +250,42 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &30235454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 30235455}
+  m_Layer: 5
+  m_Name: Panel Drop Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &30235455
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30235454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1124182725}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 335, y: -60}
+  m_SizeDelta: {x: -670, y: -120}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &44384424
 GameObject:
   m_ObjectHideFlags: 0
@@ -5308,6 +5344,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rootChoicesButton: {fileID: 1566983290}
+  scrollRect: {fileID: 507378736}
+  dropAreaRect: {fileID: 30235455}
   choices: {fileID: 11400000, guid: 8229228d0f5c84543819598826756f69, type: 2}
   prefabButton: {fileID: 8327058236412820903, guid: f98327cac1e4aa44ab5e1e1bb03c5eb8,
     type: 3}
@@ -7284,6 +7322,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rootChoicesButton: {fileID: 646691043}
+  scrollRect: {fileID: 2076568056}
+  dropAreaRect: {fileID: 30235455}
   choices: {fileID: 11400000, guid: 76b48d2ba8c01d14185d1b22ce319f4a, type: 2}
   prefabButton: {fileID: 5011075819076585267, guid: 294ea0ae288c72c45b69d2e20dec108e,
     type: 3}
@@ -9608,6 +9648,7 @@ RectTransform:
   - {fileID: 875213174}
   - {fileID: 455754941}
   - {fileID: 364183196}
+  - {fileID: 30235455}
   m_Father: {fileID: 1513549340}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12101,6 +12142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rootChoicesButton: {fileID: 693491595}
+  scrollRect: {fileID: 1422227687}
+  dropAreaRect: {fileID: 30235455}
   choices: {fileID: 11400000, guid: a7e7ea93310e68349914b87bbe993cf3, type: 2}
   prefabButton: {fileID: 7126879988200149067, guid: f349b93b24b69b14a8a6cbd833c85278,
     type: 3}
@@ -14633,6 +14676,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rootChoicesButton: {fileID: 1136482271}
+  scrollRect: {fileID: 1915046143}
+  dropAreaRect: {fileID: 30235455}
   choices: {fileID: 11400000, guid: 63248b86829b3a7488aec086bdd7029b, type: 2}
   prefabButton: {fileID: 7419105007936526141, guid: 329c77a0cee50b6448b009ec346c049e,
     type: 3}
