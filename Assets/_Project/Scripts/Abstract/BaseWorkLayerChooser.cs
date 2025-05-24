@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace ARMarker
 {
@@ -14,6 +15,12 @@ namespace ARMarker
 
         [SerializeField]
         protected Transform rootChoicesButton;
+
+        [SerializeField]
+        private ScrollRect scrollRect;
+
+        [SerializeField]
+        private RectTransform dropAreaRect;
 
         [Header("Data")]
 
@@ -46,7 +53,7 @@ namespace ARMarker
                 }
 
                 var button = Instantiate(prefabButton, rootChoicesButton);
-                button.SetUp(choice);
+                button.SetUp(choice, scrollRect, dropAreaRect, false);
                 //button.RegisterOnClick(OnClickChoice);
             }
         }
