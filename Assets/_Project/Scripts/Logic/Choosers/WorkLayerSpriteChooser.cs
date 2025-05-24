@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace ARMarker
 {
@@ -34,6 +35,9 @@ namespace ARMarker
                 return;
             }
 
+            ScrollRect scrollRect = rootChoicesButton.GetComponentInParent<ScrollRect>(true);
+            RectTransform dropAreaRect = FindObjectOfType<DropArea>().GetComponent<RectTransform>();
+
             foreach (var choice in choices.Choices)
             { 
                 if(choice == null)
@@ -42,12 +46,13 @@ namespace ARMarker
                 }
 
                 var button = Instantiate(prefabButton, rootChoicesButton);
-                button.SetUp(choice);
-                button.RegisterOnClick(OnClickChoice);
+                button.SetUp(choice, scrollRect, dropAreaRect);
+                //button.RegisterOnClick(AddLayer);
+                button.RegisterOnOutsideDrag(AddLayer);
             }
         }
 
-        private void OnClickChoice(Sprite sprite)
+        private void AddLayer(Sprite sprite)
         {
             if (sprite == null)
             {
