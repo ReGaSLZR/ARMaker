@@ -85,7 +85,7 @@ namespace ARMarker
             }
 
             var listItem = Instantiate(prefabListItem, rootListItem);
-            listItem.SetUp(newLayer);
+            listItem.SetLayer(newLayer);
         }
 
     }

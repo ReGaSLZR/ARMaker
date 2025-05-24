@@ -166,91 +166,41 @@ namespace ARMarker
         public void RegisterOnUpdatetempLayer(
             Action<WorkLayer> listener, bool deregisterInstead = false)
         {
-            if (listener == null)
-            {
-                return;
-            }
-
-            if (deregisterInstead)
-            {
-                onUpdateTempLayer -= listener;
-            } 
-            else
-            {
-                onUpdateTempLayer += listener;
-            }
+            if (listener == null) { return; }
+            if (deregisterInstead) { onUpdateTempLayer -= listener; } 
+            else { onUpdateTempLayer += listener; }
         }
 
         public void RegisterOnChangeLayer(
             Action<WorkLayer> listener, bool deregisterInstead = false)
         {
-            if (listener == null)
-            {
-                return;
-            }
-
-            if (deregisterInstead)
-            {
-                onChangeActiveLayer -= listener;
-            }
-            else
-            {
-                onChangeActiveLayer += listener;
-            }
+            if (listener == null) { return; }
+            if (deregisterInstead) { onChangeActiveLayer -= listener; }
+            else { onChangeActiveLayer += listener; }
         }
 
         public void RegisterOnLayerCountChange(
             Action<int> listener, bool deregisterInstead = false)
         {
-            if (listener == null)
-            {
-                return;
-            }
-
-            if (deregisterInstead)
-            {
-                onLayerCountChange -= listener;
-            }
-            else
-            {
-                onLayerCountChange += listener;
-            }
+            if (listener == null) { return; } 
+            if (deregisterInstead) { onLayerCountChange -= listener; }
+            else { onLayerCountChange += listener; }
         }
 
         public void RegisterOnChangeLayerEditMode(
             Action<LayerEditMode> listener, bool deregisterInstead = false)
         {
-            if (listener == null)
-            {
-                return;
-            }
-
-            if (deregisterInstead)
-            {
-                onUpdateLayerEditMode -= listener;
-            }
-            else
-            {
-                onUpdateLayerEditMode += listener;
-            }
+            if (listener == null) { return; }
+            if (deregisterInstead) { onUpdateLayerEditMode -= listener; }
+            else { onUpdateLayerEditMode += listener; }
         }
 
         public void RegisterOnNewLayerAdded(
             Action<WorkLayer> listener, bool deregisterInstead = false)
         {
-            if (listener == null)
-            {
-                return;
-            }
-
-            if (deregisterInstead)
-            {
-                onAddNewLayer -= listener;
-            }
-            else
-            {
-                onAddNewLayer += listener;
-            }
+            if (listener == null) { return; }
+            if (deregisterInstead) { onAddNewLayer -= listener; }
+            else { onAddNewLayer += listener; }
         }
 
         public void SetLayerEditMode(LayerEditMode mode)
@@ -281,13 +231,6 @@ namespace ARMarker
             }
 
             var layer = AddLayer(data.Sprite, false);
-
-            if (layer == null)
-            {
-                Debug.LogError($"{GetType().Name} Layer creation error", gameObject);
-                return null;
-            }
-
             layer.SetUpVideoController(data.Clip);
             return layer;
         }
@@ -301,13 +244,6 @@ namespace ARMarker
             }
 
             var layer = AddLayer(data.Sprite, false);
-
-            if (layer == null)
-            {
-                Debug.LogError($"{GetType().Name} Layer creation error", gameObject);
-                return null;
-            }
-
             layer.SetUpSFX(data.Clip);
             return layer;
         }
@@ -321,24 +257,14 @@ namespace ARMarker
             }
 
             var layer = AddLayer(data.Sprite, false);
-
-            if (layer == null)
-            {
-                Debug.LogError($"{GetType().Name} Layer creation error", gameObject);
-                return null;
-            }
-
             layer.SetUpAnimator(data.Controller);
             return layer;
         }
 
-        public WorkLayer AddLayer(
-            Sprite sprite, 
-            bool isTemporary = false)
+        public WorkLayer AddLayer(Sprite sprite, bool isTemporary = false)
         {
             var data = new WorkLayerData();
             data.ResetTransform();
-
             data.sprite = sprite;
             data.isTemporary = isTemporary;
 
@@ -403,7 +329,7 @@ namespace ARMarker
             layer.transform.rotation = layerToDuplicate.transform.rotation;
             layer.transform.localScale = layerToDuplicate.transform.localScale;
 
-            layer.SetUpAnimator(layerToDuplicate.Data.controller);
+            layer.SetUpAnimator(layerToDuplicate.Data.animController);
             layer.SetUpVideoController(layerToDuplicate.Data.videoClip);
             layer.SetUpSFX(layerToDuplicate.Data.audioClip);
         }

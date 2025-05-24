@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Video;
 
@@ -49,6 +50,8 @@ namespace ARMarker
         private bool isInitialDrag;
 
         private Camera mainCamera;
+
+        private Action onSetUpData;
 
         private void Awake()
         {
@@ -186,6 +189,7 @@ namespace ARMarker
             boxCollider.enabled = !data.isTemporary;
 
             SetUpSprite();
+            onSetUpData?.Invoke();
         }
 
         public void SetUpAnimator(RuntimeAnimatorController controller)
@@ -197,8 +201,9 @@ namespace ARMarker
                 return;
             }
 
-            cachedData.controller = controller;
+            cachedData.animController = controller;
             animator.runtimeAnimatorController = controller;
+            onSetUpData?.Invoke();
         }
 
         public void SetUpSFX(AudioClip clip)
@@ -220,6 +225,7 @@ namespace ARMarker
             audioSource.enabled = true;
             audioSource.clip = clip;
             audioSource.Play();
+            onSetUpData?.Invoke();
         }
 
         public void SetUpVideoController(VideoClip clip)
@@ -237,6 +243,25 @@ namespace ARMarker
 
             videoController.SetUp(clip);
             videoController.gameObject.SetActive(true);
+            onSetUpData?.Invoke();
+        }
+
+        public void RegisterOnSetUpData(Action listener, 
+            bool deregisterInstead = false)
+        {
+            if (listener == null)
+            {
+                return;
+            }
+
+            if (deregisterInstead)
+            {
+                onSetUpData -= listener;
+            }
+            else
+            {
+                onSetUpData += listener;
+            }
         }
 
         public void ToggleLockState()

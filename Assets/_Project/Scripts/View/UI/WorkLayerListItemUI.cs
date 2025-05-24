@@ -2,13 +2,14 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace ARMarker
 {
 
     public class WorkLayerListItemUI : MonoBehaviour
     {
+        
+        [Header("UI Elements")]
 
         [SerializeField]
         private RawImage rawImagePreview;
@@ -16,7 +17,18 @@ namespace ARMarker
         [SerializeField]
         private TextMeshProUGUI textName;
 
-        [Space]
+        [Header("UI Indicators")]
+
+        [SerializeField]
+        private GameObject indicatorVideo;
+
+        [SerializeField]
+        private GameObject indicatorGIF;
+
+        [SerializeField]
+        private GameObject indicatorSFX;
+
+        [Header("Buttons")]
 
         [SerializeField]
         private Button buttonLock;
@@ -39,8 +51,15 @@ namespace ARMarker
 
         private void OnEnable()
         {
-            StartCoroutine(C_SetUpCache());
-            StartCoroutine(C_DelayedCheckForAudio());
+            ExecuteSetUp();
+        }
+
+        private void OnDestroy()
+        {
+            if (cachedLayer != null)
+            { 
+                cachedLayer.RegisterOnSetUpData(ExecuteSetUp, true);
+            }
         }
 
         private void LockLayer()
@@ -64,15 +83,22 @@ namespace ARMarker
             DestroyImmediate(gameObject);
         }
 
-        public void SetUp(WorkLayer layer)
+        public void SetLayer(WorkLayer layer)
         {
             cachedLayer = layer;
-            
-            if (gameObject.activeInHierarchy)
+            cachedLayer.RegisterOnSetUpData(ExecuteSetUp);
+
+            ExecuteSetUp();
+        }
+
+        private void ExecuteSetUp()
+        {
+            if (!gameObject.activeInHierarchy)
             {
-                StartCoroutine(C_SetUpCache());
-                StartCoroutine(C_DelayedCheckForAudio());
+                return;
             }
+
+            StartCoroutine(C_SetUpCache());
         }
 
         private IEnumerator C_SetUpCache()
@@ -87,18 +113,15 @@ namespace ARMarker
 
             textName.text = cachedLayer.Data.sprite.name;
             rawImagePreview.texture = cachedLayer.Data.sprite.texture;
-        }
 
-        private IEnumerator C_DelayedCheckForAudio()
-        { 
-            yield return null;
+            indicatorGIF.SetActive(
+                cachedLayer.Data.animController != null);
+            indicatorVideo.SetActive(
+                cachedLayer.Data.videoClip != null);
 
-            if (cachedLayer != null
-                && cachedLayer.Data != null
-                && cachedLayer.Data.audioClip != null)
-            {
-                buttonLock.gameObject.SetActive(false);
-            }
+            buttonLock.gameObject.SetActive(cachedLayer.Data.audioClip == null);
+            indicatorSFX.SetActive(
+                cachedLayer.Data.audioClip != null);            
         }
 
     }

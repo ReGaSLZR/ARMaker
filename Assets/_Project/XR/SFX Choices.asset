@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Sound FX
   choices:
-  - sprite: {fileID: 21300000, guid: f6385f36288d37347bd68f77b47da5f2, type: 3}
+  - sprite: {fileID: 21300000, guid: da555ed76ced752478875fca33fe7c6e, type: 3}
     clip: {fileID: 8300000, guid: f3cd29520587430408c704c7b51c03c4, type: 3}
   - sprite: {fileID: 21300000, guid: 25c12aeb59fb0f5498767a155f1cfb96, type: 3}
     clip: {fileID: 8300000, guid: 7235a2a5192e0de48b04597c53773c6b, type: 3}

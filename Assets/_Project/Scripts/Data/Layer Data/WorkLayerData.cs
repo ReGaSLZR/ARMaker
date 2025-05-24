@@ -14,7 +14,7 @@ namespace ARMarker
         public Vector3 scale;
 
         public Sprite sprite;
-        public RuntimeAnimatorController controller;
+        public RuntimeAnimatorController animController;
         public VideoClip videoClip;
         public AudioClip audioClip;
 
