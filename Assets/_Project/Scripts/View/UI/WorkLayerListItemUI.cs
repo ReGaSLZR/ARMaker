@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace ARMarker
 {
@@ -38,6 +39,7 @@ namespace ARMarker
 
         private void OnEnable()
         {
+            StartCoroutine(C_SetUpCache());
             StartCoroutine(C_DelayedCheckForAudio());
         }
 
@@ -64,26 +66,36 @@ namespace ARMarker
 
         public void SetUp(WorkLayer layer)
         {
-            if (layer == null || layer.Data == null)
-            {
-                return;
-            }
-
             cachedLayer = layer;
-            textName.text = layer.Data.sprite.name;
-            rawImagePreview.texture = layer.Data.sprite.texture;
-
+            
             if (gameObject.activeInHierarchy)
             {
+                StartCoroutine(C_SetUpCache());
                 StartCoroutine(C_DelayedCheckForAudio());
             }
+        }
+
+        private IEnumerator C_SetUpCache()
+        {
+            yield return null;
+
+            if (cachedLayer == null || cachedLayer.Data == null)
+            {
+                Debug.LogWarning($"NULL!!! Layer? {cachedLayer == null} | Data? {cachedLayer.Data == null}", gameObject);
+                yield break;
+            }
+
+            textName.text = cachedLayer.Data.sprite.name;
+            rawImagePreview.texture = cachedLayer.Data.sprite.texture;
         }
 
         private IEnumerator C_DelayedCheckForAudio()
         { 
             yield return null;
 
-            if (cachedLayer.Data.audioClip != null)
+            if (cachedLayer != null
+                && cachedLayer.Data != null
+                && cachedLayer.Data.audioClip != null)
             {
                 buttonLock.gameObject.SetActive(false);
             }

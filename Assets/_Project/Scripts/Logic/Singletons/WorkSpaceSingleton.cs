@@ -36,6 +36,9 @@ namespace ARMarker
         private string tempLayerObjectName;
 
         [SerializeField]
+        private Vector2 layerStartingPositionXY;
+
+        [SerializeField]
         private float layerStartingPositionZ;
 
         [SerializeField]
@@ -345,29 +348,42 @@ namespace ARMarker
                 cachedTempLayerForMarker = null;
             }
 
-            var layer = Instantiate(prefabLayer, transform);
-            layer.enabled = true;
-            layer.SetUp(data);
+            WorkLayer layer;
 
             if (isTemporary)
             {
+                layer = Instantiate(prefabLayer, transform);
                 layer.name = tempLayerObjectName;
                 layer.transform.localPosition = new Vector3(0, 0, layerStartingPositionZ);
+                layer.transform.localScale = Vector3.one;
+
                 cachedTempLayerForMarker = layer;
                 onUpdateTempLayer?.Invoke(cachedTempLayerForMarker);
             }
             else
             {
-                cachedLayers.Add(layer);
                 cachedLayerPositionZ = (cachedLayerPositionZ == 0f)
                     ? (layerStartingPositionZ - layerPositionZIncrement)
                     : (cachedLayerPositionZ - layerPositionZIncrement);
 
-                layer.transform.localPosition = new Vector3(0, 0, cachedLayerPositionZ);
+                var position = new Vector3(
+                    layerStartingPositionXY.x, 
+                    layerStartingPositionXY.y, 
+                    cachedLayerPositionZ);
+
+                layer = Instantiate(prefabLayer, transform);
+                layer.transform.localScale = Vector3.one;
+                layer.transform.localPosition = position;
+
+                cachedLayers.Add(layer);
 
                 onAddNewLayer?.Invoke(layer);
                 onLayerCountChange?.Invoke(cachedLayers.Count);
             }
+
+            data.RecordTransform(layer.transform);
+            layer.enabled = true;
+            layer.SetUp(data);
 
             return layer;
         }

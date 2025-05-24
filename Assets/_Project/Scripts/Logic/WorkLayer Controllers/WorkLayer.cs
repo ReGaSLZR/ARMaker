@@ -48,8 +48,12 @@ namespace ARMarker
         private bool isLocked;
         private bool isInitialDrag;
 
+        private Camera mainCamera;
+
         private void Awake()
         {
+            mainCamera = Camera.main;
+
             boxCollider = GetComponent<BoxCollider>();
             statusLocked.SetActive(false);
         }
@@ -292,9 +296,9 @@ namespace ARMarker
         {
             if (isInitialDrag)
             {
-                Vector3 newPos = ScreenToWorld(eventData.position, transform.position.z);
-                newPos.z = transform.position.z;
-                transform.position = newPos;
+                var newPos = ScreenToWorld(eventData.position, cachedData.position.z);
+                newPos.z = cachedData.position.z;
+                transform.localPosition = newPos;
             }
         }
 
@@ -308,8 +312,8 @@ namespace ARMarker
 
         private Vector3 ScreenToWorld(Vector3 screenPos, float z)
         {
-            screenPos.z = z - Camera.main.transform.position.z;
-            return Camera.main.ScreenToWorldPoint(screenPos);
+            screenPos.z = z - mainCamera.transform.position.z;
+            return mainCamera.ScreenToWorldPoint(screenPos);
         }
     }
 

@@ -25,6 +25,13 @@ namespace ARMarker
             rotation = Quaternion.identity;
         }
 
+        public void RecordTransform(Transform transform)
+        { 
+            position = transform.localPosition;
+            scale = transform.localScale;
+            rotation = transform.localRotation;
+        }
+
     }
 
 }
