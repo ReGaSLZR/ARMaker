@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Video;
 
 namespace ARMarker
 {
 
     [RequireComponent(typeof(BoxCollider))]
-    public class WorkLayer : MonoBehaviour
+    public class WorkLayer : MonoBehaviour,
+        IBeginDragHandler, IEndDragHandler, IDragHandler
     {
 
         [Header("Settings")]
@@ -44,6 +46,7 @@ namespace ARMarker
         private BoxCollider boxCollider;
 
         private bool isLocked;
+        private bool isInitialDrag;
 
         private void Awake()
         {
@@ -275,6 +278,39 @@ namespace ARMarker
                 ConstantInts.AR_OBJECT_SIZE_DIVISOR);
         }
 
+        public void SetupInitialDrag(bool allowInitialDrag)
+        {
+            isInitialDrag = allowInitialDrag;
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (isInitialDrag)
+            {
+                Vector3 newPos = ScreenToWorld(eventData.position, transform.position.z);
+                newPos.z = transform.position.z;
+                transform.position = newPos;
+            }
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            if (isInitialDrag)
+            {
+                isInitialDrag = false;
+            }
+        }
+
+        private Vector3 ScreenToWorld(Vector3 screenPos, float z)
+        {
+            screenPos.z = z - Camera.main.transform.position.z;
+            return Camera.main.ScreenToWorldPoint(screenPos);
+        }
     }
 
 }

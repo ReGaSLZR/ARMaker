@@ -48,20 +48,20 @@ namespace ARMarker
                 }
 
                 var button = Instantiate(prefabButton, rootChoicesButton);
-                button.SetUp(choice, scrollRect, dropAreaRect);
-                button.RegisterOnClick(OnClickChoice);
+                button.SetUp(choice, scrollRect, dropAreaRect, true);
+                //button.RegisterOnClick(OnClickChoice);
             }
         }
 
-        private void OnClickChoice(VideoLayerData data)
-        {
-            if (data == null)
-            {
-                return;
-            }
+        //private void OnClickChoice(VideoLayerData data)
+        //{
+        //    if (data == null)
+        //    {
+        //        return;
+        //    }
 
-            WorkSpaceSingleton.Instance.AddVideoLayer(data);
-        }
+        //    WorkSpaceSingleton.Instance.AddVideoLayer(data);
+        //}
 
     }
 

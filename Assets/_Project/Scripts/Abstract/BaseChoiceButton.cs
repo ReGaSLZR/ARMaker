@@ -23,17 +23,17 @@ namespace ARMarker
         [SerializeField]
         protected RectTransform cachedDropArea;
 
-        protected Action<T> onOutsideDrag;
-
         protected bool isPrefabSpawned;
-        protected bool isClickableOnly;
+        protected bool isDraggable;
+        protected WorkLayer cachedWorkLayer;
 
         protected void SetImage(Texture2D texture)
         {
             rawImage.texture = texture;
         }
 
-        public virtual void SetUp(T data, ScrollRect scrollRect, RectTransform dropArea)
+        public virtual void SetUp(T data, ScrollRect scrollRect,
+            RectTransform dropArea, bool isDraggable)
         {
             if (data == null)
             {
@@ -45,34 +45,15 @@ namespace ARMarker
             cachedData = data;
             cachedScrollRect = scrollRect;
             cachedDropArea = dropArea;
-        }
+            this.isDraggable = isDraggable;
 
-        public void RegisterOnClick(Action<T> listener)
-        {
-            if (listener == null)
+            if (!isDraggable)
             {
-                Debug.LogError($"{GetType().Name}.RegisterOnClick(): "
-                    + $"Listener is NULL!!!", gameObject);
-                return;
+                button.onClick.AddListener(() => AddLayer(data));
             }
-
-            isClickableOnly = true;
-            button.onClick.AddListener(
-                () => listener.Invoke(cachedData));
         }
 
-        public void RegisterOnOutsideDrag(Action<T> listener)
-        {
-            if (listener == null)
-            {
-                Debug.LogError($"{GetType().Name}.RegisterOnOutsideDrag(): "
-                    + $"Listener is NULL!!!", gameObject);
-                return;
-            }
-
-            isClickableOnly = false;
-            onOutsideDrag = listener;
-        }
+        protected abstract WorkLayer AddLayer(T data);
 
         #region EventSystems
 
@@ -89,8 +70,9 @@ namespace ARMarker
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (isClickableOnly && cachedScrollRect)
+            if (!isDraggable && cachedScrollRect)
             {
+                // Continue dragging the ScrollRect to handle scrolling.
                 cachedScrollRect.OnDrag(eventData);
             }
             else if (!isPrefabSpawned)
@@ -99,7 +81,8 @@ namespace ARMarker
                 {
                     isPrefabSpawned = true;
 
-                    onOutsideDrag.Invoke(cachedData);
+                    cachedWorkLayer = AddLayer(cachedData);
+                    cachedWorkLayer.SetupInitialDrag(true);
 
                     // Stop the scroll view from handling drag
                     cachedScrollRect.OnEndDrag(eventData);
@@ -117,6 +100,7 @@ namespace ARMarker
             else
             {
                 // Dragging the Spawned object.
+                cachedWorkLayer.OnDrag(eventData);
             }
         }
 
@@ -125,6 +109,7 @@ namespace ARMarker
             if (isPrefabSpawned)
             {
                 isPrefabSpawned = false;
+                cachedWorkLayer.OnEndDrag(eventData);
             }
             else
             {

@@ -53,7 +53,7 @@ namespace ARMarker
                 }
 
                 var button = Instantiate(prefabButton, rootChoicesButton);
-                button.SetUp(choice, scrollRect, dropAreaRect);
+                button.SetUp(choice, scrollRect, dropAreaRect, false);
                 //button.RegisterOnClick(OnClickChoice);
             }
         }
