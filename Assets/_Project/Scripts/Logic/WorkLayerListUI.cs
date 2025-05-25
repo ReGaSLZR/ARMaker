@@ -13,7 +13,7 @@ namespace ARMarker
         private GameObject rootUI;
 
         [SerializeField]
-        private Transform rootListItem;
+        private ScrollRect scrollRect;
 
         [SerializeField]
         private GameObject rootTempViewOnEmpty;
@@ -84,8 +84,9 @@ namespace ARMarker
                 return;
             }
 
-            var listItem = Instantiate(prefabListItem, rootListItem);
+            var listItem = Instantiate(prefabListItem, scrollRect.content);
             listItem.SetLayer(newLayer);
+            listItem.SetScrollRect(scrollRect);
         }
 
     }

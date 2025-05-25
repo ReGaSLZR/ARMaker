@@ -17,6 +17,9 @@ namespace ARMarker
         [SerializeField]
         private TextMeshProUGUI textName;
 
+        [SerializeField]
+        private SwipeBlocker swipeBlocker;
+
         [Header("UI Indicators")]
 
         [SerializeField]
@@ -89,6 +92,11 @@ namespace ARMarker
             cachedLayer.RegisterOnSetUpData(ExecuteSetUp);
 
             ExecuteSetUp();
+        }
+
+        public void SetScrollRect(ScrollRect scrollRect)
+        { 
+            swipeBlocker.SetScrollRect(scrollRect);
         }
 
         private void ExecuteSetUp()

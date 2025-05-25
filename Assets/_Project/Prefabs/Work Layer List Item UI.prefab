@@ -960,6 +960,8 @@ GameObject:
   - component: {fileID: 5679999168554564774}
   - component: {fileID: 5679999168554564777}
   - component: {fileID: 5679999168554564779}
+  - component: {fileID: 4054363143843911572}
+  - component: {fileID: 5876563325837986642}
   m_Layer: 5
   m_Name: Work Layer List Item UI
   m_TagString: Untagged
@@ -1011,7 +1013,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1041,6 +1043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rawImagePreview: {fileID: 5679999167054400574}
   textName: {fileID: 5679999168819380491}
+  swipeBlocker: {fileID: 5876563325837986642}
   indicatorVideo: {fileID: 4445232544678001578}
   indicatorGIF: {fileID: 6185464475822022265}
   indicatorSFX: {fileID: 7205151459711965971}
@@ -1095,6 +1098,68 @@ PlayableDirector:
     value: {fileID: 5679999168968764278}
   m_ExposedReferences:
     m_References: []
+--- !u!114 &4054363143843911572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5679999168554564768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a88db6f2d86ab47a1665e5cfd45f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swipeThreshold: 30
+  OnSwipeUp:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSwipeDown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSwipeLeft:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5679999168554564777}
+        m_TargetAssemblyTypeName: ARMarker.TimelinePlayer, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnSwipeRight:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5679999168554564777}
+        m_TargetAssemblyTypeName: ARMarker.TimelinePlayer, Assembly-CSharp
+        m_MethodName: PlayReverse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5876563325837986642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5679999168554564768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d350c2222197d984695e6fe133376ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentScrollRect: {fileID: 0}
 --- !u!1 &5679999168696810064
 GameObject:
   m_ObjectHideFlags: 0
@@ -1207,7 +1272,6 @@ GameObject:
   - component: {fileID: 5679999168819380488}
   - component: {fileID: 5679999168819380490}
   - component: {fileID: 5679999168819380491}
-  - component: {fileID: 441277420571048114}
   m_Layer: 5
   m_Name: Text Name
   m_TagString: Untagged
@@ -1257,7 +1321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1332,55 +1396,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &441277420571048114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5679999168819380489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2a88db6f2d86ab47a1665e5cfd45f1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swipeThreshold: 30
-  OnSwipeUp:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSwipeDown:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSwipeLeft:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5679999168554564777}
-        m_TargetAssemblyTypeName: ARMarker.TimelinePlayer, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnSwipeRight:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5679999168554564777}
-        m_TargetAssemblyTypeName: ARMarker.TimelinePlayer, Assembly-CSharp
-        m_MethodName: PlayReverse
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &5679999168890812815
 GameObject:
   m_ObjectHideFlags: 0
