@@ -160,7 +160,7 @@ namespace ARMarker
         public void ChangeActiveLayer(WorkLayer layer)
         {
             cachedLayer = layer;
-            onChangeActiveLayer(layer);
+            onChangeActiveLayer?.Invoke(layer);
         }
 
         public void RegisterOnUpdatetempLayer(
@@ -207,6 +207,7 @@ namespace ARMarker
         {
             cachedLayerEditMode = mode;
             onUpdateLayerEditMode?.Invoke(cachedLayerEditMode);
+            ChangeActiveLayer(null);
         }
 
         public void SetTempLayerIsEnabled(bool isEnabled)
@@ -280,8 +281,9 @@ namespace ARMarker
             {
                 layer = Instantiate(prefabLayer, transform);
                 layer.name = tempLayerObjectName;
-                layer.transform.localPosition = new Vector3(0, 0, layerStartingPositionZ);
+                layer.transform.localPosition = Vector3.zero;
                 layer.transform.localScale = Vector3.one;
+                layer.SetToHalfTransparency();
 
                 cachedTempLayerForMarker = layer;
                 onUpdateTempLayer?.Invoke(cachedTempLayerForMarker);

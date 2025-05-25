@@ -5,9 +5,12 @@ namespace ARMarker
 {
 
     [RequireComponent(typeof(BoxCollider))]
-    public class LayerRotationHandler : BaseWorkLayerHandler, IPointerDownHandler, IDragHandler, IBeginDragHandler, IPointerClickHandler
+    public class LayerRotationHandler : BaseWorkLayerHandler, 
+        IPointerDownHandler, IDragHandler, IBeginDragHandler, IPointerClickHandler
     {
-        public float boxColliderSizeMultiplierOnSelection = 2f;
+
+        [SerializeField]
+        private float boxColliderSizeMultiplierOnSelection = 2f;
 
         public float circleRadius = 1f;
         public float circleThickness = 0.02f;
@@ -104,6 +107,7 @@ namespace ARMarker
         {
             boxCollider.size = originalColliderSize;
             ClearCircles();
+            base.Deselect();
         }
 
         void CreateCircles()

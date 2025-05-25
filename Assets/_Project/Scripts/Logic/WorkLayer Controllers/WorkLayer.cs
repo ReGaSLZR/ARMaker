@@ -11,12 +11,15 @@ namespace ARMarker
         IBeginDragHandler, IEndDragHandler, IDragHandler
     {
 
-        [Header("Settings")]
+        [Header("Elements")]
 
         [SerializeField]
         private GameObject statusLocked;
 
-        [Space]
+        [SerializeField]
+        private GameObject statusSelected;
+
+        [Header("Settings")]
 
         [SerializeField]
         private SpriteRenderer spriteRenderer;
@@ -136,6 +139,7 @@ namespace ARMarker
         private void OnSelectLayer()
         {
             WorkSpaceSingleton.Instance.ChangeActiveLayer(this);
+            //statusSelected.SetActive(true);
 
             var mode = WorkSpaceSingleton.Instance.GetLayerEditMode();
 
@@ -228,6 +232,11 @@ namespace ARMarker
             onSetUpData?.Invoke();
         }
 
+        public void SetToHalfTransparency()
+        {
+            spriteRenderer.color = new Color(1, 1, 1, 0.5f);
+        }
+
         public void SetUpVideoController(VideoClip clip)
         {
             if (clip == null)
@@ -288,6 +297,8 @@ namespace ARMarker
 
         public void Deselect()
         {
+            //statusSelected.SetActive(false);
+
             repositionHandler.Deselect();
             rotationHandler.Deselect();
             resizeHandler.Deselect();

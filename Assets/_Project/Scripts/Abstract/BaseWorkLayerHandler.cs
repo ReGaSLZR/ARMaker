@@ -8,12 +8,17 @@ namespace ARMarker
 
         protected Action onSelect;
 
+        protected bool isSelected;
+
         public virtual void Select()
         {
-            onSelect?.Invoke();
+            onSelect?.Invoke();   
         }
 
-        public abstract void Deselect();
+        public virtual void Deselect()
+        {
+            //onSelect?.Invoke(false);
+        }
 
         public void RegisterListener(Action listener)
         {
