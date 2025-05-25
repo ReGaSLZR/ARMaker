@@ -33,9 +33,6 @@ namespace ARMarker
             WorkSpaceSingleton.Instance
                 .RegisterOnChangeLayerEditMode(OnChangeLayerEditMode);
 
-            //WorkSpaceSingleton.Instance.RegisterOnChangeLayerCount(OnChangeLayerCount);
-            //OnChangeLayerCount(WorkSpaceSingleton.Instance.GetLayers().Count);
-
             if (isDefaultMode)
             {
                 Debug.Log($"{GetType().Name} is default mode called", gameObject);
@@ -57,8 +54,6 @@ namespace ARMarker
 
             WorkSpaceSingleton.Instance
                 .RegisterOnChangeLayerEditMode(OnChangeLayerEditMode, true);
-
-            //WorkSpaceSingleton.Instance.RegisterOnChangeLayerCount(OnChangeLayerCount, true);
         }
 
         private void OnChangeLayerEditMode(LayerEditMode mode)

@@ -33,10 +33,10 @@ namespace ARMarker
         [SerializeField]
         private AudioSource audioSource;
 
-        [Space]
+        [Header("Layer Transform Handlers")]
 
         [SerializeField]
-        private LayerRepositionXYHandler repositionHandler;
+        private LayerRepositionXYHandler repositionXYHandler;
 
         [SerializeField]
         private LayerRotationHandler rotationHandler;
@@ -48,13 +48,11 @@ namespace ARMarker
 
         private WorkLayerData cachedData;
         private BoxCollider boxCollider;
+        private Camera mainCamera;
+        private Action onSetUpData;
 
         private bool isLocked;
         private bool isInitialDrag;
-
-        private Camera mainCamera;
-
-        private Action onSetUpData;
 
         private void Awake()
         {
@@ -66,7 +64,7 @@ namespace ARMarker
 
         private void Start()
         {
-            repositionHandler.RegisterListener(OnSelectLayer);
+            repositionXYHandler.RegisterListener(OnSelectLayer);
             rotationHandler.RegisterListener(OnSelectLayer);
             resizeHandler.RegisterListener(OnSelectLayer);
 
@@ -102,7 +100,7 @@ namespace ARMarker
             {
                 case LayerEditMode.Reposition:
                     {
-                        repositionHandler.enabled = true;
+                        repositionXYHandler.enabled = true;
 
                         rotationHandler.Deselect();
                         resizeHandler.Deselect();
@@ -115,10 +113,10 @@ namespace ARMarker
                     {
                         rotationHandler.enabled = true;
 
-                        repositionHandler.Deselect();
+                        repositionXYHandler.Deselect();
                         resizeHandler.Deselect();
 
-                        repositionHandler.enabled = false;
+                        repositionXYHandler.enabled = false;
                         resizeHandler.enabled = false;
                         break;
                     }
@@ -126,10 +124,10 @@ namespace ARMarker
                     {
                         resizeHandler.enabled = true;
 
-                        repositionHandler.Deselect();
+                        repositionXYHandler.Deselect();
                         rotationHandler.Deselect();
 
-                        repositionHandler.enabled = false;
+                        repositionXYHandler.enabled = false;
                         rotationHandler.enabled = false;
                         break;
                     }
@@ -156,19 +154,19 @@ namespace ARMarker
                     }
                 case LayerEditMode.Rotate:
                     {
-                        repositionHandler.Deselect();
+                        repositionXYHandler.Deselect();
                         resizeHandler.Deselect();
 
-                        repositionHandler.enabled = false;
+                        repositionXYHandler.enabled = false;
                         resizeHandler.enabled = false;
                         break;
                     }
                 case LayerEditMode.Resize:
                     {
-                        repositionHandler.Deselect();
+                        repositionXYHandler.Deselect();
                         rotationHandler.Deselect();
 
-                        repositionHandler.enabled = false;
+                        repositionXYHandler.enabled = false;
                         rotationHandler.enabled = false;
                         break;
                     }
@@ -299,7 +297,7 @@ namespace ARMarker
         {
             //statusSelected.SetActive(false);
 
-            repositionHandler.Deselect();
+            repositionXYHandler.Deselect();
             rotationHandler.Deselect();
             resizeHandler.Deselect();
         }

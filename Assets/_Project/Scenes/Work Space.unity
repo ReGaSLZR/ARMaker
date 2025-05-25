@@ -434,7 +434,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 0
+  m_Spacing: 20
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -5180,6 +5180,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[Work Space]'
       objectReference: {fileID: 0}
+    - target: {fileID: 6265788326133848342, guid: 7e9c5ca63cf639c4eb831832548471e3,
+        type: 3}
+      propertyPath: layerPositionZIncrement
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e9c5ca63cf639c4eb831832548471e3, type: 3}
 --- !u!1 &581215961
@@ -6928,8 +6933,8 @@ MonoBehaviour:
   camera: {fileID: 753237739}
   switchDuration: 0.5
   position2D: {x: 0, y: 0, z: 0}
-  rotation2D: {x: 0, y: -0.00000008742278, z: 0, w: -1}
-  position3D: {x: 5, y: 0, z: 0}
+  rotation2D: {x: 0, y: 0.008726535, z: 0, w: 0.9999619}
+  position3D: {x: 6, y: 0, z: 0}
   rotation3D: {x: 0, y: -0.38268346, z: 0, w: 0.9238795}
 --- !u!114 &753237742
 MonoBehaviour:
@@ -9338,7 +9343,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1039689110}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.25, z: 10}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1

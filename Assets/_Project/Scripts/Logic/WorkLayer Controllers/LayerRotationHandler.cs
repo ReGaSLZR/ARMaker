@@ -12,13 +12,23 @@ namespace ARMarker
         [SerializeField]
         private float boxColliderSizeMultiplierOnSelection = 2f;
 
-        public float circleRadius = 1f;
-        public float circleThickness = 0.02f;
-        public float dragSensitivity = 1f;
+        [Space]
 
-        public Color xAxisColor = Color.red;
-        public Color yAxisColor = Color.green;
-        public Color zAxisColor = Color.blue;
+        [SerializeField]
+        private float circleRadius = 1f;
+        [SerializeField]
+        private float circleThickness = 0.02f;
+        [SerializeField]
+        private float dragSensitivity = 1f;
+
+        [Space]
+
+        [SerializeField]
+        private Color xAxisColor = Color.red;
+        [SerializeField]
+        private Color yAxisColor = Color.green;
+        [SerializeField]
+        private Color zAxisColor = Color.blue;
 
         private GameObject selectedSprite;
         private RotationCircle xCircle, yCircle, zCircle;

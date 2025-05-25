@@ -8,6 +8,9 @@ namespace ARMarker
         IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
     {
 
+        [SerializeField]
+        private GameObject repositionArrows;
+
         private Vector3 offset;
         private bool dragging;
 
@@ -16,6 +19,18 @@ namespace ARMarker
         private void Start()
         {
             mainCamera = Camera.main;
+        }
+
+        public override void Select()
+        {
+            base.Select();
+            repositionArrows.SetActive(true);
+        }
+
+        public override void Deselect()
+        {
+            base.Deselect();
+            repositionArrows.SetActive(false);
         }
 
         public void OnPointerDown(PointerEventData eventData)
