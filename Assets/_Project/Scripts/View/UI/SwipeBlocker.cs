@@ -28,7 +28,6 @@ namespace ARMarker
             dragStartPos = eventData.position;
             blockScrollRect = false;
 
-            // Temporarily disable ScrollRect's vertical dragging until we detect direction
             if (parentScrollRect != null)
                 parentScrollRect.OnBeginDrag(eventData);
         }
@@ -37,7 +36,6 @@ namespace ARMarker
         {
             Vector2 dragDelta = eventData.position - dragStartPos;
 
-            // Determine drag direction
             if (!blockScrollRect)
             {
                 if ((parentScrollRect.vertical
@@ -45,21 +43,19 @@ namespace ARMarker
                     || (parentScrollRect.horizontal
                     && Mathf.Abs(dragDelta.x) < Mathf.Abs(dragDelta.y)))
                 {
-                    // Horizontal drag — block ScrollRect
                     blockScrollRect = true;
                 }
                 else
                 {
-                    // Vertical drag — let ScrollRect handle it
                     if (parentScrollRect != null)
                         parentScrollRect.OnDrag(eventData);
                 }
             }
-            else
-            {
-                // Handle horizontal drag here, if needed
-                // e.g., trigger swipe logic or animation
-            }
+            //else
+            //{
+            //    // Handle horizontal drag here, if needed
+            //    // e.g., trigger swipe logic or animation
+            //}
         }
 
         public void OnEndDrag(PointerEventData eventData)

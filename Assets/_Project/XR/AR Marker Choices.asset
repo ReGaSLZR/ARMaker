@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: AR Marker Choices
   m_EditorClassIdentifier: 
   choices:
-  - {fileID: 21300000, guid: c0be1599c426feb46b1b1a5c7ff54370, type: 3}
-  - {fileID: 21300000, guid: daf3b13fccac4b84eaedcd1647566f56, type: 3}
-  - {fileID: 21300000, guid: 7fead784561d22747b62f7c2997beec6, type: 3}
-  - {fileID: 21300000, guid: f704aa34a4734d542ac5fb07a3fe63f0, type: 3}
-  - {fileID: 21300000, guid: a490e49ffa9d0ce41baf432d07840785, type: 3}
-  - {fileID: 21300000, guid: 41e50c70be70b514092ca92a8a60a7bc, type: 3}
-  - {fileID: 21300000, guid: afb14077db30c7740bac4ab54fcf8f8a, type: 3}
-  - {fileID: 21300000, guid: ce451adf911a72447933f81252bf2bcb, type: 3}
-  - {fileID: 21300000, guid: adedd006a238bc4478e9f4626ce9fa41, type: 3}
+  - {fileID: 21300000, guid: fe45b7a0dfd12154c881abf449e6ede2, type: 3}
+  - {fileID: 21300000, guid: f03376afcf9b8a343b89bde247ff5068, type: 3}
+  - {fileID: 21300000, guid: eaaf07167adf8bb448845d81463556d3, type: 3}
+  - {fileID: 21300000, guid: f4f288e5b7d21b345a5d9b1233aa03df, type: 3}
+  - {fileID: 21300000, guid: 5bb42966eb547994dafa5560185bf191, type: 3}
+  - {fileID: 21300000, guid: d395da6e335ed9a479ef3a2c94afff4b, type: 3}
+  - {fileID: 21300000, guid: 605c1f57b34f11941877203ba225dfcc, type: 3}
+  - {fileID: 21300000, guid: f61e0d03a37ff454eb32913a0e031c79, type: 3}
+  - {fileID: 21300000, guid: db73f587b2b8cec4485b9acdfbb8ab19, type: 3}

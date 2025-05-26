@@ -22,12 +22,11 @@ namespace ARMarker
         [SerializeField] 
         private float maxZ = 10f;
 
-        private Camera mainCamera;
         private Vector2 previousPointerPos;
 
         private void Start()
         {
-            mainCamera = Camera.main;
+            
         }
 
         public void OnBeginDrag(PointerEventData eventData)

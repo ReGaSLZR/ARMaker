@@ -14,17 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Video Clips
   choices:
-  - sprite: {fileID: 21300000, guid: ce451adf911a72447933f81252bf2bcb, type: 3}
-    clip: {fileID: 32900000, guid: 17360927d05894f45939e5ee54b88e16, type: 3}
-  - sprite: {fileID: 21300000, guid: dcebc01868b2afa4f98bee88c0553f8b, type: 3}
-    clip: {fileID: 32900000, guid: e17b47318efe5564cb1fb2f3b023bf6a, type: 3}
-  - sprite: {fileID: 21300000, guid: 3c10123487b6e494c8d0bf1893643d50, type: 3}
-    clip: {fileID: 32900000, guid: 941f06d709b52d0498f2149f996d46f0, type: 3}
-  - sprite: {fileID: 21300000, guid: a301a9b8d41bc9c4097521a3414e9add, type: 3}
-    clip: {fileID: 32900000, guid: a8001b2f073fab24e9f53482ef4b5370, type: 3}
-  - sprite: {fileID: 21300000, guid: afb14077db30c7740bac4ab54fcf8f8a, type: 3}
-    clip: {fileID: 32900000, guid: a5dccc4909a0b46dba0829b7da222596, type: 3}
-  - sprite: {fileID: 21300000, guid: 1490a4683ac42e440afca5987b93b8c8, type: 3}
-    clip: {fileID: 32900000, guid: 5a665b424f67bfc45a4d9645efc96185, type: 3}
-  - sprite: {fileID: 21300000, guid: 15a050da8f4b6ae44ae11d82a42c9ecb, type: 3}
-    clip: {fileID: 32900000, guid: 5a8ebdac9feb9034d8409553dfb2b3b4, type: 3}
+  - sprite: {fileID: 21300000, guid: e507d1d3aa087fd449f320adcfe953e1, type: 3}
+    clip: {fileID: 32900000, guid: 62e66709c313d6e4088b3181735d37c7, type: 3}
+  - sprite: {fileID: 21300000, guid: ce0035867b90c7e469b9fe20a295be23, type: 3}
+    clip: {fileID: 32900000, guid: a8ef4b0c5a6d3d844bfe2a4ef3734760, type: 3}
+  - sprite: {fileID: 21300000, guid: 61b80995496e9c8449e67b412dd36e12, type: 3}
+    clip: {fileID: 32900000, guid: 5d417c0fc81c5ad4a9bd9a603af314ae, type: 3}
+  - sprite: {fileID: 21300000, guid: a174766e6e5fe254683101566181cb4c, type: 3}
+    clip: {fileID: 32900000, guid: f8c009d6e884a5d48b74530f3a9b8df5, type: 3}

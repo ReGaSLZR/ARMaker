@@ -32,7 +32,6 @@ namespace ARMarker
 
         private GameObject selectedSprite;
         private RotationCircle xCircle, yCircle, zCircle;
-        //private Camera mainCam;
 
         [SerializeField]
         private BoxCollider boxCollider;
@@ -43,7 +42,6 @@ namespace ARMarker
 
         private void Awake()
         {
-            //mainCam = Camera.main;
             originalColliderSize = boxCollider.size;
         }
 

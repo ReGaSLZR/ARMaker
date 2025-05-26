@@ -127,9 +127,13 @@ namespace ARMarker
             indicatorVideo.SetActive(
                 cachedLayer.Data.videoClip != null);
 
-            buttonLock.gameObject.SetActive(cachedLayer.Data.audioClip == null);
-            indicatorSFX.SetActive(
-                cachedLayer.Data.audioClip != null);            
+            bool hasNoAudio = (cachedLayer.Data.audioClip == null);
+            buttonLock.gameObject.SetActive(hasNoAudio);
+            indicatorSFX.SetActive(!hasNoAudio);
+            if (!hasNoAudio)
+            { 
+                textName.text = cachedLayer.Data.audioClip.name;
+            }
         }
 
     }

@@ -211,6 +211,7 @@ MonoBehaviour:
   animator: {fileID: 598923543852899969}
   videoController: {fileID: 3054743441106824863}
   audioSource: {fileID: 8537577904987558464}
+  blinkDuration: 1
   repositionXYHandler: {fileID: 461471239102353224}
   rotationHandler: {fileID: 1297581534872992407}
   resizeHandler: {fileID: 5522288439511303957}
@@ -741,6 +742,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1832763468787142187}
     m_Modifications:
+    - target: {fileID: 1494918038825519699, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: maxZ
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494918038825519699, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: minZ
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1494918038825519699, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
         type: 3}
       propertyPath: influencedObject

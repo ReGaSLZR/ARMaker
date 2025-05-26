@@ -9,6 +9,10 @@ namespace ARMarker
     public class WorkLayerSFXChoices : BaseWorkLayerChoices<SFXLayerData>
     {
 
+        [SerializeField]
+        private Sprite defaultSprite;
+
+        public Sprite DefaultSprite => defaultSprite;
 
     }
 

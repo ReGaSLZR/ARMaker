@@ -17,6 +17,19 @@ namespace ARMarker
         private bool isCornerDrag = false;
         private Vector2 cornerDirection;
 
+        private Camera MainCamera
+        {
+            get
+            {
+                if (mainCamera == null)
+                {
+                    mainCamera = Camera.main;
+                }
+
+                return mainCamera;
+            }
+        }
+
         private void Start()
         {
             mainCamera = Camera.main;
@@ -103,7 +116,7 @@ namespace ARMarker
         private bool ScreenPointToWorldOnPlane(Vector2 screenPoint, out Vector3 worldPoint)
         {
             worldPoint = Vector3.zero;
-            Ray ray = mainCamera.ScreenPointToRay(screenPoint);
+            Ray ray = MainCamera.ScreenPointToRay(screenPoint);
             Plane plane = new Plane(transform.forward, transform.position);
 
             float enter;

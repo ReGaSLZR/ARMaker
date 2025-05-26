@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace ARMarker
@@ -18,6 +19,17 @@ namespace ARMarker
         {
             return WorkSpaceSingleton.Instance.AddSFXLayer(data);
         }
+
+        public void RegisterOnClick(Action<SFXLayerData> listener)
+        {
+            if (listener == null)
+            {
+                return;
+            }
+
+            button.onClick.AddListener(() => listener.Invoke(cachedData));
+        }
+
     }
 
 }

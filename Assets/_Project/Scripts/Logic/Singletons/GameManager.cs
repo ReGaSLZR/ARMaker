@@ -26,6 +26,30 @@ namespace ARMarker
                 .RegisterOnStatusChange(OnARStatusChange);
 
             //LoadWorkSpace();
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
+        {
+            if (scene.buildIndex == (int)Scene.WorkSpace)
+            {
+                WorkSpaceSingleton.Instance.SetIsEnabled(true);
+                WorkSpaceSingleton.Instance.DeleteClone();
+                WorkSpaceSingleton.Instance.SetTempLayerIsEnabled(true);
+                ARSessionSingleton.Instance.DisableActiveTracking();
+            }
+            //else if (scene.buildIndex == (int)Scene.ARPreview)
+            //{
+            //    WorkSpaceSingleton.Instance.SetIsEnabled(false);
+            //    WorkSpaceSingleton.Instance.SetTempLayerIsEnabled(false);
+            //    WorkSpaceSingleton.Instance.DeleteClone();
+            //}
         }
 
         public Sprite GetMarker() => cachedMarker;
@@ -63,10 +87,20 @@ namespace ARMarker
             WorkSpaceSingleton.Instance.AddLayer(cachedMarker, true);
         }
 
+        public bool IsInARWorld()
+        {
+            return (int)Scene.ARPreview == SceneManager.GetActiveScene().buildIndex;
+        }
+
         public void LoadScene(Scene scene)
         {
             switch (scene)
             {
+                case Scene.Splash:
+                    {
+                        SceneManager.LoadSceneAsync((int)Scene.Splash);
+                        break;
+                    }
                 case Scene.ARPreview:
                     {
                         LoadARWorld();
@@ -85,12 +119,7 @@ namespace ARMarker
             Debug.Log($"{GetType().Name}.LoadWorkSpace(): " +
                 $"Loading Workspace...", gameObject);
 
-            WorkSpaceSingleton.Instance.SetIsEnabled(true);
-            WorkSpaceSingleton.Instance.DeleteClone();
-            WorkSpaceSingleton.Instance.SetTempLayerIsEnabled(true);
-            ARSessionSingleton.Instance.DisableActiveTracking();
-
-            SceneManager.LoadScene((int)Scene.WorkSpace);
+            SceneManager.LoadSceneAsync((int)Scene.WorkSpace);
         }
 
         private void LoadARWorld()
@@ -114,7 +143,7 @@ namespace ARMarker
             WorkSpaceSingleton.Instance.SetTempLayerIsEnabled(false);
             WorkSpaceSingleton.Instance.DeleteClone();
 
-            SceneManager.LoadScene((int)Scene.ARPreview);
+            SceneManager.LoadSceneAsync((int)Scene.ARPreview);
         }
 
         private void OnARStatusChange(ARStatus status)
@@ -174,9 +203,6 @@ namespace ARMarker
             }
 
             clone.transform.SetParent(trackedImage.transform);
-
-            //clone.transform.position = trackedImage.transform.position;
-            //clone.transform.localPosition = trackedImage.transform.position;
 
             clone.transform.position = Vector3.zero;
             clone.transform.localPosition = Vector3.zero;

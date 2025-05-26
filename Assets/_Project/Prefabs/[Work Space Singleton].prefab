@@ -153,4 +153,4 @@ MonoBehaviour:
   tempLayerObjectName: '[TEMP Layer] Marker'
   layerStartingPositionXY: {x: -15, y: 10}
   layerStartingPositionZ: 2
-  layerPositionZIncrement: 0.015
+  layerPositionZIncrement: 0.5

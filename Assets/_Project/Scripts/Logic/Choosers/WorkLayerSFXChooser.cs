@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace ARMarker
@@ -17,6 +18,14 @@ namespace ARMarker
 
         [SerializeField]
         private RectTransform dropAreaRect;
+
+        [Header("Audio Settings")]
+
+        [SerializeField]
+        private AudioSource audioSourcePreview;
+
+        [SerializeField]
+        private float previewLengthInSeconds = 5f;
 
         [Header("Data")]
 
@@ -48,21 +57,47 @@ namespace ARMarker
                     continue;
                 }
 
+                if (choice.Sprite == null)
+                {
+                    choice.SetSprite(choices.DefaultSprite);
+                }
+
                 var button = Instantiate(prefabButton, rootChoicesButton);
-                button.SetUp(choice, scrollRect, dropAreaRect, false);
-                //button.RegisterOnClick(OnClickChoice);
+                button.SetUp(choice, scrollRect, dropAreaRect, true);
+                button.RegisterOnClick(OnClickChoice);
             }
         }
 
-        //private void OnClickChoice(SFXLayerData data)
-        //{
-        //    if (data == null)
-        //    {
-        //        return;
-        //    }
+        private void OnClickChoice(SFXLayerData data)
+        {
+            if (data == null)
+            {
+                return;
+            }
 
-        //    WorkSpaceSingleton.Instance.AddSFXLayer(data);
-        //}
+            StopAllCoroutines();
+            StartCoroutine(C_PreviewSound(data));
+        }
+
+        private IEnumerator C_PreviewSound(SFXLayerData data)
+        {
+            audioSourcePreview.Stop();
+            audioSourcePreview.clip = data.Clip;
+            audioSourcePreview.volume = 1f;
+            audioSourcePreview.Play();
+
+            yield return new WaitForSeconds(previewLengthInSeconds - 1f);
+
+            var timeElapsed = 0f;
+            while (timeElapsed < 1f)
+            {
+                audioSourcePreview.volume = Mathf.Lerp(1f, 0f, timeElapsed / 1f);
+                yield return null;
+                timeElapsed += Time.deltaTime;
+            }
+
+            audioSourcePreview.Stop();
+        }
 
     }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Video;
@@ -32,6 +33,11 @@ namespace ARMarker
 
         [SerializeField]
         private AudioSource audioSource;
+
+        [Header("Settings Values")]
+
+        [SerializeField]
+        private float blinkDuration;
 
         [Header("Layer Transform Handlers")]
 
@@ -74,6 +80,11 @@ namespace ARMarker
 
             WorkSpaceSingleton.Instance
                 .RegisterOnChangeLayer(OnChangeActiveLayer);
+        }
+
+        private void OnEnable()
+        {
+            StartCoroutine(BlinkSpriteRenderer());   
         }
 
         private void OnDestroy()
@@ -220,7 +231,9 @@ namespace ARMarker
             cachedData.audioClip = clip;
 
             animator.enabled = false;
-            spriteRenderer.enabled = false;
+            spriteRenderer.enabled = true;
+            SetToHalfTransparency();
+            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             videoController.gameObject.SetActive(false);
             boxCollider.enabled = false;
 
@@ -228,6 +241,48 @@ namespace ARMarker
             audioSource.clip = clip;
             audioSource.Play();
             onSetUpData?.Invoke();
+
+            StartCoroutine(BlinkSpriteRenderer());
+        }
+
+        private IEnumerator BlinkSpriteRenderer()
+        {
+            if (cachedData == null || cachedData.audioClip == null)
+            {
+                yield break;
+            }
+
+            if (GameManager.Instance.IsInARWorld())
+            {
+                spriteRenderer.enabled = false;
+                yield break;
+            }
+
+            spriteRenderer.enabled = true;
+
+            while (true)
+            {
+                yield return StartCoroutine(FadeAlpha(0f, 1f, blinkDuration));
+                yield return StartCoroutine(FadeAlpha(1f, 0f, blinkDuration));
+            }
+        }
+
+        private IEnumerator FadeAlpha(float from, float to, float time)
+        {
+            float elapsed = 0f;
+            Color color = spriteRenderer.color;
+
+            while (elapsed < time)
+            {
+                float t = elapsed / time;
+                color.a = Mathf.Lerp(from, to, t);
+                spriteRenderer.color = color;
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            color.a = to;
+            spriteRenderer.color = color;
         }
 
         public void SetToHalfTransparency()
