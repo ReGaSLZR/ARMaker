@@ -2068,7 +2068,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 60, y: 60}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &343521837
 MonoBehaviour:
@@ -2102,7 +2102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: cb5b9098772220a4da519ebd3bfe3bdf, type: 3}
+  m_Texture: {fileID: 2800000, guid: 14eba9d61cdd57240ac579cf2e79e579, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -10013,7 +10013,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 25f2b4fc365397949b8cee24e9d2d616, type: 3}
+  m_Texture: {fileID: 2800000, guid: 06617d5d00f15ce49b731cebab74e253, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -11815,7 +11815,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 60, y: 60}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1691665690
 MonoBehaviour:
@@ -11849,7 +11849,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 4a3440724a910894bae024c4f5d54ecf, type: 3}
+  m_Texture: {fileID: 2800000, guid: 074d1988a05c530408c2386195ff09ff, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
