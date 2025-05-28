@@ -21,6 +21,9 @@ namespace ARMarker
         [SerializeField]
         private Quaternion rotation2D;
 
+        [SerializeField]
+        private GameObject[] activeObjects2D;
+
         [Header("Settings for 3D")]
 
         [SerializeField]
@@ -29,8 +32,33 @@ namespace ARMarker
         [SerializeField]
         private Quaternion rotation3D;
 
+        [SerializeField]
+        private GameObject[] activeObjects3D;
+
         public void SwitchPerspective(bool is2D)
         {
+            camera.orthographic = is2D;
+
+            foreach (var obj in activeObjects2D)
+            {
+                if (obj == null)
+                {
+                    continue;
+                }
+
+                obj.SetActive(is2D);
+            }
+
+            foreach (var obj in activeObjects3D)
+            {
+                if (obj == null)
+                {
+                    continue;
+                }
+
+                obj.SetActive(!is2D);
+            }
+
             StopAllCoroutines();
             StartCoroutine(LerpTransform(is2D));
         }
