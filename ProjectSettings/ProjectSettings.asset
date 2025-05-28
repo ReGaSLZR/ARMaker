@@ -165,7 +165,7 @@ PlayerSettings:
     iPhone: com.litkit.allaboutar
   buildNumber:
     Standalone: 0
-    iPhone: 250526.1
+    iPhone: 250528.1
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 2505261
