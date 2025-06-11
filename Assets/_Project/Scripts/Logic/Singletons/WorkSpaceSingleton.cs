@@ -36,6 +36,9 @@ namespace ARMarker
         private string tempLayerObjectName;
 
         [SerializeField]
+        private float tempLayerPositionZ;
+
+        [SerializeField]
         private Vector2 layerStartingPositionXY;
 
         [SerializeField]
@@ -281,9 +284,10 @@ namespace ARMarker
             {
                 layer = Instantiate(prefabLayer, transform);
                 layer.name = tempLayerObjectName;
-                layer.transform.localPosition = Vector3.zero;
+                layer.transform.localPosition = 
+                    new Vector3(0, 0, tempLayerPositionZ);
                 layer.transform.localScale = Vector3.one;
-                layer.SetToHalfTransparency();
+                //layer.SetToHalfTransparency();
 
                 cachedTempLayerForMarker = layer;
                 onUpdateTempLayer?.Invoke(cachedTempLayerForMarker);

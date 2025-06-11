@@ -199,7 +199,7 @@ namespace ARMarker
             gameObject.transform.rotation = data.rotation;
             gameObject.transform.localScale = data.scale;
 
-            boxCollider.enabled = !data.isTemporary;
+            //boxCollider.enabled = !data.isTemporary;
 
             SetUpSprite();
             onSetUpData?.Invoke();

@@ -151,6 +151,7 @@ MonoBehaviour:
   cloneRotationiOS: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
   cloneScale: {x: 1, y: 1, z: 1}
   tempLayerObjectName: '[TEMP Layer] Marker'
+  tempLayerPositionZ: 2.1
   layerStartingPositionXY: {x: -15, y: 10}
   layerStartingPositionZ: 2
   layerPositionZIncrement: 0.5

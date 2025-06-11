@@ -467,7 +467,7 @@ GameObject:
   - component: {fileID: 3153319712980077339}
   - component: {fileID: 6550320792177486372}
   m_Layer: 0
-  m_Name: '[Locked status]'
+  m_Name: '[Locked status] (renderer disabled intentionally)'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495,7 +495,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2927927368850323465}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -742,6 +742,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1832763468787142187}
     m_Modifications:
+    - target: {fileID: 1002910190967162088, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1002910190967162088, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1002910190967162088, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1494918038825519699, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
         type: 3}
       propertyPath: maxZ
@@ -757,6 +772,21 @@ PrefabInstance:
       propertyPath: influencedObject
       value: 
       objectReference: {fileID: 1832763468787142187}
+    - target: {fileID: 2211445956138949366, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211445956138949366, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211445956138949366, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3826910201063263787, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
         type: 3}
       propertyPath: m_RootOrder
@@ -816,6 +846,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 3D Arrows
+      objectReference: {fileID: 0}
+    - target: {fileID: 4723227678021449786, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981692568045380077, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981692568045380077, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709796305331157254, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709796305331157254, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270911127306648916, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270911127306648916, guid: 4fb2a3cf72f519941ad5a4564d65c1da,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4fb2a3cf72f519941ad5a4564d65c1da, type: 3}
