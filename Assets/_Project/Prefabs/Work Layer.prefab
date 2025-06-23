@@ -306,10 +306,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225246f92377d8840ab128f918db8e42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxColliderSizeMultiplierOnSelection: 1.1
+  boxColliderSizeMultiplierOnSelection: 1.25
   circleRadius: 1.5
   circleThickness: 0.25
-  dragSensitivity: 1
+  dragSensitivity: 2
   xAxisColor: {r: 1, g: 0, b: 0, a: 1}
   yAxisColor: {r: 0, g: 1, b: 0, a: 1}
   zAxisColor: {r: 0, g: 0, b: 1, a: 1}
