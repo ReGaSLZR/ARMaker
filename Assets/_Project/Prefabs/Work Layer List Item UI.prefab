@@ -1058,6 +1058,7 @@ MonoBehaviour:
   indicatorVideo: {fileID: 4445232544678001578}
   indicatorGIF: {fileID: 6185464475822022265}
   indicatorSFX: {fileID: 7205151459711965971}
+  prefixLocked: '[LOCKED] '
   buttonLock: {fileID: 5679999167496451111}
   buttonDuplicate: {fileID: 5679999168149472784}
   buttonDelete: {fileID: 5679999168890812817}

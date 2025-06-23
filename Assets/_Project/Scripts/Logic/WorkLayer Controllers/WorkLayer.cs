@@ -51,6 +51,7 @@ namespace ARMarker
         private LayerResizeXYHandler resizeHandler;
 
         public WorkLayerData Data => cachedData;
+        public bool IsLocked => isLocked;
 
         private WorkLayerData cachedData;
         private BoxCollider boxCollider;

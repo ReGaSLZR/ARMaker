@@ -31,6 +31,9 @@ namespace ARMarker
         [SerializeField]
         private GameObject indicatorSFX;
 
+        [SerializeField]
+        private string prefixLocked = "[LOCKED] ";
+
         [Header("Buttons")]
 
         [SerializeField]
@@ -73,6 +76,10 @@ namespace ARMarker
             }
 
             cachedLayer.ToggleLockState();
+
+            var spriteName = cachedLayer.Data.sprite.name;
+            textName.text = (cachedLayer.IsLocked) 
+                ? (prefixLocked + spriteName) : spriteName;    
         }
 
         private void DuplicateLayer()
