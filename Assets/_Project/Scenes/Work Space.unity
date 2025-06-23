@@ -5715,10 +5715,10 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: -15
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 4
   m_Depth: 0
   m_CullingMask:
@@ -5768,8 +5768,8 @@ MonoBehaviour:
   rotation2D: {x: 0, y: 0.008726535, z: 0, w: 0.9999619}
   activeObjects2D:
   - {fileID: 1658196689}
-  position3D: {x: 5, y: 0, z: 0}
-  rotation3D: {x: 0, y: -0.38268346, z: 0, w: 0.9238795}
+  position3D: {x: 5.5, y: 1, z: 0}
+  rotation3D: {x: -0.064446576, y: 0.3817513, z: -0.02669465, w: -0.921629}
   activeObjects3D:
   - {fileID: 325334133}
 --- !u!114 &753237742
