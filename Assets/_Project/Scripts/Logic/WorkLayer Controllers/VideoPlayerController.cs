@@ -13,6 +13,9 @@ namespace ARMarker
         [SerializeField]
         private float maxWidthHeight = 1f;
 
+        [SerializeField]
+        private Transform selectionBox;
+
         public void SetUp(VideoClip clip)
         {
             if (clip == null)
@@ -35,12 +38,18 @@ namespace ARMarker
 
             if (videoWidth < videoHeight)
             {
-                transform.localScale = new Vector3(maxWidthHeight * aspectRatio, maxWidthHeight, 1f);
+                transform.localScale = new Vector3(
+                    maxWidthHeight * aspectRatio, maxWidthHeight, 1f);
             }
             else
             {
-                transform.localScale = new Vector3(maxWidthHeight, maxWidthHeight / aspectRatio, 1f);
+                transform.localScale = new Vector3(
+                    maxWidthHeight, maxWidthHeight / aspectRatio, 1f);
             }
+
+            var zScale = selectionBox.localScale.z;
+            var newScale = transform.localScale + (transform.localScale * 0.1f);
+            selectionBox.localScale = new Vector3(newScale.x, newScale.y, zScale);
 
             Play();
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Video;
@@ -57,6 +58,7 @@ namespace ARMarker
         private BoxCollider boxCollider;
         private Camera mainCamera;
         private Action onSetUpData;
+        private Action<bool> onSelected;
 
         private bool isLocked;
         private bool isInitialDrag;
@@ -149,7 +151,8 @@ namespace ARMarker
         private void OnSelectLayer()
         {
             WorkSpaceSingleton.Instance.ChangeActiveLayer(this);
-            //statusSelected.SetActive(true);
+            statusSelected.SetActive(true);
+            onSelected?.Invoke(true);
 
             var mode = WorkSpaceSingleton.Instance.GetLayerEditMode();
 
@@ -309,10 +312,11 @@ namespace ARMarker
             onSetUpData?.Invoke();
         }
 
-        public void RegisterOnSetUpData(Action listener, 
+        public void RegisterOnSetUpData(
+            Action listener, Action<bool> listenerOnSelected,
             bool deregisterInstead = false)
         {
-            if (listener == null)
+            if (listener == null || listenerOnSelected == null)
             {
                 return;
             }
@@ -320,10 +324,12 @@ namespace ARMarker
             if (deregisterInstead)
             {
                 onSetUpData -= listener;
+                onSelected -= listenerOnSelected;
             }
             else
             {
                 onSetUpData += listener;
+                onSelected += listenerOnSelected;
             }
         }
 
@@ -349,13 +355,20 @@ namespace ARMarker
             gameObject.SetActive(isEnabled);
         }
 
+        public void Select()
+        {
+            OnSelectLayer();   
+        }
+
         public void Deselect()
         {
-            //statusSelected.SetActive(false);
+            statusSelected.SetActive(false);
 
             repositionXYHandler.Deselect();
             rotationHandler.Deselect();
             resizeHandler.Deselect();
+
+            onSelected?.Invoke(false);
         }
 
         private void SetUpSprite()

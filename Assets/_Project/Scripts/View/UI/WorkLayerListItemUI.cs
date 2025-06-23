@@ -8,7 +8,7 @@ namespace ARMarker
 
     public class WorkLayerListItemUI : MonoBehaviour
     {
-        
+
         [Header("UI Elements")]
 
         [SerializeField]
@@ -34,7 +34,18 @@ namespace ARMarker
         [SerializeField]
         private string prefixLocked = "[LOCKED] ";
 
+        [Header("Colors")]
+
+        [SerializeField]
+        private Color colorBgNormal;
+
+        [SerializeField]
+        private Color colorBgHighlighted;
+
         [Header("Buttons")]
+
+        [SerializeField]
+        private Button buttonBackground;
 
         [SerializeField]
         private Button buttonLock;
@@ -63,8 +74,9 @@ namespace ARMarker
         private void OnDestroy()
         {
             if (cachedLayer != null)
-            { 
-                cachedLayer.RegisterOnSetUpData(ExecuteSetUp, true);
+            {
+                cachedLayer.RegisterOnSetUpData(
+                    ExecuteSetUp, OnSelectedLayer, true);
             }
         }
 
@@ -78,12 +90,12 @@ namespace ARMarker
             cachedLayer.ToggleLockState();
 
             var spriteName = cachedLayer.Data.sprite.name;
-            textName.text = (cachedLayer.IsLocked) 
-                ? (prefixLocked + spriteName) : spriteName;    
+            textName.text = (cachedLayer.IsLocked)
+                ? (prefixLocked + spriteName) : spriteName;
         }
 
         private void DuplicateLayer()
-        { 
+        {
             WorkSpaceSingleton.Instance.DuplicateLayer(cachedLayer);
         }
 
@@ -93,11 +105,17 @@ namespace ARMarker
             DestroyImmediate(gameObject);
         }
 
+        private void OnSelectedLayer(bool isSelected)
+        {
+            buttonBackground.image.color = isSelected 
+                ? colorBgHighlighted : colorBgNormal;
+        }
+
         public void SetLayer(WorkLayer layer)
         {
             cachedLayer = layer;
-            cachedLayer.RegisterOnSetUpData(ExecuteSetUp);
-
+            cachedLayer.RegisterOnSetUpData(ExecuteSetUp, OnSelectedLayer);
+            buttonBackground.onClick.AddListener(cachedLayer.Select);
             ExecuteSetUp();
         }
 
