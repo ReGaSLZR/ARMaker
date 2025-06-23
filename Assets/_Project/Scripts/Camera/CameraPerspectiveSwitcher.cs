@@ -37,7 +37,7 @@ namespace ARMarker
 
         public void SwitchPerspective(bool is2D)
         {
-            camera.orthographic = is2D;
+            //camera.orthographic = is2D;
 
             foreach (var obj in activeObjects2D)
             {
