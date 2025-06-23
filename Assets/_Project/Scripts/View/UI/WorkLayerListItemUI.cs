@@ -58,6 +58,8 @@ namespace ARMarker
 
         private WorkLayer cachedLayer;
 
+        private bool hasBeenSetUp = false;
+
         private void Awake()
         {
             buttonDelete.onClick.AddListener(DeleteSelf);
@@ -68,6 +70,11 @@ namespace ARMarker
 
         private void OnEnable()
         {
+            if (hasBeenSetUp)
+            {
+                return;
+            }
+
             ExecuteSetUp();
         }
 
@@ -159,6 +166,8 @@ namespace ARMarker
             { 
                 textName.text = cachedLayer.Data.audioClip.name;
             }
+
+            hasBeenSetUp = true;
         }
 
     }

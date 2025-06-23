@@ -192,7 +192,7 @@ namespace ARMarker
         {
             if (data == null)
             {
-                Debug.LogError($"{GetType().Name}.SetUp(): " +
+                Debug.LogWarning($"{GetType().Name}.SetUp(): " +
                     $"data is null!", gameObject);
                 return;
             }
@@ -213,7 +213,7 @@ namespace ARMarker
         {
             if (controller == null)
             {
-                Debug.LogError($"{GetType().Name}.SetUp(): " +
+                Debug.LogWarning($"{GetType().Name}.SetUp(): " +
                     $"controller is null!", gameObject);
                 return;
             }
@@ -227,7 +227,7 @@ namespace ARMarker
         {
             if (clip == null)
             {
-                Debug.LogError($"{GetType().Name}.SetUp(): " +
+                Debug.LogWarning($"{GetType().Name}.SetUp(): " +
                     $"clip is null!", gameObject);
                 return;
             }
@@ -298,7 +298,7 @@ namespace ARMarker
         {
             if (clip == null)
             {
-                Debug.LogError($"{GetType().Name}.SetUp(): " 
+                Debug.LogWarning($"{GetType().Name}.SetUp(): " 
                     + $"clip is null!", gameObject);
                 return;
             }

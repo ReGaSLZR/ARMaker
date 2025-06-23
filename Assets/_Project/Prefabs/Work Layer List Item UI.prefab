@@ -663,7 +663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 1}
+  m_Color: {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1059,7 +1059,7 @@ MonoBehaviour:
   indicatorVideo: {fileID: 4445232544678001578}
   indicatorGIF: {fileID: 6185464475822022265}
   indicatorSFX: {fileID: 7205151459711965971}
-  prefixLocked: '[LOCKED] '
+  prefixLocked: <color=red>[LOCKED] </color>
   colorBgNormal: {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 1}
   colorBgHighlighted: {r: 0.003921569, g: 0.7058824, b: 0.8313726, a: 1}
   buttonBackground: {fileID: 6127274527980845412}
