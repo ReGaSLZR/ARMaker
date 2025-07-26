@@ -4091,6 +4091,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6177290818068515072, guid: 7e9c5ca63cf639c4eb831832548471e3,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6177290818068515072, guid: 7e9c5ca63cf639c4eb831832548471e3,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6177290818068515072, guid: 7e9c5ca63cf639c4eb831832548471e3,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6177290818068515072, guid: 7e9c5ca63cf639c4eb831832548471e3,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -7711,8 +7726,8 @@ GameObject:
   - component: {fileID: 1039689113}
   - component: {fileID: 1039689112}
   m_Layer: 0
-  m_Name: WORK SPACE BG QUAD IMMEDIATE
-  m_TagString: Untagged
+  m_Name: WORK SPACE BG WHITE QUAD
+  m_TagString: WorkspaceBG
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11727,7 +11742,7 @@ GameObject:
   - component: {fileID: 1658196691}
   - component: {fileID: 1658196690}
   m_Layer: 0
-  m_Name: WORK SPACE BG QUAD 2D
+  m_Name: WORK SPACE BG QUAD WIRE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
