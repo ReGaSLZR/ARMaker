@@ -160,6 +160,8 @@ namespace ARMarker
         public LayerEditMode GetLayerEditMode() => cachedLayerEditMode;
         public WorkLayer GetActiveLayer() => cachedLayer;
 
+        public bool IsLayerActive(WorkLayer layer) => cachedLayer == layer;
+
         public void ChangeActiveLayer(WorkLayer layer)
         {
             cachedLayer = layer;
@@ -206,11 +208,16 @@ namespace ARMarker
             else { onAddNewLayer += listener; }
         }
 
+
+        public void RetriggerCurrentEditMode()
+        {
+            SetLayerEditMode(cachedLayerEditMode);
+        }
+
         public void SetLayerEditMode(LayerEditMode mode)
         {
             cachedLayerEditMode = mode;
             onUpdateLayerEditMode?.Invoke(cachedLayerEditMode);
-            ChangeActiveLayer(null);
         }
 
         public void SetTempLayerIsEnabled(bool isEnabled)
@@ -316,6 +323,8 @@ namespace ARMarker
             data.RecordTransform(layer.transform);
             layer.enabled = true;
             layer.SetUp(data);
+
+            ChangeActiveLayer(layer);
 
             return layer;
         }

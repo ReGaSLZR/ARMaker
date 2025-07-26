@@ -109,11 +109,17 @@ namespace ARMarker
 
         private void OnChangeLayerEditMode(LayerEditMode mode)
         {
+            var isActive = WorkSpaceSingleton.Instance.IsLayerActive(this);
+
             switch (mode)
             {
                 case LayerEditMode.Reposition:
                     {
                         repositionXYHandler.enabled = true;
+                        if (isActive)
+                        { 
+                            repositionXYHandler.Select();
+                        }
 
                         rotationHandler.Deselect();
                         resizeHandler.Deselect();
@@ -125,6 +131,10 @@ namespace ARMarker
                 case LayerEditMode.Rotate:
                     {
                         rotationHandler.enabled = true;
+                        if (isActive)
+                        {
+                            rotationHandler.Select();
+                        }
 
                         repositionXYHandler.Deselect();
                         resizeHandler.Deselect();
@@ -136,6 +146,10 @@ namespace ARMarker
                 case LayerEditMode.Resize:
                     {
                         resizeHandler.enabled = true;
+                        if (isActive)
+                        {
+                            resizeHandler.Select();
+                        }
 
                         repositionXYHandler.Deselect();
                         rotationHandler.Deselect();
@@ -149,42 +163,9 @@ namespace ARMarker
 
         private void OnSelectLayer()
         {
-            WorkSpaceSingleton.Instance.ChangeActiveLayer(this);
             statusSelected.SetActive(true);
             onSelected?.Invoke(true);
-
-            var mode = WorkSpaceSingleton.Instance.GetLayerEditMode();
-
-            switch (mode)
-            {
-                case LayerEditMode.Reposition:
-                    {
-                        rotationHandler.Deselect();
-                        resizeHandler.Deselect();
-
-                        rotationHandler.enabled = false;
-                        resizeHandler.enabled = false;
-                        break;
-                    }
-                case LayerEditMode.Rotate:
-                    {
-                        repositionXYHandler.Deselect();
-                        resizeHandler.Deselect();
-
-                        repositionXYHandler.enabled = false;
-                        resizeHandler.enabled = false;
-                        break;
-                    }
-                case LayerEditMode.Resize:
-                    {
-                        repositionXYHandler.Deselect();
-                        rotationHandler.Deselect();
-
-                        repositionXYHandler.enabled = false;
-                        rotationHandler.enabled = false;
-                        break;
-                    }
-            }
+            WorkSpaceSingleton.Instance.ChangeActiveLayer(this);
         }
 
         public void SetUp(WorkLayerData data)

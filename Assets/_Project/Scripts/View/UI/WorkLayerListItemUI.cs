@@ -122,7 +122,11 @@ namespace ARMarker
         {
             cachedLayer = layer;
             cachedLayer.RegisterOnSetUpData(ExecuteSetUp, OnSelectedLayer);
+            
             buttonBackground.onClick.AddListener(cachedLayer.Select);
+            buttonBackground.onClick.AddListener(
+                WorkSpaceSingleton.Instance.RetriggerCurrentEditMode);
+
             ExecuteSetUp();
         }
 
@@ -147,7 +151,8 @@ namespace ARMarker
 
             if (cachedLayer == null || cachedLayer.Data == null)
             {
-                Debug.LogWarning($"NULL!!! Layer? {cachedLayer == null} | Data? {cachedLayer.Data == null}", gameObject);
+                Debug.LogWarning($"NULL!!! Layer? {cachedLayer == null} " +
+                    $"| Data? {cachedLayer.Data == null}", gameObject);
                 yield break;
             }
 

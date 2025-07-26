@@ -35,7 +35,8 @@ namespace ARMarker
             WorkSpaceSingleton.Instance
                 .RegisterOnUpdatetempLayer(OnChangeTempLayer);
 
-            buttonTempLayer.onClick.AddListener(WorkSpaceSingleton.Instance.ToggleTempLayer);
+            buttonTempLayer.onClick.AddListener(
+                WorkSpaceSingleton.Instance.ToggleTempLayer);
 
             rootUI.SetActive(false);
 
