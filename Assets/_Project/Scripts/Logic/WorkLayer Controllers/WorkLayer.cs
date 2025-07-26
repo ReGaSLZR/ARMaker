@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Video;
@@ -203,7 +202,7 @@ namespace ARMarker
             gameObject.transform.rotation = data.rotation;
             gameObject.transform.localScale = data.scale;
 
-            //boxCollider.enabled = !data.isTemporary;
+            boxCollider.enabled = !data.isTemporary;
 
             SetUpSprite();
             onSetUpData?.Invoke();
