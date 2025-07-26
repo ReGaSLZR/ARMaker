@@ -16,19 +16,6 @@ namespace ARMarker
 
         private Camera mainCamera;
 
-        private Camera MainCamera 
-        {
-            get 
-            {
-                if (mainCamera == null)
-                { 
-                    mainCamera = Camera.main;
-                }
-
-                return mainCamera;
-            }
-        }
-
         private void Start()
         {
             mainCamera = Camera.main;
@@ -63,7 +50,8 @@ namespace ARMarker
             if (dragging)
             {
                 Select();
-                Vector3 newPos = ScreenToWorld(eventData.position, transform.position.z) + offset;
+                Vector3 newPos = ScreenToWorld(
+                    eventData.position, transform.position.z) + offset;
                 newPos.z = transform.position.z;
                 transform.position = newPos;
             }
@@ -76,8 +64,8 @@ namespace ARMarker
 
         private Vector3 ScreenToWorld(Vector3 screenPos, float z)
         {
-            screenPos.z = z - MainCamera.transform.position.z;
-            return MainCamera.ScreenToWorldPoint(screenPos);
+            screenPos.z = z - mainCamera.transform.position.z;
+            return mainCamera.ScreenToWorldPoint(screenPos);
         }
 
     }

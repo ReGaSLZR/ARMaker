@@ -4,11 +4,16 @@ using UnityEngine.EventSystems;
 namespace ARMarker
 {
 
+    /// <summary>
+    /// NOTE: Please refine and revamp this code soon. 
+    /// Right now, it's at this dirty/prototype state to save time for prototyping.
+    /// </summary>
     [RequireComponent(typeof(BoxCollider))]
     public class LayerResizeXYHandler : BaseWorkLayerHandler, IPointerDownHandler, IDragHandler
     {
         [SerializeField]
-        private float cornerRadius = 0.1f; // Radius normalized to scale (i.e., 0.1 at scale (1,1,1))
+        [Tooltip("Radius normalized to scale (i.e., 0.1 at scale (1,1,1))")]
+        private float cornerRadius = 0.1f;
 
         private Camera mainCamera;
         private Vector3 initialPointerWorldPos;
@@ -16,19 +21,6 @@ namespace ARMarker
         private Vector3 localCenter;
         private bool isCornerDrag = false;
         private Vector2 cornerDirection;
-
-        private Camera MainCamera
-        {
-            get
-            {
-                if (mainCamera == null)
-                {
-                    mainCamera = Camera.main;
-                }
-
-                return mainCamera;
-            }
-        }
 
         private void Start()
         {
@@ -116,7 +108,7 @@ namespace ARMarker
         private bool ScreenPointToWorldOnPlane(Vector2 screenPoint, out Vector3 worldPoint)
         {
             worldPoint = Vector3.zero;
-            Ray ray = MainCamera.ScreenPointToRay(screenPoint);
+            Ray ray = mainCamera.ScreenPointToRay(screenPoint);
             Plane plane = new Plane(transform.forward, transform.position);
 
             float enter;

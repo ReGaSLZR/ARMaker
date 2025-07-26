@@ -24,11 +24,6 @@ namespace ARMarker
 
         private Vector2 previousPointerPos;
 
-        private void Start()
-        {
-            
-        }
-
         public void OnBeginDrag(PointerEventData eventData)
         {
             previousPointerPos = eventData.position;
