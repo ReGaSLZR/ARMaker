@@ -99,6 +99,15 @@ namespace ARMarker
             var spriteName = cachedLayer.Data.sprite.name;
             textName.text = (cachedLayer.IsLocked)
                 ? (prefixLocked + spriteName) : spriteName;
+
+            if (cachedLayer.IsLocked)
+            {
+                WorkSpaceSingleton.Instance.ChangeActiveLayer(null);
+            }
+            else
+            {
+                SafelyForceSelectLayerOnWorkspace();
+            }
         }
 
         private void DuplicateLayer()
@@ -118,14 +127,22 @@ namespace ARMarker
                 ? colorBgHighlighted : colorBgNormal;
         }
 
+        private void SafelyForceSelectLayerOnWorkspace()
+        {
+            if (cachedLayer.IsLocked)
+            {
+                return;
+            }
+
+            cachedLayer.Select();
+            WorkSpaceSingleton.Instance.RetriggerCurrentEditMode();
+        }
+
         public void SetLayer(WorkLayer layer)
         {
             cachedLayer = layer;
             cachedLayer.RegisterOnSetUpData(ExecuteSetUp, OnSelectedLayer);
-            
-            buttonBackground.onClick.AddListener(cachedLayer.Select);
-            buttonBackground.onClick.AddListener(
-                WorkSpaceSingleton.Instance.RetriggerCurrentEditMode);
+            buttonBackground.onClick.AddListener(SafelyForceSelectLayerOnWorkspace);
 
             ExecuteSetUp();
         }
