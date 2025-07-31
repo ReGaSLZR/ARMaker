@@ -3,24 +3,24 @@ using UnityEngine;
 namespace ARMarker
 {
 
-    [RequireComponent(typeof(RectTransform))]
     public class SafeAreaAdjuster : MonoBehaviour
     {
+        [SerializeField]
         private RectTransform rectTransform;
+        [SerializeField]
+        private ScreenOrientation orientation;
 
-        private Rect lastSafeArea = Rect.zero;
-        private ScreenOrientation lastOrientation = ScreenOrientation.AutoRotation;
-
-        private void Awake()
+        private Rect lastSafeArea = new Rect(0, 0, 0, 0);
+        
+        private void OnEnable()
         {
-            rectTransform = GetComponent<RectTransform>();
             ApplySafeArea();
         }
 
-        private void Update()
+        private void OnRectTransformDimensionsChange()
         {
             if (Screen.safeArea != lastSafeArea 
-                || Screen.orientation != lastOrientation)
+                || Screen.orientation != orientation)
             {
                 ApplySafeArea();
             }
@@ -29,10 +29,12 @@ namespace ARMarker
         private void ApplySafeArea()
         {
             Rect safeArea = Screen.safeArea;
+            lastSafeArea = safeArea;
+            orientation = Screen.orientation;
 
-            // Convert safe area rectangle from absolute pixels to normalized anchor coordinates
             Vector2 anchorMin = safeArea.position;
             Vector2 anchorMax = safeArea.position + safeArea.size;
+
             anchorMin.x /= Screen.width;
             anchorMin.y /= Screen.height;
             anchorMax.x /= Screen.width;
@@ -40,12 +42,11 @@ namespace ARMarker
 
             rectTransform.anchorMin = anchorMin;
             rectTransform.anchorMax = anchorMax;
+
             rectTransform.offsetMin = Vector2.zero;
             rectTransform.offsetMax = Vector2.zero;
-
-            lastSafeArea = Screen.safeArea;
-            lastOrientation = Screen.orientation;
         }
+
     }
 
 }
