@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Arrow Red
+  m_Name: Indicator Red
   m_Shader: {fileID: 4800000, guid: 830fe5d37085be74c9501ae60a1331de, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:

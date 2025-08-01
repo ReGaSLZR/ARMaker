@@ -4,168 +4,153 @@ using UnityEngine.EventSystems;
 namespace ARMarker
 {
 
-    /// <summary>
-    /// NOTE: Please refine and revamp this code soon. 
-    /// Right now, it's at this dirty/prototype state to save time for prototyping.
-    /// </summary>
     [RequireComponent(typeof(BoxCollider))]
-    public class LayerRotationHandler : BaseWorkLayerHandler, 
-        IPointerDownHandler, IDragHandler, IBeginDragHandler, IPointerClickHandler
+    public class LayerRotationHandler : BaseWorkLayerHandler,
+        IPointerDownHandler
     {
 
         [SerializeField]
-        private float boxColliderSizeMultiplierOnSelection = 2f;
+        private GameObject rotationIndicators;
 
         [Space]
 
         [SerializeField]
-        private float circleRadius = 1f;
+        private GameObject xDial;
         [SerializeField]
-        private float circleThickness = 0.02f;
+        private GameObject yDial;
         [SerializeField]
-        private float dragSensitivity = 1f;
+        private GameObject zDial;
 
         [Space]
-
-        [SerializeField]
-        private Color xAxisColor = Color.red;
-        [SerializeField]
-        private Color yAxisColor = Color.green;
-        [SerializeField]
-        private Color zAxisColor = Color.blue;
-
-        private GameObject selectedSprite;
-        private LayerRotationCircleView xCircle, yCircle, zCircle;
 
         [SerializeField]
         private BoxCollider boxCollider;
-        private Vector3 originalColliderSize;
 
-        private LayerRotationCircleView activeCircle = null;
+        [SerializeField]
+        private Vector3 colliderSizeOnActivation;
+
+        [Space]
+
+        [SerializeField]
+        private float rotationSensitivity = 0.4f;
+
+        private Camera mainCam;
+        private Transform selectedAxis;
+        private Vector2 startTouchPos;
+        private bool isDragging = false;
+
+        private Vector3 rotationAxis;
+        private Vector3 originalColliderSize;
 
         private void Awake()
         {
+            mainCam = Camera.main;
             originalColliderSize = boxCollider.size;
+        }
+
+        private void OnDisable()
+        {
+            boxCollider.size = originalColliderSize;
+        }
+
+        private void Update()
+        {
+            if (!isDragging)
+            {
+                return;
+            }
+
+            if (Input.touchCount != 1)
+            {
+                return;
+            }
+
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Moved)
+            {
+                var delta = touch.deltaPosition;
+                var deltaRotation = delta.magnitude * rotationSensitivity;
+
+                var direction = Vector2.Dot(delta, 
+                    GetAxisScreenDirection(rotationAxis)) > 0 ? 1f : -1f;
+
+                transform.Rotate(rotationAxis, direction * deltaRotation, Space.Self);
+            }
+            else if ((touch.phase == TouchPhase.Ended) 
+                || (touch.phase == TouchPhase.Canceled))
+            {
+                ResetDragging();
+            }
         }
 
         public override void Select()
         {
             base.Select();
-            boxCollider.size = originalColliderSize * boxColliderSizeMultiplierOnSelection;
-            SelectSprite(gameObject);
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            Select();
-        }
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            Select();
-        }
-
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            DetectCircleHit(eventData.position);
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
-            Vector2 delta = eventData.delta * dragSensitivity;
-            float angleDelta = delta.x + delta.y;
-
-            if (activeCircle == null)
-            {
-                activeCircle = zCircle;
-            }
-
-            switch (activeCircle.axis)
-            {
-                case Axis.X:
-                    selectedSprite.transform.Rotate(Vector3.right, angleDelta, Space.World);
-                    break;
-                case Axis.Y:
-                    selectedSprite.transform.Rotate(Vector3.up, angleDelta, Space.World);
-                    break;
-                case Axis.Z:
-                default:
-                    selectedSprite.transform.Rotate(Vector3.forward, angleDelta, Space.Self);
-                    break;
-            }
-
-            UpdateCircles();
-        }
-
-        private void SelectSprite(GameObject sprite)
-        {
-            ClearCircles();
-            selectedSprite = sprite;
-
-            CreateCircles();
+            rotationIndicators.SetActive(true);
+            boxCollider.size = colliderSizeOnActivation;
         }
 
         public override void Deselect()
         {
-            boxCollider.size = originalColliderSize;
-            ClearCircles();
             base.Deselect();
+            rotationIndicators.SetActive(false);
+            boxCollider.size = originalColliderSize;
         }
 
-        private void CreateCircles()
+        public void OnPointerDown(PointerEventData eventData)
         {
-            xCircle = LayerRotationCircleView.Create(Axis.X, xAxisColor, circleRadius, circleThickness);
-            yCircle = LayerRotationCircleView.Create(Axis.Y, yAxisColor, circleRadius, circleThickness);
-            zCircle = LayerRotationCircleView.Create(Axis.Z, zAxisColor, circleRadius, circleThickness);
+            Ray ray = mainCam.ScreenPointToRay(eventData.position);
 
-            xCircle.transform.SetParent(transform);
-            yCircle.transform.SetParent(transform);
-            zCircle.transform.SetParent(transform);
-
-            UpdateCircles();
-        }
-
-        private void UpdateCircles()
-        {
-            Vector3 pos = selectedSprite.transform.position;
-            xCircle.UpdatePosition(pos, selectedSprite.transform);
-            yCircle.UpdatePosition(pos, selectedSprite.transform);
-            zCircle.UpdatePosition(pos, selectedSprite.transform);
-        }
-
-        private void ClearCircles()
-        {
-            if (xCircle != null) DestroyImmediate(xCircle.gameObject);
-            if (yCircle != null) DestroyImmediate(yCircle.gameObject);
-            if (zCircle != null) DestroyImmediate(zCircle.gameObject);
-
-            xCircle = null;
-            yCircle = null;
-            zCircle = null;
-        }
-
-        private void DetectCircleHit(Vector2 screenPos)
-        {
-            activeCircle = null;
-
-            float bestDistance = float.MaxValue;
-            foreach (var circle in new[] { xCircle, yCircle })
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                float distance = circle.DistanceToScreen(screenPos, Camera.main);
-                if (distance < 30f && distance < bestDistance)
+                var hitObj = hit.collider.gameObject.GetHashCode();
+
+                if (hitObj == xDial.GetHashCode())
                 {
-                    bestDistance = distance;
-                    activeCircle = circle;
+                    selectedAxis = xDial.transform;
+                    rotationAxis = Vector3.right;
                 }
-            }
+                else if (hitObj == yDial.GetHashCode())
+                {
+                    selectedAxis = yDial.transform;
+                    rotationAxis = Vector3.up;
+                }
+                else if (hitObj == zDial.GetHashCode())
+                {
+                    selectedAxis = zDial.transform;
+                    rotationAxis = Vector3.forward;
+                }
+                else
+                {
+                    Select();
+                    return;
+                }
 
-            // If no X or Y circle is hit, default to Z-axis rotation
-            if (activeCircle == null)
+                startTouchPos = eventData.position;
+                isDragging = true;
+            }
+            else
             {
-                activeCircle = zCircle;
+                Select();
             }
         }
-      
+
+        private void ResetDragging()
+        {
+            isDragging = false;
+            selectedAxis = null;
+            rotationAxis = Vector3.zero;
+        }
+
+        private Vector2 GetAxisScreenDirection(Vector3 worldAxis)
+        {
+            var screenStart = mainCam.WorldToScreenPoint(transform.position);
+            var screenEnd = mainCam.WorldToScreenPoint(
+                transform.position + transform.TransformDirection(worldAxis));
+            return (screenEnd - screenStart).normalized;
+        }
+
     }
 
 }
