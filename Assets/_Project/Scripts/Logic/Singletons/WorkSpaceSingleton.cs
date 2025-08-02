@@ -324,7 +324,10 @@ namespace ARMarker
             layer.enabled = true;
             layer.SetUp(data);
 
-            ChangeActiveLayer(layer);
+            if (!isTemporary)
+            {
+                ChangeActiveLayer(layer);
+            }
 
             return layer;
         }
