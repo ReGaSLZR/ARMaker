@@ -8,4 +8,4 @@
 - Then tweak the values of the separate ScriptableObjects depending on the type of content you want to put into the app.
 
   ## Guide to the settings for new assets:
-  Visit the ReadMe file of this: https://github.com/ReGaSLZR/ARViewer
+  Visit the ReadMe file of the ARViewer project: https://github.com/ReGaSLZR/ARViewer
