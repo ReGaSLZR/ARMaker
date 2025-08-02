@@ -3183,6 +3183,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[Work Space]'
       objectReference: {fileID: 0}
+    - target: {fileID: 6265788326133848342, guid: 7e9c5ca63cf639c4eb831832548471e3,
+        type: 3}
+      propertyPath: tempLayerPositionZ
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e9c5ca63cf639c4eb831832548471e3, type: 3}
 --- !u!1 &586226564
